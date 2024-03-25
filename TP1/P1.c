@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 bool palindromo(char cadena[], int inicio, int fin){
     if (inicio >= fin){
