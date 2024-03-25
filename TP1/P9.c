@@ -1,5 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 /*
 Escribir una función recursiva que implemente el método que se describe para saber si
@@ -47,10 +48,12 @@ int main(){
 
 
     if(divisible){
-        printf("El numero %i ES divisible por 7", numero);
+        printf("El numero %i ES divisible por 7.\n", numero);
     }else{
-        printf("El numero %i NO ES divisible por 7", numero);
+        printf("El numero %i NO ES divisible por 7.\n", numero);
     }
+
+    system("pause");
     
     return 0;
 }
