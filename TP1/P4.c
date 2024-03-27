@@ -12,23 +12,12 @@ division (22,3) => 7,33333
 #include <stdlib.h>
 
 float division(int m, int n){
-    float cociente=0;
     if(m<n){
-        cociente= (float) m/n;
+        return (float) m/n;
     }
-    else{
-    
-        while (m>=n){
-            m-=n;
-            cociente++;
-        }
-
-        if (m!=0){
-            float decimal = (float)m / n;
-            cociente+=decimal;
-        }
+    else {
+        return 1 + division(m-n,n);
     }
-    return cociente;
 }
 
 int main(){
