@@ -1,10 +1,3 @@
-/*
-Generar un algoritmo recursivo que le ponga los “.” de los miles a un String de
-números.
-Ejemplos:
-agregarSeparadorMiles (“123456”) => “123.456”
-agregarSeparadorMiles (“12345678”) => “12.345.678” 
-*/
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -36,8 +29,8 @@ char* agregarSeparadorMiles(char* numero, int cantidadPuntos, int longitudUsada,
 
 bool validarString(char * numero, int longitud){
     for (int i = 0; i < longitud; i++){
-        int caca = numero[i];
-        if (caca < 48 || caca > 57){
+        int numeroValidar = numero[i];
+        if (numeroValidar < 48 || numeroValidar > 57){
             return false;
         }
     }
