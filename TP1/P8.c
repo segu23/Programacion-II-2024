@@ -23,11 +23,12 @@ void imprimirSubconjuntos(int *subconjunto, int longitud){
     printf("}\n");
 }
 
-int* buscarSubconjuntos(int numbers[], int target, int longitudNumbers, int** output, int numbersIndex, int* outputSize, int actualSum, int outputIndex){
-    if(outputIndex == 0){
-        int vector[longitudNumbers];
-        output[*outputSize] = vector;
+char* buscarSubconjuntos(int numbers[], int target, int longitudNumbers, char* output, int outputIndex, char* actualSubOutput, int actualSubOutputIndex, int* longitudOutput){
+    if(actualSubOutputIndex == 0){
+        char vector[longitudNumbers];
+        actualSubOutputIndex = vector;
     }
+
     printf("%i\n", numbers[numbersIndex]);
 
     if(actualSum + numbers[numbersIndex] == target){
@@ -35,10 +36,10 @@ int* buscarSubconjuntos(int numbers[], int target, int longitudNumbers, int** ou
         printf("Index: %i\n", numbersIndex);
         printf("Number: %i\n", numbers[numbersIndex]);
 
-        output[*outputSize][outputIndex] = numbers[numbersIndex];
+        output[*outputSize] = numbers[numbersIndex];
         (*outputSize)++;
         
-        imprimirSubconjuntos(output[(*outputSize)-1], (*outputSize));
+        imprimirSubconjuntos(actualSubOutputIndex, (*actualSubOutputIndex));
 
         return output;
     }else if(numbersIndex == longitudNumbers){
@@ -52,15 +53,14 @@ int* buscarSubconjuntos(int numbers[], int target, int longitudNumbers, int** ou
     }
 }
 
-int* subconjuntosQueSumanN(int numbers[], int target){
-    printf("Size %i\n", sizeof(numbers)/sizeof(numbers[0]));
-    for (int i = 0; i < 10; i++){
+char* subconjuntosQueSumanN(int numbers[], int target, int longitud){
+    for (int i = 0; i < longitud; i++){
         printf("%i\n", numbers[i]);
     }
     
-    //int output[longitud];
+    char output[longitud];
     int outputSize = 0;
-    //return buscarSubconjuntos(numbers, target, longitud, output, 0, &outputSize, 0, 0);
+    return buscarSubconjuntos(numbers, target, longitud, output, 0, NULL, 0, &outputSize);
 }
 
 int main(){
