@@ -11,8 +11,9 @@ subconjuntosQueSumanN ({10, 3, 1, 7, 4, 2}, 7) => {{3, 4}, {1, 4, 2}, {7}}
 subconjuntosQueSumanN ({10, 3, 1, 7, 4, 2}, 10) => {{10}, {3,7}, {3, 1, 4, 2}, {1, 7, 2}}
 */
 
-void imprimirSubconjuntos(int *subconjunto, int longitud){
-    printf("Longitud: %i\n", longitud);
+#define MAX 100
+
+void imprimirSubconjuntos(int subconjunto[], int longitud){
     printf("{");
     for (int i = 0; i < longitud; i++){
         printf("%i", subconjunto[i]);
@@ -23,51 +24,72 @@ void imprimirSubconjuntos(int *subconjunto, int longitud){
     printf("}\n");
 }
 
-char* buscarSubconjuntos(int numbers[], int target, int longitudNumbers, char* output, int outputIndex, char* actualSubOutput, int actualSubOutputIndex, int* longitudOutput){
-    if(actualSubOutputIndex == 0){
-        char vector[longitudNumbers];
-        actualSubOutputIndex = vector;
+void copiarArray(int original[], int copia[], int longitud, int i) { 
+    if (i < longitud) { 
+        copia[i] = original[i]; 
+        copiarArray(original, copia, longitud, ++i); 
+    } 
+} 
+
+void buscarSubconjuntos(
+    int conjuntoOriginal[], 
+    int longitud, 
+    int temp[], 
+    int longitudSubconjunto, 
+    int sumaDeseada, 
+    int sumaActual, 
+    int *cantidadSubconjuntos,
+    int longitudSubconjuntos[],
+    int output[MAX][MAX]
+    ){    
+    if (sumaActual == sumaDeseada && longitudSubconjunto > 0){
+        copiarArray(temp, output[(*cantidadSubconjuntos)], longitudSubconjunto, 0);
+        longitudSubconjuntos[(*cantidadSubconjuntos)] = longitudSubconjunto;
+        (*cantidadSubconjuntos)++;
+        
+        return;
     }
 
-    printf("%i\n", numbers[numbersIndex]);
-
-    if(actualSum + numbers[numbersIndex] == target){
-        printf("La suma es valida\n");
-        printf("Index: %i\n", numbersIndex);
-        printf("Number: %i\n", numbers[numbersIndex]);
-
-        output[*outputSize] = numbers[numbersIndex];
-        (*outputSize)++;
-        
-        imprimirSubconjuntos(actualSubOutputIndex, (*actualSubOutputIndex));
-
-        return output;
-    }else if(numbersIndex == longitudNumbers){
-        printf("La suma era invalida y es el fin del array\n");
-        return output;
-    }else if(numbersIndex < longitudNumbers-1){
-        printf("La suma era invalida y no es el fin del array\n");
-        numbersIndex++;
-        
-        return buscarSubconjuntos(numbers, target, longitudNumbers, output, numbersIndex, outputSize, actualSum, outputIndex);
+    if (longitud == 0){
+        return;
     }
+
+    temp[longitudSubconjunto] = conjuntoOriginal[0];
+
+    buscarSubconjuntos(conjuntoOriginal + 1, longitud - 1, temp, longitudSubconjunto + 1, sumaDeseada, sumaActual + temp[longitudSubconjunto], cantidadSubconjuntos,longitudSubconjuntos, output);
+    buscarSubconjuntos(conjuntoOriginal + 1, longitud - 1, temp, longitudSubconjunto, sumaDeseada, sumaActual, cantidadSubconjuntos,longitudSubconjuntos, output);
 }
 
-char* subconjuntosQueSumanN(int numbers[], int target, int longitud){
-    for (int i = 0; i < longitud; i++){
-        printf("%i\n", numbers[i]);
+void subconjuntosQueSumanN(int conjuntoOriginal[], int longitud, int sumaDeseada, int output[MAX][MAX], int *cantidadSubconjuntos, int longitudSubconjuntos[]){
+    if (longitud == 0){
+        return;
     }
-    
-    char output[longitud];
-    int outputSize = 0;
-    return buscarSubconjuntos(numbers, target, longitud, output, 0, NULL, 0, &outputSize);
+
+    int temp[MAX] = {0};
+    buscarSubconjuntos(conjuntoOriginal, longitud, temp, 0, sumaDeseada, 0, cantidadSubconjuntos, longitudSubconjuntos, output);
 }
 
 int main(){
-    int input[] = {10, 3, 1, 7, 4, 2};
-    int target = 7;
-    printf("Size %i\n", sizeof(input)/sizeof(input[0]));
-    subconjuntosQueSumanN(input, target);
+    int conjuntoOriginal[] = {10, 3, 1, 7, 4, 2};
+    int sumaDeseada = 10;
+
+    int longitud = sizeof(conjuntoOriginal)/sizeof(conjuntoOriginal[0]);
+
+
+
+    int cantidadSubconjuntos = 0;
+    int longitudSubconjuntos[MAX] = {0};
+
+    int output[MAX][MAX] = {0};
+
+    subconjuntosQueSumanN(conjuntoOriginal, longitud, sumaDeseada, output, &cantidadSubconjuntos, longitudSubconjuntos);
+    
+    printf(" >-------- SALIDA ---------<\n");
+
+    for (int i = 0; i < cantidadSubconjuntos; i++){
+        imprimirSubconjuntos(output[i], longitudSubconjuntos[i]);
+    }
+    
     
     return 0;
 }
