@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
 #include <stdbool.h>
 
-
-bool palindromo(char cadena[], int inicio, int fin){
+bool es_palindromo(char cadena[], int inicio, int fin){
     if (inicio >= fin){
         return true;
     }
@@ -12,19 +10,25 @@ bool palindromo(char cadena[], int inicio, int fin){
     if (cadena[inicio] != cadena [fin]){
         return false;
     }
-    return palindromo(cadena, inicio+1, fin-1);
+    return es_palindromo(cadena, inicio+1, fin-1);
+
+}
+
+bool palindormo (char * cadena){
     
+    int fin = strlen(cadena)-1;
+
+    return es_palindromo(cadena, 0 , fin -1 );
 }
 
 int main(){
     char cadena[100];
     printf("Ingrese una cadena:");
     fgets(cadena, sizeof(cadena), stdin);
-    int fin = strlen(cadena); 
 
-    bool es_palindromo = palindromo(cadena, 0 , fin -2 );
-    
-    if (es_palindromo){
+    bool es_palindromo_resultado = palindormo(cadena);
+
+    if (es_palindromo_resultado){
         printf("La cadena es un palindromo\n");
     }
         
@@ -32,6 +36,5 @@ int main(){
         printf("La cadena no es un palindromo\n");
 
     }
-    
-    system("pause");
+        
 }
