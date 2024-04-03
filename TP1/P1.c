@@ -13,7 +13,7 @@ bool palindromo(char cadena[], int inicio, int fin){
         return false;
     }
     return palindromo(cadena, inicio+1, fin-1);
-
+    
 }
 
 int main(){
