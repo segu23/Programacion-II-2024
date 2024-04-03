@@ -60,7 +60,7 @@ void buscarSubconjuntos(
     buscarSubconjuntos(conjuntoOriginal + 1, longitud - 1, temp, longitudSubconjunto, sumaDeseada, sumaActual, cantidadSubconjuntos,longitudSubconjuntos, output);
 }
 
-void subconjuntosQueSumanN(int conjuntoOriginal[], int longitud, int sumaDeseada, int output[MAX][MAX], int *cantidadSubconjuntos, int longitudSubconjuntos[]){
+void subconjuntosQueSumanN(int *conjuntoOriginal, int longitud, int sumaDeseada, int output[MAX][MAX], int *cantidadSubconjuntos, int longitudSubconjuntos[]){
     if (longitud == 0){
         return;
     }
@@ -70,21 +70,44 @@ void subconjuntosQueSumanN(int conjuntoOriginal[], int longitud, int sumaDeseada
 }
 
 int main(){
-    int conjuntoOriginal[] = {10, 3, 1, 7, 4, 2};
-    int sumaDeseada = 10;
+    int conjuntoOriginal[MAX] = {0};
+    int sumaDeseada;
 
-    int longitud = sizeof(conjuntoOriginal)/sizeof(conjuntoOriginal[0]);
+    int input = 1;
+    int inputIndex = 0;
+    
+    while(input > 0){
+        printf("[INPUT] Ingrese el %iº número del conjunto o 0 para finalizar el ingreso: ", (inputIndex+1));
+        if(scanf("%i", &input) > 0){
+            conjuntoOriginal[inputIndex] = input;
+            inputIndex++;
+        }else{
+            fflush(stdin);
+            printf("[ERROR] Ha ingresado un valor incorrecto.\n");
+        }
+    }
 
+    fflush(stdin);
+    input = -1;
 
+    while(input <= 0){
+        printf("[INPUT] Ingrese la suma objetivo: ");
+        if(scanf("%i", &input) > 0){
+            sumaDeseada = input;
+        }else{
+            fflush(stdin);
+            printf("[ERROR] Ha ingresado un valor incorrecto.\n");
+        }
+    }
 
     int cantidadSubconjuntos = 0;
     int longitudSubconjuntos[MAX] = {0};
 
     int output[MAX][MAX] = {0};
 
-    subconjuntosQueSumanN(conjuntoOriginal, longitud, sumaDeseada, output, &cantidadSubconjuntos, longitudSubconjuntos);
+    subconjuntosQueSumanN(conjuntoOriginal, inputIndex, sumaDeseada, output, &cantidadSubconjuntos, longitudSubconjuntos);
     
-    printf(" >-------- SALIDA ---------<\n");
+    printf("[OUTPUT] Se han encontrado %i subconjuntos válidos:\n", cantidadSubconjuntos);
 
     for (int i = 0; i < cantidadSubconjuntos; i++){
         imprimirSubconjuntos(output[i], longitudSubconjuntos[i]);
