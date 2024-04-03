@@ -40,7 +40,7 @@ int main(){
         printf("Cociente: %.0f \n",resultado);    
     }
     else{
-        printf("Cociente: %.5g \n",resultado);  // Hasta Un Maximo de 4 decimales
+        printf("Cociente: %.4f \n",resultado);  // Hasta Un Maximo de 4 decimales
     }
     system("pause");
 
