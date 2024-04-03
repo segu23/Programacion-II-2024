@@ -19,7 +19,14 @@ int* explotar(int numeros[], int numero, int bomba, int* contador){
 int main(){
     int numeros[100];
     int contador = 0;
-    explotar(numeros, 20, 5, &contador);
+    int numeroExplotar;
+    int bomba;
+    printf("Ingrese el numero a explotar: ");
+    scanf("%d",&numeroExplotar);
+    printf("Ingrese la bomba: ");
+    scanf("%d",&bomba);
+
+    explotar(numeros, numeroExplotar, bomba, &contador);
 
     for (int i = 0; i < contador; i++){
         printf("%i", numeros[i]);
