@@ -1,11 +1,11 @@
 /*
 Dados los números enteros m y n, construir una función recursiva que devuelva el 
 cociente de ambos, calculando el mismo mediante restas sucesivas. Se deberá tener 
-en cuenta que en el caso de que la división no sea exacta, se devolverán hasta 5 cifras 
+en cuenta que en el caso de que la división no sea exacta, se devolverán hasta 4 cifras 
 decimales (si es necesario).  
 Ejemplos: 
 division (10,2) => 5 
-division (22,3) => 7,33333 
+division (22,3) => 7,3333 
 */
 
 #include <stdio.h>
@@ -40,7 +40,7 @@ int main(){
         printf("Cociente: %.0f \n",resultado);    
     }
     else{
-        printf("Cociente: %.5g \n",resultado);  // Hasta Un Maximo de 5 decimales
+        printf("Cociente: %.5g \n",resultado);  // Hasta Un Maximo de 4 decimales
     }
     system("pause");
 
