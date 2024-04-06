@@ -24,17 +24,17 @@ bool palindormo (char * cadena){
 
 int main(){
     char cadena[100];
-    printf("Ingrese una cadena:");
+    printf("[INPUT] Ingrese una cadena:");
     fgets(cadena, sizeof(cadena), stdin);
 
     bool es_palindromo_resultado = palindormo(cadena);
 
     if (es_palindromo_resultado){
-        printf("La cadena es un palindromo\n");
+        printf("[OUTPUT] La cadena es un palindromo\n");
     }
         
     else{
-        printf("La cadena no es un palindromo\n");
+        printf("[OUTPUT] La cadena no es un palindromo\n");
     }
 
     system("pause");
