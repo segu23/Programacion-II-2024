@@ -113,6 +113,7 @@ int main(){
         imprimirSubconjuntos(output[i], longitudSubconjuntos[i]);
     }
     
+    system("pause");
     
     return 0;
 }
