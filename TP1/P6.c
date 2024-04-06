@@ -9,7 +9,7 @@
 //  3 (-.(-.(-.-).-).-)
 //  4 (-.(-.(-.(-.-).-).-).-)
 // Considerando esta descripción, diseñar los procesos recursivos que permitan mostrar
-// la apariencia del grupo de chinos que asisten a una reunión de nivel n. 
+// la apariencia del grupo de chinos que asisten a una reunión de nivel n.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,8 +17,10 @@
 
 #define MAX 100
 
-void crearReunionMafia(int nivel, char output[]) {
-    if (nivel == 1) {
+void crearReunionMafia(int nivel, char output[])
+{
+    if (nivel == 1)
+    {
         strcat(output, "(-.-)");
         return;
     }
@@ -27,30 +29,36 @@ void crearReunionMafia(int nivel, char output[]) {
     strcat(output, ".-)");
 }
 
-char * reunionMafia(int nivel){
-    char* output = calloc(MAX, sizeof(char));
-    
+char *reunionMafia(int nivel)
+{
+    char *output = calloc(MAX, sizeof(char));
+
     crearReunionMafia(nivel, output);
 
     return output;
 }
 
-int main() {
+int main()
+{
     int nivelReunion;
     int input;
-    while(input <= 0){
+    while (input <= 0)
+    {
         printf("[INPUT] Ingrese el nivel de la reunion: ");
-        if(scanf("%i", &input) > 0 && input > 0){
+        if (scanf("%i", &input) > 0 && input > 0)
+        {
             nivelReunion = input;
-        }else{
+        }
+        else
+        {
             fflush(stdin);
             printf("[ERROR] Ha ingresado un valor incorrecto.\n");
         }
     }
-    
+
     char *reunion = reunionMafia(nivelReunion);
 
     printf("[OUTPUT] La reunion del nivel %i es: %s\n", nivelReunion, reunion);
-    
+
     return 0;
 }
