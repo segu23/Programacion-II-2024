@@ -31,18 +31,32 @@ bool validarString(char * numero){
     int longitud = strlen(numero);
     for (int i = 0; i < longitud; i++){
         int numeroValidar = numero[i];
+
+        if (numeroValidar == 45 && i==0){
+            return longitud>0;
+        }
+        
         if (numeroValidar < 48 || numeroValidar > 57){
             return false;
         }
     }
+
     return longitud>0;
 }
 
 char * agregarSeparadorMiles(char numero[]){
     int largoString = strlen(numero);
+    int inicio = 0;
+    
+    if (largoString>0 && numero[0]=='-'){
+        largoString--;
+        inicio++;
+    }
+    
     int cantidadPuntos = (largoString - 1) / 3;
     int contador = 0;
-    separadorMiles(numero, cantidadPuntos, largoString, contador);
+
+    separadorMiles(&numero[inicio], cantidadPuntos, largoString, contador);
 
     return numero;
 }
@@ -65,4 +79,7 @@ int main() {
 
     agregarSeparadorMiles(numero);
     printf("[OUTPUT] Su numero con los puntos de los miles es %s\n", numero);
+    system("pause");
+
+    return 0;
 }
