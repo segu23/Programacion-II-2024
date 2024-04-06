@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
 
@@ -34,7 +35,9 @@ int main(){
         
     else{
         printf("La cadena no es un palindromo\n");
-
     }
-        
+
+    system("pause");
+
+    return 0;
 }
