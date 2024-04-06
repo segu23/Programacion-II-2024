@@ -13,32 +13,44 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-void reunionMafia(int nivel) {
-    
+#define MAX 100
+
+void crearReunionMafia(int nivel, char output[]) {
     if (nivel == 1) {
-        printf("(-.-)");
+        strcat(output, "(-.-)");
         return;
     }
-    printf("(-.");
-    reunionMafia(nivel - 1);
-    printf(".-)");
+    strcat(output, "(-.");
+    crearReunionMafia(nivel - 1, output);
+    strcat(output, ".-)");
+}
+
+char * reunionMafia(int nivel){
+    char* output = calloc(MAX, sizeof(char));
+    
+    crearReunionMafia(nivel, output);
+
+    return output;
 }
 
 int main() {
     int nivelReunion;
-    
-    printf("Ingrese el nivel de la reunion: ");
-    scanf("%d", &nivelReunion);
-
-    if (nivelReunion <= 0)
-    {
-        printf("Ingrese nivel de reunion mayor a 0");
-        return 0;
+    int input;
+    while(input <= 0){
+        printf("[INPUT] Ingrese el nivel de la reunion: ");
+        if(scanf("%i", &input) > 0 && input > 0){
+            nivelReunion = input;
+        }else{
+            fflush(stdin);
+            printf("[ERROR] Ha ingresado un valor incorrecto.\n");
+        }
     }
     
-    reunionMafia(nivelReunion);
-    printf("\n");
+    char *reunion = reunionMafia(nivelReunion);
+
+    printf("[OUTPUT] La reunion del nivel %i es: %s\n", nivelReunion, reunion);
     
     return 0;
 }
