@@ -8,7 +8,7 @@
 // Implementación de recursividad - TP Nro. 1 - Punto 7
 
 // Función recursiva de cola: grafíca la onda a base de valores bivaluados, High ('H') o Low ('L').
-void aplicarOndaDigital(char onda[], int i, char output[], int index)
+void aplicarOndaDigital(char onda[], int i, char output[])
 {
     if (onda[i] != '\0')
     {
@@ -16,37 +16,29 @@ void aplicarOndaDigital(char onda[], int i, char output[], int index)
         {
             if (i != 0 && onda[i - 1] != 'H' && onda[i] == 'H')
             {
-                output[index] = '|';
-                index++;
-                output[index] = '-';
-                index++;
+                strcat(output, "|-");
             }
             else if (i != 0 && onda[i - 1] != 'L' && onda[i] == 'L')
             {
-                output[index] = '|';
-                index++;
-                output[index] = '_';
-                index++;
+                strcat(output, "|_");
             }
             else if (onda[i] == 'L')
             {
-                output[index] = '_';
-                index++;
+                strcat(output, "_");
             }
             else if (onda[i] == 'H')
             {
-                output[index] = '-';
-                index++;
+                strcat(output, "-");
             }
         }
-        aplicarOndaDigital(onda, ++i, output, index);
+        aplicarOndaDigital(onda, ++i, output);
     }
 }
 
 char *ondaDigital(char seniales[])
 {
-    char* output = calloc(MAX, sizeof(char));
-    aplicarOndaDigital(seniales, 0, output, 0);
+    char *output = calloc(MAX, sizeof(char));
+    aplicarOndaDigital(seniales, 0, output);
 
     return output;
 }
@@ -57,8 +49,10 @@ bool validarYCorregirString(char *numero)
 
     for (int i = 0; i < longitud; i++)
     {
-        if(numero[i] == 'h') numero[i] = 'H';
-        if(numero[i] == 'l') numero[i] = 'L';
+        if (numero[i] == 'h')
+            numero[i] = 'H';
+        if (numero[i] == 'l')
+            numero[i] = 'L';
 
         if (numero[i] != 'H' && numero[i] != 'L')
         {
@@ -84,7 +78,8 @@ int main()
 
         valido = validarYCorregirString(onda);
 
-        if(!valido){
+        if (!valido)
+        {
             printf("[ERROR] Debe ingresar H o L.\n");
         }
     }
