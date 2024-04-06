@@ -10,6 +10,7 @@ division (22,3) => 7,33333
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 float division(int m, int n){
     if(m<n){
@@ -23,25 +24,46 @@ float division(int m, int n){
 int main(){
     int m;
     int n;
-    printf("[INPUT] Ingrese el Primer Numero (Dividendo): \n");
-    if(scanf("%d",&m)!=1){
-        printf("[ERROR] No se ha introducido un Numero Entero en el Dividendo.\n");
-    }
-    printf("[INPUT] Ingrese el Segundo Numero (Divisor): \n");
-    if(scanf("%d",&n)!=1){
-        printf("[ERROR] No se ha introducido un Numero Entero en el Divisor.\n");
-    }
-    if (n==0){
-        printf("[ERROR] El Divisor no puede ser Cero.\n");
+    
+    bool mIngresado = false;
+    bool nIngresado = false;
+
+    while(!mIngresado){
+        printf("[INPUT] Ingrese el Primer Numero (Dividendo): \n");
+        
+        if(scanf("%d",&m) != 1){
+            fflush(stdin);
+            printf("[ERROR] No se ha introducido un Numero Entero en el Dividendo.\n");
+        }
+        else{
+            mIngresado = true;
+        }
     }
 
-    float resultado=division(m,n);
-    if (m % n ==0){
+    while(!nIngresado){
+        printf("[INPUT] Ingrese el Segundo Numero (Divisor): \n");
+        
+        if(scanf("%d",&n) != 1){
+            fflush(stdin);
+            printf("[ERROR] No se ha introducido un Numero Entero en el Divisor.\n");
+        }
+        else if (n==0){
+            fflush(stdin);
+            printf("[ERROR] El Divisor no puede ser Cero.\n");
+        }
+        else{
+            nIngresado = true;
+        }
+    }
+
+    float resultado = division(m,n);
+    if (m % n == 0){
         printf("[OUTPUT] Cociente: %.0f \n",resultado);    
     }
     else{
         printf("[OUTPUT] Cociente: %.5f \n",resultado);  // Hasta Un Maximo de 5 decimales
     }
+    
     system("pause");
 
     return 0;
