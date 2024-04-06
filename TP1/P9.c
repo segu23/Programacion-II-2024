@@ -49,9 +49,9 @@ int main(){
 
 
     if(divisible){
-        printf("El numero %i ES divisible por 7.\n", numero);
+        printf("[OUTPUT] El numero %i ES divisible por 7.\n", numero);
     }else{
-        printf("El numero %i NO ES divisible por 7.\n", numero);
+        printf("[OUTPUT] El numero %i NO ES divisible por 7.\n", numero);
     }
 
     system("pause");
