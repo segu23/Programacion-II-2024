@@ -34,14 +34,15 @@ bool divisiblePor7(int numero){
 }
 
 int main(){
-    int numero;
+    int numero = -1;
     
-    printf("Ingresa el numero a comprobar si es divisible por 7: \n");
-    scanf("%d", &numero);
-
-    while(numero < 0){
-        printf("El numero ingresado debe ser mayor o igual a 0.\n");
-        scanf("%d", &numero);
+    while(numero <= 0){
+        printf("[INPUT] Ingresa el numero a comprobar si es divisible por 7: ");
+    
+        if(scanf("%i", &numero) <= 0){
+            fflush(stdin);
+            printf("[ERROR] Ha ingresado un valor incorrecto.\n");
+        }
     }
 
     bool divisible = divisiblePor7(numero);
