@@ -9,17 +9,11 @@ terminoSeridFibonacci (5) => 8
 
 int fibonacci(int numero){
     
-    if (numero==0)
-    {
-        return 0;
-    }
-    
-    else if ((numero==1)||(numero==2)){
+    if ((numero==0)||(numero==1)){
         return 1;
     }
     
-    else
-    {
+    else{
         return(fibonacci(numero-1)+fibonacci(numero-2));
     }
 }
