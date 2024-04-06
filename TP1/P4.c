@@ -23,24 +23,24 @@ float division(int m, int n){
 int main(){
     int m;
     int n;
-    printf("Ingrese el Primer Numero (Dividendo): \n");
+    printf("[INPUT] Ingrese el Primer Numero (Dividendo): \n");
     if(scanf("%d",&m)!=1){
-        printf("Error no se ha introducido un Numero Entero en el Dividendo");
+        printf("[ERROR] No se ha introducido un Numero Entero en el Dividendo.\n");
     }
-    printf("Ingrese el Segundo Numero (Divisor): \n");
+    printf("[INPUT] Ingrese el Segundo Numero (Divisor): \n");
     if(scanf("%d",&n)!=1){
-        printf("Error no se ha introducido un Numero Entero en el Divisor");
+        printf("[ERROR] No se ha introducido un Numero Entero en el Divisor.\n");
     }
     if (n==0){
-        printf("Error el Divisor no puede ser Cero");
+        printf("[ERROR] El Divisor no puede ser Cero.\n");
     }
 
     float resultado=division(m,n);
     if (m % n ==0){
-        printf("Cociente: %.0f \n",resultado);    
+        printf("[OUTPUT] Cociente: %.0f \n",resultado);    
     }
     else{
-        printf("Cociente: %.5f \n",resultado);  // Hasta Un Maximo de 5 decimales
+        printf("[OUTPUT] Cociente: %.5f \n",resultado);  // Hasta Un Maximo de 5 decimales
     }
     system("pause");
 
