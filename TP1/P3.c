@@ -6,7 +6,6 @@ terminoSeridFibonacci (5) => 8
 */
 #include<stdio.h>
 
-
 int fibonacci(int numero){
     
     if (numero==0)
@@ -24,40 +23,22 @@ int fibonacci(int numero){
     }
 }
 
-
-int fibonacci_negativo(int numero){
-
-    if(numero==-1)
-    {
-        return 0;
-    }
-    else if (numero==-2)
-    {
-        return 1;
-    }
-    else
-    {
-       return(fibonacci_negativo(numero+2)-fibonacci_negativo(numero+1));
-    }
-}
-
 int main(){
 
     int numero;
 
-    printf("Ingrese un numero para el termino de la serie de fibonacci: ");
+    printf("Ingrese un numero para el termino de la serie de fibonacci entre 0 y 40: ");
     scanf("%d",&numero);
 
-
-    if(numero<0){
-        printf("El resultado pra el termino %d es %d\n",numero,fibonacci_negativo(numero)); 
-    }
-    else
+    while ((numero<=0)||(numero>41))
     {
-        printf("El resultado pra el termino %d es %d\n",numero,fibonacci(numero));
+        printf("Ingrese un numero entre 0 y 40: ");
+        scanf("%d",&numero);
     }
+    
+    
+    printf("El resultado para el termino %d es %d\n",numero,fibonacci(numero)); 
     
     system("pause");
    
 }
-

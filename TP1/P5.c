@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 
-char* agregarSeparadorMiles(char* numero, int cantidadPuntos, int longitudUsada, int contador){
+char* separadorMiles(char* numero, int cantidadPuntos, int longitudUsada, int contador){
     if (longitudUsada==0){
         return numero;
     }
@@ -17,40 +17,52 @@ char* agregarSeparadorMiles(char* numero, int cantidadPuntos, int longitudUsada,
 
         contador++;
         longitudUsada--;
-        return agregarSeparadorMiles(numero, cantidadPuntos, longitudUsada, contador);
+        return separadorMiles(numero, cantidadPuntos, longitudUsada, contador);
     }
     else{
         contador=1;
         numero[longitudUsada+cantidadPuntos]= '.';
         cantidadPuntos--;
-        return agregarSeparadorMiles(numero, cantidadPuntos, longitudUsada, contador);
+        return separadorMiles(numero, cantidadPuntos, longitudUsada, contador);
     }
 }
 
-bool validarString(char * numero, int longitud){
+bool validarString(char * numero){
+    int longitud = strlen(numero);
     for (int i = 0; i < longitud; i++){
         int numeroValidar = numero[i];
         if (numeroValidar < 48 || numeroValidar > 57){
             return false;
         }
     }
-    return true;
+    return longitud>0;
+}
+
+char * agregarSeparadorMiles(char numero[]){
+    int largoString = strlen(numero);
+    int cantidadPuntos = (largoString - 1) / 3;
+    int contador = 0;
+    separadorMiles(numero, cantidadPuntos, largoString, contador);
+
+    return numero;
 }
 
 int main() {
     char numero[100];
-    printf("Ingrese el numero al que desea agregar los puntos de miles: ");
-    fgets(numero, sizeof(numero), stdin);
-    numero[strcspn(numero, "\n")] = '\0';
-    int largoString = strlen(numero);
+    bool valido = false;
+    
+    while (!valido){
+        printf("[INPUT] Ingrese el numero al que desea agregar los puntos de miles: ");
+        fgets(numero, sizeof(numero), stdin);
+        numero[strcspn(numero, "\n")] = '\0';
 
-    if (validarString(numero, largoString)){
-        int cantidadPuntos = (largoString - 1) / 3;
-        agregarSeparadorMiles(numero, cantidadPuntos, largoString, 0);
-        printf("El numero con puntos de miles es: %s\n", numero);
-        return 0;    
+        valido = validarString(numero);
+
+        if (!valido){
+            printf("[ERROR] No se ingresaron numeros validos.\n");
+        }
     }
-    else{
-        printf("%s", "No se ingresaron numeros validos");
-    }
+
+    agregarSeparadorMiles(numero);
+    printf("[OUTPUT] Su numero con los puntos de los miles es %s\n", numero);
 }
