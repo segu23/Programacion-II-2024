@@ -16,7 +16,7 @@ float division(int m, int n){
     if(m<n){
         return (float) m/n;
     }
-    else {
+    else{
         return 1 + division(m-n,n);
     }
 }
@@ -25,25 +25,27 @@ int main(){
     int m;
     int n;
     
-    bool mIngresado = false;
-    bool nIngresado = false;
+    bool valido = false;
 
-    while(!mIngresado){
+    while(!valido){
         printf("[INPUT] Ingrese el Primer Numero (Dividendo): \n");
         
-        if(scanf("%d",&m) != 1){
+        if(scanf("%i",&m) != 1){
             fflush(stdin);
             printf("[ERROR] No se ha introducido un Numero Entero en el Dividendo.\n");
         }
         else{
-            mIngresado = true;
+            valido = true;
         }
     }
 
-    while(!nIngresado){
+    valido = false;
+    fflush(stdin);
+
+    while(!valido){
         printf("[INPUT] Ingrese el Segundo Numero (Divisor): \n");
         
-        if(scanf("%d",&n) != 1){
+        if(scanf("%i",&n) != 1){
             fflush(stdin);
             printf("[ERROR] No se ha introducido un Numero Entero en el Divisor.\n");
         }
@@ -52,7 +54,7 @@ int main(){
             printf("[ERROR] El Divisor no puede ser Cero.\n");
         }
         else{
-            nIngresado = true;
+            valido = true;
         }
     }
 
