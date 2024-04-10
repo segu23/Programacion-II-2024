@@ -21,7 +21,7 @@ int fibonacci(int numero){
 int main(){
     int numero = -1;
 
-    while (numero<=0 || numero>41) {
+    while (numero<0 || numero>=41) {
         printf("[INPUT] Ingrese un numero para el termino de la serie de fibonacci entre 0 y 40: ");
         scanf("%i",&numero);
         fflush(stdin);
@@ -30,5 +30,4 @@ int main(){
     printf("[OUTPUT] El resultado para el termino %d es %d\n",numero,fibonacci(numero)); 
     
     system("pause");
-   
 }
