@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "tipo_elemento.c"
-#include "listas_arreglos.c"
+#include "tipo_elemento.h"
 #include "listas.h"
 
 void insertar_string(char *destino, const char *origen) {
