@@ -3,7 +3,6 @@
 #include "./TP2/tipo_elemento.c"
 
 void ListaMayor(Lista L1, Lista L2){
-    //TipoElemento posicion_lista= te_crear(0);
 
     int clavesMayores=0;
     int clavesMenores=0;
