@@ -18,61 +18,15 @@ void insertar_string(char *destino, const char *origen) {
     }
 }
 
-int main(){
-    Lista listaPolinomio = l_crear();
-    bool seguirIngresando = true;
-    int gradoActual = 0;
-    int terminoElegido;
-    char opcionSeguir[1];
-    
-    while (seguirIngresando){
-        fflush(stdin);
-        if (gradoActual==0){
-            printf("[INPUT] Ingrese el termino independiente: ");
-        }
-        else{
-            printf("[INPUT] Ingrese coeficiente de x para x^%i: ", gradoActual);
-        }
-
-        bool valido = false;
-        while (!valido){
-            if (scanf("%i", &terminoElegido)>0){
-                l_agregar(listaPolinomio, te_crear(terminoElegido));
-                fflush(stdin);
-                printf("Agregado!\n");
-                valido = true;
-                gradoActual++;
-
-                fflush(stdin);
-                printf("Desea agregar otro coeficiente? (y o n): ");
-                scanf("%s", opcionSeguir);
-
-                if (!strcmp(opcionSeguir,"y")){
-                    seguirIngresando = true;
-                }
-                else{
-                    seguirIngresando = false;
-                }
-            }
-            if (!valido){
-                fflush(stdin);
-                printf("[ERROR] Debe ingresar un numero correcto.\n");
-                valido = true;
-            }
-        }
-    }
-
-    Iterador iter = iterador(listaPolinomio);
-    int suma = 0;
+char* formarPolinomio(Lista polinomio){
+    Iterador iter = iterador(polinomio);
     int indice = 0;
-    int x=3;
 
-    char polinomioResultado[100] = "";
+    char* polinomioResultado = calloc(100,sizeof(char));
     char buffer[100];
 
     while (hay_siguiente(iter)){
         TipoElemento elementoActual = siguiente(iter);
-        suma += elementoActual->clave*pow(x,indice);
         char termino[50]="";
                 
         if ((elementoActual->clave)!=0){
@@ -100,7 +54,136 @@ int main(){
         indice++;
     }
 
+    return polinomioResultado;
+}
+
+float calcularPolinomio(Lista polinomio, float x){    
+    Iterador iter = iterador(polinomio);
+
+    float suma = 0;
+    int indice = 0;
+
+    while (hay_siguiente(iter)){
+        TipoElemento elementoActual = siguiente(iter);
+        suma += elementoActual->clave*pow(x,indice);
+        indice++;
+    }
+
+    return suma;
+}
+
+struct ResultadoFuncion {
+    float x;
+    float resultado;
+};
+
+Lista calculcarXIntervalo(Lista polinomio, int x1, int x2, float espaciado){
+    Lista intervalos = l_crear();
+    float actual = x1;
+    int indice = 0;
+
+    while ((actual<=x2 && espaciado>0) || (actual>=x2 && espaciado<0)){
+        struct ResultadoFuncion* resultadoFuncion = malloc(sizeof(struct ResultadoFuncion));
+        (*resultadoFuncion).resultado = calcularPolinomio(polinomio, actual);
+        (*resultadoFuncion).x = actual;
+        l_agregar(intervalos, te_crear_con_valor(indice, (void*) resultadoFuncion));
+        actual += espaciado;
+        indice++;
+    }
+
+    return intervalos;
+}
+
+int cargarX(int numeroDeX){
+    int x; 
+    bool seguirIngresando = true;
+    while (seguirIngresando){
+        printf("[INPUT] Determine el #%i numero del intervalo: ", numeroDeX);
+        if (scanf("%i", &x)>0){
+            printf("[INFO] Agregado!\n");
+            seguirIngresando=false;
+        }
+        else{
+            printf("[ERROR] Ingrese un valor numerico valido.\n");
+        }
+    }
+    
+    return x;
+}
+
+float cargarEspaciado(int numero1, int numero2){
+    float espaciado;
+    bool seguirIngresando = true;
+
+    while (seguirIngresando){
+        printf("[INPUT] Ingrese su numero de espaciado: ");
+        if (scanf("%f", &espaciado)>0 && ((espaciado<0 && numero1>=numero2) || (espaciado>0 && numero1<numero2))){
+            printf("[INFO] Agregado!\n");
+            seguirIngresando=false;
+        }
+        else{
+            if ((numero1>numero2) && (espaciado>0)){
+                printf("[ERROR] El espaciado tiene que ser un numero negativo\n");
+            }
+            else if((numero1<numero2) && (espaciado<0)){
+                printf("[ERROR] El espaciado tiene que ser un numero positivo\n");
+            }
+            else{
+                printf("[ERROR] Ingrese un valor numerico valido.\n");
+            }
+        }
+    }
+    
+    return espaciado;
+}
+
+int main(){
+    Lista listaPolinomio = l_crear();
+    bool seguirIngresando = true;
+    int gradoActual = 0;
+    int terminoElegido;
+    char opcionSeguir;
+    
+    while (seguirIngresando){
+        if (gradoActual==0){
+            printf("[INPUT] Ingrese el termino independiente: ");
+        }
+        else{
+            printf("[INPUT] Ingrese coeficiente de x para x^%i o 'n' para terminar: ", gradoActual);
+        }
+
+        if (scanf("%i", &terminoElegido)>0){
+            l_agregar(listaPolinomio, te_crear(terminoElegido));
+            printf("[INFO] Agregado!\n");
+            gradoActual++;
+        }
+        else{
+            if (scanf("%c", &opcionSeguir)>0 && opcionSeguir == 'n'){
+                printf("[INFO] Finalizando carga del polinomio.\n");
+                seguirIngresando = false;
+            }
+            else{
+                printf("[ERROR] Debe ingresar un numero correcto.\n");
+            }
+            fflush(stdin);
+        }
+    }
+
+    int x1 = cargarX(1);
+    int x2 = cargarX(2);
+    float espaciado = cargarEspaciado(x1,x2);
+
+
+    char *polinomioResultado = formarPolinomio(listaPolinomio);
+    Lista polinomioXIntervalos = calculcarXIntervalo(listaPolinomio, x1, x2, espaciado);
+    Iterador iter = iterador(polinomioXIntervalos);
+
     printf("El polinomio resultante es f(x) = %s\n", polinomioResultado);
-    printf("Si reemplazamos %i por la X en el polinomio el resultado da %i\n",x, suma);
+
+    while (hay_siguiente(iter)){
+        TipoElemento elementoActual = siguiente(iter);
+        printf("f(%.1f) = %.1f\n", ((struct ResultadoFuncion*)elementoActual->valor)->x ,((struct ResultadoFuncion*) elementoActual->valor)->resultado);
+    }
+
     return 0;
 }
