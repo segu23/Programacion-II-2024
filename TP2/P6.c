@@ -8,8 +8,11 @@ Ejemplo: si “L1” contiene los elementos (7, 3, 4, 5, 9, 2) y “L2” contie
 #include <stdlib.h>
 #include <stdbool.h>
 #include "tipo_elemento.c"
-#include "listas_arreglos.c"
+#include "listas_cursores.c"
 
+/*
+LA COMPLEJIDAD ALGORITMICA SE ENCUENTRA EN EL README.md DE ESTE DIRECTORIO
+*/
 bool esSublista(Lista L1, Lista L2){
     Iterador iterL2 = iterador(L2);
 
@@ -45,7 +48,7 @@ int main(){
     char inputChar;
 
     while(seguirAgregando){
-        printf("[INPUT] Ingrese el %iº elemento de la primer lista o 'n' para terminar: ", index);
+        printf("[INPUT] Ingrese el #%i elemento de la primer lista o 'n' para terminar: ", index);
 
         if(scanf("%d", &inputNumber) > 0){
             l_agregar(L1, te_crear(inputNumber));
