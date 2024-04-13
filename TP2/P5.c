@@ -4,8 +4,6 @@
 #include <math.h>
 #include "tipo_elemento.h"
 #include "listas.h"
-#include "tipo_elemento.c"
-#include "listas_arreglos.c"
 
 void insertar_string(char *destino, const char *origen) {
     int longitud_destino = strlen(destino);
@@ -84,7 +82,7 @@ Lista calculcarXIntervalo(Lista polinomio, int x1, int x2, float espaciado){
     float actual = x1;
     int indice = 0;
 
-    while (actual<=x2){
+    while ((actual<=x2 && espaciado>0) || (actual>=x2 && espaciado<0)){
         struct ResultadoFuncion* resultadoFuncion = malloc(sizeof(struct ResultadoFuncion));
         (*resultadoFuncion).resultado = calcularPolinomio(polinomio, actual);
         (*resultadoFuncion).x = actual;
@@ -94,6 +92,49 @@ Lista calculcarXIntervalo(Lista polinomio, int x1, int x2, float espaciado){
     }
 
     return intervalos;
+}
+
+int cargarX(int numeroDeX){
+    int x; 
+    bool seguirIngresando = true;
+    while (seguirIngresando){
+        printf("[INPUT] Determine el #%i numero del intervalo: ", numeroDeX);
+        if (scanf("%i", &x)>0){
+            printf("[INFO] Agregado!\n");
+            seguirIngresando=false;
+        }
+        else{
+            printf("[ERROR] Ingrese un valor numerico valido.\n");
+        }
+    }
+    
+    return x;
+}
+
+float cargarEspaciado(int numero1, int numero2){
+    float espaciado;
+    bool seguirIngresando = true;
+
+    while (seguirIngresando){
+        printf("[INPUT] Ingrese su numero de espaciado: ");
+        if (scanf("%f", &espaciado)>0 && ((espaciado<0 && numero1>=numero2) || (espaciado>0 && numero1<numero2))){
+            printf("[INFO] Agregado!\n");
+            seguirIngresando=false;
+        }
+        else{
+            if ((numero1>numero2) && (espaciado>0)){
+                printf("[ERROR] El espaciado tiene que ser un numero negativo\n");
+            }
+            else if((numero1<numero2) && (espaciado<0)){
+                printf("[ERROR] El espaciado tiene que ser un numero positivo\n");
+            }
+            else{
+                printf("[ERROR] Ingrese un valor numerico valido.\n");
+            }
+        }
+    }
+    
+    return espaciado;
 }
 
 int main(){
@@ -128,9 +169,9 @@ int main(){
         }
     }
 
-    int x1 = -1;
-    int x2 = 1;
-    float espaciado = 0.5;
+    int x1 = cargarX(1);
+    int x2 = cargarX(2);
+    float espaciado = cargarEspaciado(x1,x2);
 
 
     char *polinomioResultado = formarPolinomio(listaPolinomio);
