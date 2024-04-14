@@ -19,7 +19,7 @@ int esMultiploConEscalar(Lista l1,Lista l2,int *escalar){
     Iterador ite = iterador(l1);
     Iterador ite2 = iterador(l2); 
 
-    while (hay_siguiente(ite) && hay_siguiente(ite2)){
+    while (hay_siguiente(ite) || hay_siguiente(ite2)){
         TipoElemento elementoL1 = siguiente( ite);
         TipoElemento elementoL2 = siguiente( ite2);
 
@@ -32,7 +32,7 @@ int esMultiploConEscalar(Lista l1,Lista l2,int *escalar){
             *escalar = elementoL2->clave / elementoL1->clave;
         } 
         else if (*escalar != elementoL2->clave / elementoL1->clave) {
-            return false; // Retornamos falso si encontramos un escalar diferente
+            *escalar=-1; // si hay multiplos diferentes no es un producto escalar
         }
     }
     return true;
@@ -69,7 +69,7 @@ int main() {
         }
         index++;
     }
-    printf("\nIngrese %d elemntos para la Lista 2 \n",index);
+    printf("\nIngrese %d elementos para la Lista 2 \n",index);
 
     index=1;
 
@@ -105,7 +105,7 @@ int main() {
             printf("L2 es multiplo de L1 pero no hay escalar.\n");
         }
     } 
-    else {
+    else{
         printf("L2 no es multiplo de L1.\n");
     }
 
