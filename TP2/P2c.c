@@ -5,8 +5,6 @@ C.Que retorne una lista con todos los valores comunes a ambas listas (L1 y L2).
 #include <stdio.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
 
 Lista valores_comunes(Lista lista1, Lista lista2) {
     Lista valores__comun = l_crear();

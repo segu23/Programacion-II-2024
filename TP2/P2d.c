@@ -4,9 +4,6 @@ D.Que retorne los promedios de ambas listas.
 #include <stdio.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
-
 
 float promedio_lista1(Lista lista1){
     float promedio=0.0;

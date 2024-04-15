@@ -1,7 +1,4 @@
 #include<stdio.h>
-#include"tipo_elemento.h"
-#include"tipo_elemento.c"
-#include"listas_cursores.c"
 
 /*Dadas 2 listas (L1 y L2) determinar si L2 es múltiplo de L1. Se considera múltiplo si cada
 elemento de L2 se divide en forma exacta por el valor L1 de la misma posición. Usar la

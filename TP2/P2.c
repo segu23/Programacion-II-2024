@@ -6,7 +6,6 @@
 #include "P2d.c"
 #include "P2e.c"
 #include "tipo_elemento.c"
-
 #include "listas_arreglos.c"
 #include <stdbool.h>
 

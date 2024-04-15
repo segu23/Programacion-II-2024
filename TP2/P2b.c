@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
 
 Lista valores_no_en_L1(Lista lista1, Lista lista2) {
     Lista valores_no_comunes = l_crear();

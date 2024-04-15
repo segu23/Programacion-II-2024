@@ -1,17 +1,14 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include "tipo_elemento.h"
-#include "listas.h"
-
-/*
-Generar un algoritmo que determine si una lista es sublista de otra. Se considera que es
+/*Generar un algoritmo que determine si una lista es sublista de otra. Se considera que es
 una sublista si todos los valores de la segunda se encuentran dentro de la primera sin
 importar el orden o posición de cada elemento. La comparación es solo por la clave. Se
 pide además determinar la complejidad algorítmica de la solución.
 Ejemplo: si “L1” contiene los elementos (7, 3, 4, 5, 9, 2) y “L2” contiene los elementos
-(4, 7, 2) se dice que “L2” es sublista de “L1”.
-*/
+(4, 7, 2) se dice que “L2” es sublista de “L1”.*/
+
+#include <stdlib.h>
+#include <stdbool.h>
+#include "tipo_elemento.c"
+#include "listas_cursores.c"
 
 /*
 LA COMPLEJIDAD ALGORITMICA SE ENCUENTRA EN EL README.md DE ESTE DIRECTORIO
@@ -19,7 +16,7 @@ LA COMPLEJIDAD ALGORITMICA SE ENCUENTRA EN EL README.md DE ESTE DIRECTORIO
 bool esSublista(Lista L1, Lista L2){
     Iterador iterL2 = iterador(L2);
 
-    if(l_longitud(L2) > l_longitud(L1)) return false;
+    if(L2->cantidad > L1->cantidad) return false;
     
     while(hay_siguiente(iterL2)){
         bool contiene = false;
