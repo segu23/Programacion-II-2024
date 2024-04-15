@@ -18,6 +18,7 @@ void mostrarMenu(){
     printf("c) Que retorne una lista con todos los valores comunes a ambas listas (L1 y L2)\n");
     printf("d) Que retorne los promedios de ambas listas\n");
     printf("e) Que retorne el valor máximo de ambas listas y su posición ordinal\n");
+    printf("x) Salir\n");
 }
 
 int main() {
