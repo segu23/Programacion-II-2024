@@ -1,8 +1,14 @@
 #include <stdlib.h>
-#include "./TP2/listas_punteros.c"
-#include "./TP2/tipo_elemento.c"
+#include "listas_punteros.c"
+#include "tipo_elemento.c"
+enum TipoRelacionLista {
+    IGUAL,
+    MAYOR,
+    MENOR
+};  
 
-void ListaMayor(Lista L1, Lista L2){
+
+int ListaMayor(Lista L1, Lista L2){
 
     int clavesMayores=0;
     int clavesMenores=0;
@@ -15,6 +21,7 @@ void ListaMayor(Lista L1, Lista L2){
 
 
     if (longitud1 != longitud2){
+        printf("[ERROR] Las listas no tienen en mismo tamanio\n");
         exit(-1);
     }
 
@@ -32,14 +39,79 @@ void ListaMayor(Lista L1, Lista L2){
 
     }
 
+    
+    enum TipoRelacionLista TipoLista;
+    
     if(clavesMayores > clavesMenores){
-        printf("L1 es mayor a L2\n");
+        TipoLista = MAYOR;
     }
     else if (clavesMayores < clavesMenores){
-        printf("L1 es menor a L2\n");
+        TipoLista = MENOR;
 
     }
-    else printf("L1 es igual a L2\n");
+    else TipoLista = IGUAL;
     
 
+}
+
+int main(){
+    Lista L1 = l_crear();
+    Lista L2 = l_crear();
+
+    int inputNumber;
+    char inputChar;
+    bool seguirAgregando = true;
+
+    printf("[INPUT] Agregar valores a lista1:\n");
+    while(seguirAgregando){
+        printf("[INPUT] Ingrese un valor o 'n' para terminar: ");
+
+        if(scanf("%d", &inputNumber) > 0){
+            l_agregar(L1, te_crear(inputNumber));
+        }else{
+            if(scanf("%c", &inputChar) > 0 && inputChar == 'n'){
+                seguirAgregando = false;
+                printf("[INFO] Terminando ingreso de la primer lista.\n");
+            }else{
+                printf("[ERROR] Debe ingresar un valor valido.\n");
+            }
+
+            fflush(stdin);
+        }
+    }
+    
+    seguirAgregando = true;
+
+    printf("[INPUT] Agregar valores a lista2:\n");
+    while(seguirAgregando){
+        printf("[INPUT] Ingrese un valor o 'n' para terminar: ");
+
+        if(scanf("%d", &inputNumber) > 0){
+            l_agregar(L2, te_crear(inputNumber));
+        }else{
+            if(scanf("%c", &inputChar) > 0 && inputChar == 'n'){
+                seguirAgregando = false;
+                printf("[INFO] Terminando ingreso de la primer lista.\n");
+            }else{
+                printf("[ERROR] Debe ingresar un valor valido.\n");
+            }
+
+            fflush(stdin);
+        }
+    }
+    
+    enum TipoRelacionLista TipoLista = ListaMayor(L1, L2);
+    switch(TipoLista) {
+        case MAYOR:
+            printf("L1 es mayor a L2\n");
+            break;
+        case MENOR:
+            printf("L1 es menor a L2\n");
+            break;
+        case IGUAL:
+            printf("L1 es igual a L2\n");
+            break;
+    }
+
+    return 0;
 }
