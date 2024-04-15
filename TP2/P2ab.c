@@ -9,7 +9,7 @@ a. Que retorne una lista con los valores de L1 que no están en L2.
 
 
 
-Lista valores_no_en_L2(Lista lista1, Lista lista2) {
+Lista valores_no_en_lista(Lista lista1, Lista lista2) {
     Lista valores_no_comunes = l_crear();
 
     Iterador iter = iterador(lista1);
@@ -20,6 +20,6 @@ Lista valores_no_en_L2(Lista lista1, Lista lista2) {
             l_agregar(valores_no_comunes, elemento_actual);
         }
     }
-    printf("[OUTPUT] Valores de lista1 que no estan en lista2 (Lista): ");
+
     return valores_no_comunes;
 }

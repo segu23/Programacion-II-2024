@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "P2a.c"
-#include "P2b.c"
+#include "P2ab.c"
 #include "P2c.c"
 #include "P2d.c"
 #include "P2e.c"
@@ -79,14 +78,14 @@ int main() {
                 printf("Mostrando opcion A.\n");
                 l_mostrar(lista1);
                 l_mostrar(lista2);
-                l_mostrar(valores_no_en_L2(lista1,lista2));
+                l_mostrar(valores_no_en_lista(lista1, lista2));
                 break;
             }
             case 'b':{
                 printf("Mostrando opcion B.\n");
                 l_mostrar(lista1);
                 l_mostrar(lista2);
-                l_mostrar(valores_no_en_L1(lista1,lista2));
+                l_mostrar(valores_no_en_lista(lista2, lista1));
                 break;
             }
             case 'c':{
