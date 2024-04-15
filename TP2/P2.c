@@ -4,8 +4,6 @@
 #include "P2c.c"
 #include "P2d.c"
 #include "P2e.c"
-#include "tipo_elemento.c"
-#include "listas_arreglos.c"
 #include <stdbool.h>
 
 void mostrarMenu(){
@@ -75,28 +73,28 @@ int main() {
         }
         switch(input){
             case 'a':{
-                printf("Mostrando opcion A.\n");
+                printf("[INFO] Mostrando opcion A.\n");
                 l_mostrar(lista1);
                 l_mostrar(lista2);
                 l_mostrar(valores_no_en_lista(lista1, lista2));
                 break;
             }
             case 'b':{
-                printf("Mostrando opcion B.\n");
+                printf("[INFO] Mostrando opcion B.\n");
                 l_mostrar(lista1);
                 l_mostrar(lista2);
                 l_mostrar(valores_no_en_lista(lista2, lista1));
                 break;
             }
             case 'c':{
-                printf("Mostrando opcion C.\n");
+                printf("[INFO] Mostrando opcion C.\n");
                 l_mostrar(lista1);
                 l_mostrar(lista2);
                 l_mostrar(valores_comunes(lista1,lista2));
                 break;
             }
             case 'd':{
-                printf("Mostrando opcion D.\n");
+                printf("[INFO] Mostrando opcion D.\n");
                 l_mostrar(lista1);
                 l_mostrar(lista2);
                 printf("Promedio de Lista 1 = %3.f",promedio_lista(lista1));
@@ -124,7 +122,7 @@ int main() {
                 break;
             }
             case 'x':{
-                printf("[ERROR] Ingrese una opcion valida.\n");
+                printf("[ERROR] Saliendo...\n");
                 break;
             }
             default:{
