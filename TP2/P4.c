@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include "listas_punteros.c"
 #include "tipo_elemento.c"
+
+
 enum TipoRelacionLista {
     IGUAL,
     MAYOR,
