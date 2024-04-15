@@ -105,18 +105,24 @@ int main() {
                 break;
             }
             case 'e':{
-            int posMax1 = -1;
+                int posMax1 = -1;
+                int posMax2 = -1;
 
-            int valor_m1 = valor_max1(lista1, &posMax1);
-            int valor_m2 = valor_max2(lista2,&posMax1);
-            if(posMax1 == -1){
-                printf("[OUTPUT] La lista esta vacia");
-            }
-            else{
-                printf("[OUTPUT]Maximo Lista 1: %d\n",valor_m1);
-                printf("[OUTPUT]Maximo Lista 2: %d \n",valor_m2);  
-            }     
-            break;
+                int valor_m1 = valor_max(lista1, &posMax1);
+                int valor_m2 = valor_max(lista2, &posMax2);
+                
+                if(posMax1 == -1){
+                    printf("[OUTPUT] La lista 1 esta vacia");
+                }else{
+                    printf("[OUTPUT] Maximo Lista 1: %d en la posicion %i\n",valor_m1, posMax1);
+                }
+                
+                if(posMax1 == -1){
+                    printf("[OUTPUT] La lista 1 esta vacia");
+                }else{
+                    printf("[OUTPUT] Maximo Lista 2: %d en la posicion %i\n",valor_m2, posMax2);  
+                }
+                break;
             }
             case 'x':{
                 printf("[ERROR] Ingrese una opcion valida.\n");
