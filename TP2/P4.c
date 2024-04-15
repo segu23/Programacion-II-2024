@@ -1,7 +1,8 @@
 #include <stdlib.h>
-#include "listas_punteros.c"
-#include "tipo_elemento.c"
+#include <stdio.h>
 
+#include "tipo_elemento.h"
+#include "listas.h"
 
 enum TipoRelacionLista {
     IGUAL,
@@ -10,7 +11,7 @@ enum TipoRelacionLista {
 };  
 
 
-int ListaMayor(Lista L1, Lista L2){
+enum TipoRelacionLista ListaMayor(Lista L1, Lista L2){
 
     int clavesMayores=0;
     int clavesMenores=0;
@@ -53,7 +54,7 @@ int ListaMayor(Lista L1, Lista L2){
     }
     else TipoLista = IGUAL;
     
-
+    return TipoLista;
 }
 
 int main(){
@@ -114,6 +115,7 @@ int main(){
             printf("L1 es igual a L2\n");
             break;
     }
-
+    
+    system("pause");
     return 0;
 }
