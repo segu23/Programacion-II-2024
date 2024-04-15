@@ -100,8 +100,8 @@ int main() {
                 printf("Mostrando opcion D.\n");
                 l_mostrar(lista1);
                 l_mostrar(lista2);
-                printf("Promedio de Lista 1 = %3.f",promedio_lista1(lista1));
-                printf("Promedio de Lista 2 = %3.f",promedio_lista2(lista2));
+                printf("Promedio de Lista 1 = %3.f",promedio_lista(lista1));
+                printf("Promedio de Lista 2 = %3.f",promedio_lista(lista2));
                 break;
             }
             case 'e':{
