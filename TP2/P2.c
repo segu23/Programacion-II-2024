@@ -5,8 +5,8 @@
 #include "P2d.c"
 #include "P2e.c"
 #include <stdbool.h>
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
+#include "listas.h"
+#include "tipo_elemento.h"
 
 void mostrarMenu(){
     printf(" > Menu <\n");
