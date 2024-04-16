@@ -5,16 +5,18 @@
 #include "P2d.c"
 #include "P2e.c"
 #include <stdbool.h>
+#include "listas_arreglos.c"
+#include "tipo_elemento.c"
 
 void mostrarMenu(){
     printf(" > Menu <\n");
     printf("\n");
     printf("Seleccione una opcion: \n");
-    printf("a) Que retorne una lista con los valores de L1 que no están en L2\n");
-    printf("b) Que retorne una lista con los valores de L2 que no están en L1\n");
+    printf("a) Que retorne una lista con los valores de L1 que no estan en L2\n");
+    printf("b) Que retorne una lista con los valores de L2 que no estan en L1\n");
     printf("c) Que retorne una lista con todos los valores comunes a ambas listas (L1 y L2)\n");
     printf("d) Que retorne los promedios de ambas listas\n");
-    printf("e) Que retorne el valor máximo de ambas listas y su posición ordinal\n");
+    printf("e) Que retorne el valor maximo de ambas listas y su posicion ordinal\n");
     printf("x) Salir\n");
 }
 
@@ -97,8 +99,8 @@ int main() {
                 printf("[INFO] Mostrando opcion D.\n");
                 l_mostrar(lista1);
                 l_mostrar(lista2);
-                printf("Promedio de Lista 1 = %3.f",promedio_lista(lista1));
-                printf("Promedio de Lista 2 = %3.f",promedio_lista(lista2));
+                printf("[OUTPUT]SPromedio de Lista 1 = %3.f \n",promedio_lista(lista1));
+                printf("[OUTPUT]Promedio de Lista 2 = %3.f \n",promedio_lista(lista2));
                 break;
             }
             case 'e':{
@@ -108,6 +110,9 @@ int main() {
                 int valor_m1 = valor_max(lista1, &posMax1);
                 int valor_m2 = valor_max(lista2, &posMax2);
                 
+                l_mostrar(lista1);
+                l_mostrar(lista2);
+
                 if(posMax1 == -1){
                     printf("[OUTPUT] La lista 1 esta vacia");
                 }else{
