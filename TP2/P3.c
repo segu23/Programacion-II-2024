@@ -1,4 +1,10 @@
-#include<stdio.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include "tipo_elemento.h"
+#include "tipo_elemento.c"
+#include "listas.h"
+#include "listas_arreglos.c"
 
 /*Dadas 2 listas (L1 y L2) determinar si L2 es múltiplo de L1. Se considera múltiplo si cada
 elemento de L2 se divide en forma exacta por el valor L1 de la misma posición. Usar la
@@ -10,13 +16,14 @@ se dice que “L2” es múltiplo de “L1” por un “escalar”. Para este ca
 de L1. El algoritmo debe contemplar esta situación. 
 */
 
-int esMultiploConEscalar(Lista l1,Lista l2,int *escalar){
+bool esMultiploConEscalar(Lista l1,Lista l2,int *escalar){
 
     *escalar = -1; 
+    bool estadoEscalar = false;
     Iterador ite = iterador(l1);
     Iterador ite2 = iterador(l2); 
 
-    while (hay_siguiente(ite) || hay_siguiente(ite2)){
+    while (hay_siguiente(ite) && hay_siguiente(ite2)){
         TipoElemento elementoL1 = siguiente( ite);
         TipoElemento elementoL2 = siguiente( ite2);
 
@@ -25,13 +32,15 @@ int esMultiploConEscalar(Lista l1,Lista l2,int *escalar){
         }
         
         // Calculamos el escalar si es posible
-        if (*escalar == -1) {
+        if (!estadoEscalar) {
             *escalar = elementoL2->clave / elementoL1->clave;
+            estadoEscalar = true;
         } 
         else if (*escalar != elementoL2->clave / elementoL1->clave) {
             *escalar=-1; // si hay multiplos diferentes no es un producto escalar
         }
     }
+
     return true;
 }
 
@@ -45,16 +54,17 @@ int main() {
     bool seguirAgregando = true;
     int index = 1;
     int IngresoNumero;
+    char inputChar;
 
     while(seguirAgregando){
-        printf("[INPUT] Ingrese el #%i elemento de la primer lista o '-99' para terminar (mayor a 0): ", index);
-        scanf("%d", &IngresoNumero);
+        printf("[INPUT] Ingrese el #%i elemento de la primer lista o 'n' para terminar (mayor a 0): ", index);
 
-        if( IngresoNumero > 0){
+        if(scanf("%d", &IngresoNumero) > 0 && IngresoNumero > 0){
             l_agregar(L1, te_crear(IngresoNumero));
+            index++;
         }
         else{
-            if(IngresoNumero== -99){
+            if(scanf("%c", &inputChar) > 0 && inputChar == 'n'){
                 seguirAgregando = false;
                 printf("[INFO] Terminando ingreso de la primer lista.\n");
             }
@@ -64,46 +74,41 @@ int main() {
 
             fflush(stdin);
         }
-        index++;
     }
-    printf("\nIngrese %d elementos para la Lista 2 \n",index);
+    
+    printf("\n[INFO] Ingrese %d elementos para la Lista 2 \n", index-1);
 
     index=1;
 
-    int longuitud=l_longitud(L1);
+    int longitud=l_longitud(L1);
     
-    for (int i = 0; i < longuitud; i++){
-        printf("[INPUT] Ingrese el #%i elemento de la segunda lista o '-99' para terminar mayor a 0: ", index);
-        scanf("%d", &IngresoNumero);
+    for (int i = 0; i < longitud; i++){
+        printf("[INPUT] Ingrese el #%i elemento de la segunda lista: ", index);
 
-        if( IngresoNumero > 0){
+        if(scanf("%d", &IngresoNumero) > 0 && IngresoNumero > 0){
             l_agregar(L2, te_crear(IngresoNumero));
+            index++;
         }
         else{
-            if(IngresoNumero== -99){
-                printf("\n[INFO] Terminando ingreso de la segunda lista.\n");
-            }
-            else{
-                printf("[ERROR] Debe ingresar un valor valido.\n");
-            }
-
+            printf("[ERROR] Debe ingresar un valor valido.\n");
             fflush(stdin);
         }
-        index++;
+
+        if(i == longitud-1) printf("\n[INFO] Terminando ingreso de la segunda lista.\n");
     }
 
     int escalar;
 
     if (esMultiploConEscalar(L1, L2, &escalar)) {
         if (escalar != -1) {
-            printf("L2 es multiplo de L1 con escalar %d.\n", escalar);
+            printf("[OUTPUT] L2 es multiplo de L1 con escalar %d.\n", escalar);
         } 
         else {
-            printf("L2 es multiplo de L1 pero no hay escalar.\n");
+            printf("[OUTPUT] L2 es multiplo de L1 pero no hay escalar.\n");
         }
     } 
     else{
-        printf("L2 no es multiplo de L1.\n");
+        printf("[OUTPUT] L2 no es multiplo de L1.\n");
     }
 
     return 0;
