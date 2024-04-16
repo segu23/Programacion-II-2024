@@ -3,6 +3,11 @@
 #include "tipo_elemento.h"
 #include "listas.h"
 
+/*
+LA COMPLEJIDAD ALGORITMICA SE ENCUENTRA EN EL README.md DE ESTE DIRECTORIO
+*/
+//Longitud maxima de L1 = L2 va a ser de "n"
+// O(n)
 enum TipoRelacionLista {
     IGUAL,
     MAYOR,
