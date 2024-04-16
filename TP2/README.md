@@ -2,7 +2,7 @@
 
 ## Ejercicio 4
 ### Complejidad algoritmica
-En este nos encontramos con una funcion llamada "ListasMayor(Lista L1, Lista L2)".<br>
+En este ejercicio nos encontramos con una funcion llamada "ListasMayor(Lista L1, Lista L2)".<br>
 La funcion se encarga de comparar los valores de ambas listas, siempre que estas sean de igual tamamio, para devolver un resultado segun si L1 tiene menos, iguales o mayores valores que L2.<br>
 La complejidad algoritmica de esta funcion recae en que se tendra que recorrer con un ciclo while cada elemento de ambas listas hasta que no exista un siguiente elemento, al anteriormente verificar que estas tienen que ser de igual tamanio, podemos decir que la longitud maxima a recorrer de "n" elementos.<br>
 Comprendiendo que el maximo de elementos a recorrer va a ser "n", podemos plantear nuestra complejidad algoritmica con la siguiente formula: **O(n)**.
