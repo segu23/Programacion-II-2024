@@ -76,7 +76,7 @@ int main(){
         printf("[INPUT] Ingrese el #%i elemento de la segunda lista o 'n' para terminar: ", index);
 
         if(scanf("%d", &inputNumber) > 0){
-            l_agregar(L1, te_crear(inputNumber));
+            l_agregar(L2, te_crear(inputNumber));
         }else{
             if(scanf("%c", &inputChar) > 0 && inputChar == 'n'){
                 seguirAgregando = false;
@@ -91,8 +91,8 @@ int main(){
     }
 
     if(esSublista(L1, L2)){
-        printf("[OUTPUT] L2 es sublista de L1.");
+        printf("[OUTPUT] L2 es sublista de L1.\n");
     }else{
-        printf("[OUTPUT] L2 no es sublista de L1.");
+        printf("[OUTPUT] L2 no es sublista de L1.\n");
     }
 }
