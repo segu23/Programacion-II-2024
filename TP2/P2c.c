@@ -1,6 +1,4 @@
-/*
-C.Que retorne una lista con todos los valores comunes a ambas listas (L1 y L2).
-*/
+//C. Que retorne una lista con todos los valores comunes a ambas listas (L1 y L2).
 
 #include <stdio.h>
 #include "listas.h"

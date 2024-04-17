@@ -1,12 +1,9 @@
-/*
-E. Que retorne el valor máximo de ambas listas y su posición ordinal. 
-*/
+//E. Que retorne el valor máximo de ambas listas y su posición ordinal.
 
 #include <stdio.h>
 #include "listas.h"
 #include "tipo_elemento.h"
 #include <stdbool.h>
-
 
 int valor_max(Lista lista, int * pos){
     int maximo;

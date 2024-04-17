@@ -1,13 +1,8 @@
-/*
-Dada una 2 listas (L1 y L2) cargadas con valores al azar (en la clave) realizar los siguientes 
-ejercicios: 
-a. Que retorne una lista con los valores de L1 que no están en L2. 
-*/
+//a. Que retorne una lista con los valores de L1 que no están en L2. 
+
 #include <stdio.h>
 #include "listas.h"
 #include "tipo_elemento.h"
-
-
 
 Lista valores_no_en_lista(Lista lista1, Lista lista2) {
     Lista valores_no_comunes = l_crear();

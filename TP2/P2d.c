@@ -1,6 +1,5 @@
-/*
-D.Que retorne los promedios de ambas listas.
-*/
+//D. Que retorne los promedios de ambas listas.
+
 #include <stdio.h>
 #include "listas.h"
 #include "tipo_elemento.h"

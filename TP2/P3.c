@@ -1,9 +1,3 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-#include "tipo_elemento.h"
-#include "listas.h"
-
 /*Dadas 2 listas (L1 y L2) determinar si L2 es múltiplo de L1. Se considera múltiplo si cada
 elemento de L2 se divide en forma exacta por el valor L1 de la misma posición. Usar la
 clave como campo de datos solamente.
@@ -13,6 +7,12 @@ cada posición de L2 se divide por el valor de L1 de la misma posición en forma
 se dice que “L2” es múltiplo de “L1” por un “escalar”. Para este caso “4” es el escalar
 de L1. El algoritmo debe contemplar esta situación. 
 */
+
+#include <stdio.h>
+#include <stdbool.h>
+#include <stdlib.h>
+#include "tipo_elemento.h"
+#include "listas.h"
 
 bool esMultiploConEscalar(Lista l1,Lista l2,int *escalar){
 
@@ -42,12 +42,9 @@ bool esMultiploConEscalar(Lista l1,Lista l2,int *escalar){
     return true;
 }
 
-
-
 int main() {
     Lista L1 = l_crear();
     Lista L2 = l_crear();
-
 
     bool seguirAgregando = true;
     int index = 1;
@@ -89,6 +86,7 @@ int main() {
         }
         else{
             printf("[ERROR] Debe ingresar un valor valido.\n");
+            i--;
             fflush(stdin);
         }
 

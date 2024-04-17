@@ -1,3 +1,13 @@
+/*
+Dada una 2 listas (L1 y L2) cargadas con valores al azar (en la clave) realizar los siguientes 
+ejercicios:
+a. Que retorne una lista con los valores de L1 que no están en L2.
+b. Que retorne una lista con los valores de L2 que no están en L1.
+c. Que retorne una lista con todos los valores comunes a ambas listas (L1 y L2).
+d. Que retorne los promedios de ambas listas.
+e. Que retorne el valor máximo de ambas listas y su posición ordinal. 
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include "P2ab.c"
@@ -29,7 +39,8 @@ int main() {
     bool seguirAgregando = true;
     bool seguirAgregando2 = true;
 
-    printf("[INPUT] Agregar valores a lista1:\n");
+    printf("[INPUT] Agregar valores a lista 1:\n");
+
     while(seguirAgregando){
         printf("[INPUT] Ingrese un valor o 'n' para terminar: ");
 
@@ -47,7 +58,8 @@ int main() {
         }
     }
 
-    printf("[INPUT] Agregar valores a lista2:\n");
+    printf("[INPUT] Agregar valores a lista 2:\n");
+
     while(seguirAgregando2){
         printf("[INPUT] Ingrese un valor o 'n' para terminar: ");
 
@@ -100,7 +112,7 @@ int main() {
                 printf("[INFO] Mostrando opcion D.\n");
                 l_mostrar(lista1);
                 l_mostrar(lista2);
-                printf("[OUTPUT]SPromedio de Lista 1 = %3.f \n",promedio_lista(lista1));
+                printf("[OUTPUT]Promedio de Lista 1 = %3.f \n",promedio_lista(lista1));
                 printf("[OUTPUT]Promedio de Lista 2 = %3.f \n",promedio_lista(lista2));
                 break;
             }
