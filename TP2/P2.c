@@ -72,6 +72,7 @@ int main() {
         fflush(stdin);
         while(scanf("%c", &input) == 0){
             printf("[ERROR] Ingrese una opcion valida.\n");
+            fflush(stdin);
         }
         switch(input){
             case 'a':{
@@ -127,7 +128,7 @@ int main() {
                 break;
             }
             case 'x':{
-                printf("[ERROR] Saliendo...\n");
+                printf("[INFO] Saliendo...\n");
                 break;
             }
             default:{
