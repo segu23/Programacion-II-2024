@@ -12,7 +12,7 @@ void mostrarMenu(){
     printf("\n");
     printf("Seleccione una opcion: \n");
     printf("a) Buscar una clave y determinar si existe en la Pila (sin perder la pila). \n");
-    printf("b) Colocar en una posición ordinal determinada, recibida por parámetro, un nuevo elemento (Insertar un elemento nuevo). \n");
+    printf("b) Colocar en una posicion ordinal determinada, recibida por parámetro, un nuevo elemento (Insertar un elemento nuevo). \n");
     printf("c) Eliminar de una pila un elemento dado (primera ocurrencia encontrada por la clave). \n");
     printf("d) Intercambiar los valores de 2 posiciones ordinales de la pila. \n");
     printf("e) Duplicar el contenido de una pila. \n");
@@ -35,6 +35,7 @@ int random_number(int min_num, int max_num){
 
     return result;
 }
+
 Pila crearListaAleatoria(int longitud){
     Pila pila = p_crear();
     
@@ -54,7 +55,7 @@ bool p_ej2_existeclave(Pila p, int clave){
     bool existe = false;
 
     while(!p_es_vacia(p) && !existe){
-        TipoElemento elementoActual = p_desapilar(clave);
+        TipoElemento elementoActual = p_desapilar(p);
         p_apilar(pAux, elementoActual);
 
         if(elementoActual->clave == clave) existe = true;
@@ -177,7 +178,8 @@ Pila p_ej2_intercambiarposiciones(Pila p, int posicion1, int posicion2){
 
     return p;
 }
-//punto e)
+
+// Punto e)
 Pila p_ej2_duplicarcontenido(Pila p){  // Para pilas mayores de 5 elementos no funciona por el TAMANIO_MAXIMO = 10;
     Pila pila_duplicada = p_crear();
     Pila pAux = p_crear();
@@ -195,6 +197,7 @@ Pila p_ej2_duplicarcontenido(Pila p){  // Para pilas mayores de 5 elementos no f
 
     return pila_duplicada;
 }
+
 // Punto f)
 int p_ej2_cantidadelementos(Pila p){
     if (p_es_vacia(p)){
@@ -225,58 +228,84 @@ int main(){
 
     while(input != 'x'){
         mostrarMenu();
+        printf("Seleccione una opcion: ");
         fflush(stdin);
         while(scanf("%c", &input) == 0){
             printf("[ERROR] Ingrese una opcion valida.\n");
             fflush(stdin);
         }
         switch(input){
+            case 'A':
             case 'a':{
                 int target;
                 printf("[INPUT] Ingrese el numero a buscar: ");
                 scanf("%i", &target);
-                bool existe = p_ej2_existeclave(pilaAleatoria, target);
 
-                if(existe){
-                    printf("[OUTPUT] Existe.\n");
+                if(p_ej2_existeclave(pilaAleatoria, target)){
+                    printf("[OUTPUT] La clave existe.\n");
                 }else{
-                    printf("[OUTPUT] No existe.\n");
+                    printf("[OUTPUT] La clave no existe.\n");
                 }
                 break;
             }
+            case 'B':
             case 'b':{
-                while(true){
-                    int posicion;
-                    printf("[INPUT] Ingrese la posicion: ");
-                    scanf("%i", &posicion);       
-                    p_ej2_colocarelemento(pilaAleatoria, posicion);
+                bool seguirAgregando = true;
+                int IngresoNumero;
+                char inputChar;
+
+                while(seguirAgregando){
+                    printf("[INPUT] Ingrese la posicion del elemento a insertar o 'n' para terminar: ");
+
+                    if(scanf("%d", &IngresoNumero) > 0 && IngresoNumero > 0){
+                        p_ej2_colocarelemento(pilaAleatoria, IngresoNumero);
+                        printf("[INFO] Elemento agregado!\n");
+                        p_mostrar(pilaAleatoria);
+                    }
+                    else{
+                        if(scanf("%c", &inputChar) > 0 && inputChar == 'n'){
+                            seguirAgregando = false;
+                            printf("[INFO] Ingreso de la pila terminado.\n");
+                        }
+                        else{
+                            printf("[ERROR] Debe ingresar un valor valido.\n");
+                        }
+
+                        fflush(stdin);
+                    }
                 }
+
                 break;
             }
+            case 'C':
             case 'c':{
-                while(true){
+                while(!p_es_vacia(pilaAleatoria)){
                     int clave;
                     printf("[INPUT] Ingrese el elemento: ");
-                    scanf("%i", &clave);
-                    Pila resultado = p_ej2_eliminarclave(pilaAleatoria,clave);
-                    p_mostrar(resultado);
+                    if(scanf("%i", &clave)){
+                        Pila resultado = p_ej2_eliminarclave(pilaAleatoria,clave);
+                        p_mostrar(resultado);
+                    }
+                    else{
+                        fflush(stdin);
+                    }
                 }
-
                 break;
             }
+            case 'D':
             case 'd':{
                 while (true){
                     int posicion1;
                     int posicion2;
-                    printf("[INPUT] Ingrese la Posicion1: ");
+                    printf("[INPUT] Ingrese la Posicion 1: ");
                     scanf("%i", &posicion1);
 
-                    printf("[INPUT] Ingrese la Posicion2: ");
+                    printf("[INPUT] Ingrese la Posicion 2: ");
                     scanf("%i", &posicion2);
             
                     Pila resultado =p_ej2_intercambiarposiciones(pilaAleatoria,posicion1,posicion2);
                     p_mostrar(resultado);
-                     }
+                }
                 break;
             }
             case 'e':{
