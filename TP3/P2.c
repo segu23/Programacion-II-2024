@@ -301,7 +301,7 @@ int main(){
                     printf("[INPUT] Ingrese la Posicion 1 a intercambiar: ");
 
                     if(scanf("%d", &posicion1) > 0 && posicion1 > 0){
-                        printf("[INFO] Elemento agregado!\n");
+                        printf("[INFO] Posicion agregada!\n");
                         seguirAgregando = false;
                     }
                     else{
