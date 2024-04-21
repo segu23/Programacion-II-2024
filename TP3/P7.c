@@ -3,8 +3,6 @@
 #include <stdbool.h>
 #include "pilas.h"
 #include "tipo_elemento.h"
-#include "pilas_punteros.c"
-#include "tipo_elemento.c"
 
 // Dada dos pilas realizar una función que permita determinar los elementos que tienen
 // en común. Debe retornar una nueva pila con esos elementos (que están en ambas
@@ -88,15 +86,15 @@ int main(){
     cargarPila(pila1);
     cargarPila(pila2);
     
-    printf("[INFO]La pila 1 es\n");
+    printf("[INFO] La pila 1 es: \n");
     p_mostrar(pila1);
-    printf("[INFO]La pila 2 es\n");
+    printf("[INFO] La pila 2 es: \n");
     p_mostrar(pila2);
 
     pilaComun = elementosComunes(pila1, pila2);
     
     // Imprimir los elementos comunes
-    printf("[INFO]Elementos comunes entre las pilas:\n");
+    printf("[OUTPUT] Elementos comunes entre las pilas: \n");
     
     p_mostrar(pilaComun);
     
