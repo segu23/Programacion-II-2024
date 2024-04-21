@@ -110,6 +110,11 @@ Pila p_ej2_intercambiarposiciones(Pila p, int posicion1, int posicion2){
         printf("Posiciones Invalidas\n");
         return NULL;
     }
+    if (posicion1 > posicion2) {
+        int temp = posicion1;
+        posicion1 = posicion2;
+        posicion2 = temp;
+    }
 
     Pila pAux = p_crear();
 
@@ -161,32 +166,23 @@ Pila p_ej2_intercambiarposiciones(Pila p, int posicion1, int posicion2){
     return p;
 }
 
-Pila p_ej2_duplicarcontenido(Pila p) {
+Pila p_ej2_duplicarcontenido(Pila p){  // Para pilas mayores de 5 elementos no funciona por el TAMANIO_MAXIMO = 10;
     Pila pila_duplicada = p_crear();
     Pila pAux = p_crear();
-
+    
     while (!p_es_vacia(p)) {
         TipoElemento elemento = p_desapilar(p);
         p_apilar(pAux, elemento);
     }
-
-    if (!p_es_vacia(pAux)) {
-        TipoElemento primer_elemento = p_tope(pAux);
-        p_apilar(pila_duplicada, primer_elemento);
-        p_apilar(pila_duplicada, primer_elemento);
-        p_desapilar(pAux);
-    }
-
+    
     while (!p_es_vacia(pAux)) {
         TipoElemento elemento = p_desapilar(pAux);
         p_apilar(pila_duplicada, elemento);
         p_apilar(pila_duplicada, elemento);
     }
 
-
     return pila_duplicada;
 }
-
 // Punto f)
 int p_ej2_cantidadelementos(Pila p){
     if (p_es_vacia(p)){
@@ -211,7 +207,7 @@ int p_ej2_cantidadelementos(Pila p){
 }
 
 int main(){
-    Pila pilaAleatoria = crearListaAleatoria(6);
+    Pila pilaAleatoria = crearListaAleatoria(5);
 
     // Punto a)
     /*while(true){
@@ -254,7 +250,7 @@ int main(){
 
     // return 0;
 
-    //punto e
+    // punto e
     // p_mostrar(pilaAleatoria);
     // Pila resultado = p_ej2_duplicarcontenido(pilaAleatoria);
     // p_mostrar(resultado);
