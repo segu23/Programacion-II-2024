@@ -1,5 +1,14 @@
 # Trabajo Práctico Nro. 3: Pilas
 
+## Ejercicio 3
+### Complejidad algoritmica
+En este ejercicio contamos con una funcion llamada "bool p_ej3_iguales(Pila p1, Pila p2)".<br>
+La funcion se encarga de desapilar 2 pilas en una unica pila auxiliar, comparando en cada iteracion el valor de las claves de los elementos, mientras estas sean iguales seguira iterando, si en algun momento se terminan ambas pilas y las claves nunca fueron diferentes, retornara true. Si en algun momento las claves son diferentes retornara false, 
+si una de las pilas queda con elementos dentro luego de terminar de iterar, retornara false.
+La complejidad algoritmica de esta funcion recaera en un unico while que recorre ambas pilas al mismo tiempo. Esto generara que la complejidad algoritmica este determinada
+por la cantidad de elementos de la pila mas corta.
+Podemos plantear la complejidad de este punto con la formula **O(n)**.
+
 ## Ejercicio 4
 ### Complejidad algoritmica
 En este ejercicio nos encontramos con una funcion llamada "p_ej4_cambiarbase(int decimal, int base)".<br>
