@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include <time.h>
 #include "tipo_elemento.h"
 #include "tipo_elemento.c"
 #include "pilas.h"
@@ -61,6 +62,8 @@ Pila eliminarRecursivamente(Pila p, Pila aux, Pila aux2, int clave, int stage){
         }
         return eliminarRecursivamente(p, aux, aux2, clave, stage);
     }
+
+    return aux2;
 }
 
 Pila eleminarIterativamente(Pila p, Pila aux, Pila aux2, int clave){
@@ -120,16 +123,29 @@ void cargarPila(Pila pila){
 int main(){
     Pila pila1 = crearListaAleatoria(10);
     p_mostrar(pila1);
-    int clave;
-    printf("Ingrese clave:");
-    scanf("%d",&clave);
 
-    Pila n = p_ej6_eliminarclave(pila1, clave);
+    bool seguirAgregando = true;
+    int IngresoNumero;
+
+    while(seguirAgregando){
+        printf("[INPUT] Ingrese la clave a eliminar: ");
+
+        if(scanf("%d", &IngresoNumero) > 0 && IngresoNumero >= 0 && IngresoNumero < 10){
+            p_apilar(pila1, te_crear(IngresoNumero));
+            seguirAgregando = false;
+        }
+        else{
+            printf("[ERROR] Debe ingresar un valor valido.\n");
+            fflush(stdin);
+        }
+    }
+
+    Pila n = p_ej6_eliminarclave(pila1, IngresoNumero);
     system("clear");
-    printf("Pila original: \n");
+    printf("[INFO] Pila original: \n");
     p_mostrar(pila1);
     
-    printf("Nueva pila sin ocurrencias de %d:\n", clave);    
+    printf("[OUTPUT] Nueva pila sin ocurrencias de %d:\n", IngresoNumero);    
     p_mostrar(n);
 
     return 0;
