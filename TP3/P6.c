@@ -4,7 +4,7 @@
 #include "tipo_elemento.h"
 #include "tipo_elemento.c"
 #include "pilas.h"
-#define MAX 100
+
 
 #include "pilas_arreglos.c"
 
@@ -17,43 +17,79 @@
 // retornar la nueva pila sin la clave que se debe sacar (eliminar). Si la clave no esta se retorna la pila recibida.
 // La definicion vale para ambas resoluciones
 
-//Resuelto recursivamente
-Pila ordenar_Pila(Pila nueva){
-    Pila aux = p_crear();
-    bool tf =p_es_vacia(nueva);
-    while (tf == false){
-        TipoElemento elmt = p_desapilar(nueva);
-        p_apilar(aux, elmt);
-        tf=p_es_vacia(nueva);
+int random_number(int min_num, int max_num){
+    int result = 0, low_num = 0, hi_num = 0;
 
-        free(elmt);
+    if (min_num < max_num)
+    {
+        low_num = min_num;
+        hi_num = max_num + 1; 
+    } else {
+        low_num = max_num + 1; 
+        hi_num = min_num;
     }
+    result = (rand() % (hi_num - low_num)) + low_num;
+
+    return result;
+}
+
+Pila crearListaAleatoria(int longitud){
+    Pila pila = p_crear();
     
-    return aux;
+    srand(time(NULL));
+    for(int i = 0; i < longitud; i++) {
+        int number = random_number(0, 9);
+        TipoElemento tipoElemento = te_crear(number);
+        p_apilar(pila, tipoElemento);
+    }
+
+    return pila;
+}
+Pila eliminarRecursivamente(Pila p, Pila aux, Pila aux2, int clave, int stage){
+    if(stage == 2 && p_es_vacia(aux)) return aux2;
+
+    if(p_es_vacia(p) && stage == 1) stage++;
+
+    if(stage == 1){
+        p_apilar(aux, p_desapilar(p));
+        return eliminarRecursivamente(p, aux, aux2, clave, stage);
+    }else if(stage == 2){
+        TipoElemento tipoElemento = p_desapilar(aux);
+        p_apilar(p, tipoElemento);
+        if(tipoElemento->clave != clave){
+            p_apilar(aux2, tipoElemento);
+        }
+        return eliminarRecursivamente(p, aux, aux2, clave, stage);
+    }
+}
+
+Pila eleminarIterativamente(Pila p, Pila aux, Pila aux2, int clave){
+    while(!p_es_vacia(p)){
+        TipoElemento elemento1 = p_desapilar(p);
+        p_apilar(aux, elemento1);
+    }
+
+    while (!p_es_vacia(aux)){
+        TipoElemento elementoaux = p_desapilar(aux);
+        p_apilar(p, elementoaux);
+        if(elementoaux->clave != clave ){
+            p_apilar(aux2, elementoaux);
+        }
+
+    }
+
+    
+    return aux2; 
+    
 }
 
 Pila p_ej6_eliminarclave(Pila p, int clave){
-    Pila nueva = p_crear();
-    if(p_es_vacia(p)){
-        return p_crear(); 
-    }
-    else{
-        TipoElemento elemento1 = p_desapilar(p);
-        Pila nueva = p_ej6_eliminarclave(p, clave);
-        int valor = elemento1->clave;
-        if (valor != clave){    
-            p_apilar(nueva, elemento1);
-        }
-        
-        //Pila resultados = ordenar_Pila(nueva);
-        //return resultados;
-
-        return ordenar_Pila(nueva);
-
-    }
-
-
-
+    Pila aux = p_crear();
+    Pila aux2 = p_crear();
+    //Resuelto recursivamente
+    return eliminarRecursivamente(p, aux, aux2, clave, 1);
+    //Resuelto iterativamnte 
+    //return eleminarIterativamente(p, aux, aux2, clave);
 }
 
 void cargarPila(Pila pila){
@@ -80,18 +116,21 @@ void cargarPila(Pila pila){
     }
 }
 
-//Resuelto iterativamnte 
+
 int main(){
-    Pila pila1 = p_crear();
-    cargarPila(pila1);
+    Pila pila1 = crearListaAleatoria(10);
+    p_mostrar(pila1);
     int clave;
     printf("Ingrese clave:");
     scanf("%d",&clave);
 
     Pila n = p_ej6_eliminarclave(pila1, clave);
-
+    system("clear");
+    printf("Pila original: \n");
+    p_mostrar(pila1);
     
-    printf("Nueva pila sin ocurrencias de %d:\n", clave);
+    printf("Nueva pila sin ocurrencias de %d:\n", clave);    
     p_mostrar(n);
+
     return 0;
 }
