@@ -27,4 +27,9 @@ La función cargarPila no afecta la complejidad del algoritmo principal, ya que 
 Ya que el algoritmo principal depende en gran medida de la función elementosComunes, la complejidad algoritmica del programa se ve dominada por la complejidad de esta función, que es **O(n^2)**.<br>
 Y la función moverPila itera sobre los elementos de src y los apila en dest. Esto implica un ciclo while que ejecuta p_desapilar y p_apilar una vez por cada elemento en src. Si n es el número total de elementos en src, la complejidad de esta función es **O(n)**.<br>
 
-
+## Ejercicio 8
+### Complejidad algorítmica
+En este ejercicio desarrollamos una función con el siguiente encabezado Pila p_ej8_sacarrepetidos(Pila p).<br>
+Dentro de esta función se hacen varias cosas, primero tenemos dos whiles no anidados, los cuales serian O(n) y O(n) respectivamente.<br>
+Debajo de estos whiles nos encontramos con un while que dentro de si mismo ejecuta dos whiles más, por lo que tendriamos **O(n) * O(2n)**, quedandonos **O(2n^2**). Por lo que si tomamos la operación más compleja que realiza la función determinamos que esa es la complejidad de la misma.<br>
+En este caso la complejidad no varía si tenemos en cuenta la implementación que usemos de Pilas ya que todas las funciones utilizadas son O(1).
