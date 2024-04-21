@@ -191,6 +191,7 @@ Pila p_ej2_duplicarcontenido(Pila p){  // Para pilas mayores de 5 elementos no f
     
     while (!p_es_vacia(pAux)) {
         TipoElemento elemento = p_desapilar(pAux);
+        p_apilar(p, elemento);
         p_apilar(pila_duplicada, elemento);
         p_apilar(pila_duplicada, elemento);
     }
@@ -303,27 +304,26 @@ int main(){
                     printf("[INPUT] Ingrese la Posicion 2: ");
                     scanf("%i", &posicion2);
             
-                    Pila resultado =p_ej2_intercambiarposiciones(pilaAleatoria,posicion1,posicion2);
+                    Pila resultado = p_ej2_intercambiarposiciones(pilaAleatoria,posicion1,posicion2);
                     p_mostrar(resultado);
                 }
                 break;
             }
+            case 'E':
             case 'e':{
-                while(true){
-                    Pila resultado = p_ej2_duplicarcontenido(pilaAleatoria);
-                    p_mostrar(resultado);
-                }
+                Pila resultado = p_ej2_duplicarcontenido(pilaAleatoria);
+                p_mostrar(resultado);
 
                 break;
             }
+            case 'F':
             case 'f':{
-                while(true){
-                    Pila resultado = p_ej2_cantidadelementos(pilaAleatoria);
-                    p_mostrar(resultado);
-                }
+                int resultado = p_ej2_cantidadelementos(pilaAleatoria);
+                printf("[OUTPUT] La pila tiene %i elementos.\n", resultado);
 
                 break;
             }
+            case 'X':
             case 'x':{
                 printf("[INFO] Saliendo...\n");
                 break;
