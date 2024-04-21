@@ -73,9 +73,9 @@ int main(){
     cargarPila(pila1);
     cargarPila(pila2);
     
-    printf("La pila 1 es\n");
+    printf("[INFO] Pila 1: \n");
     p_mostrar(pila1);
-    printf("La pila 2 es\n");
+    printf("[INFO] Pila 2: \n");
     p_mostrar(pila2);
     
     bool respuesta = p_ej3_iguales(pila1, pila2);
