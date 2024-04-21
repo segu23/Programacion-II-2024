@@ -76,19 +76,18 @@ Pila p_ej2_colocarelemento(Pila p, int posicionordinal){
 
     while(!p_es_vacia(p)){
         p_apilar(pAux, p_desapilar(p));
-
-        index ++;
     }
 
     while(!p_es_vacia(pAux)){
-        p_apilar(p, p_desapilar(pAux));
-        
-        if(index == posicionordinal) {
+        if(index == posicionordinal-1) {
             existe = true;
             p_apilar(pAux, te_crear(random_number(0, 100)));
+        }else{
+            p_apilar(p, p_desapilar(pAux));
         }
-
-        index--;
+        index++;
+        
+        
     }
 
     return p;
