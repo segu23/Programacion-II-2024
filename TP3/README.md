@@ -18,3 +18,13 @@ Dado que, para esta funcion tendremos que realizar llamadas recursivas proporcio
 Por otro lado La complejidad algorítmica en la implementacion iterativa está tambien condicionada por la longitud de la pila que llamaremos 'n'.<br>
 Teniendo en esta implementacion dos ciclos while donde se recorrera hasta que la pila este vacia, siendo la pila a recorrer en ambos casos la misma, podremos decir que la complejidad algoritmica de esta seria de: **O(n)**.<br>
 Por otro lado, si tenemos en cuenta la implementación de pilas utilizada en la ejecución, la complejidad no varía, ya que los métodos utilizados provenientes de este TAD es muy similar en las 2 implementaciones que poseemos, además que la complejidad interna de estas sigue siendo **O(n)**.
+
+## Ejercicio 7
+### Complejidad algoritmica
+En este ejercico tenemos una funcion llamada "elementosComunes"(Pila pila1, Pila pila2).<br>
+La función elementosComunes tiene dos bucles while anidados. El bucle exterior itera sobre los elementos de pila1 y el bucle interior itera sobre los elementos de pila2. En el peor caso, ambos bucles pueden recorrer cada elemento de sus respectivas pilas, lo que resultaría en una complejidad de **O(n^2)**, donde n es el número total de elementos en ambas pilas.<br>
+La función cargarPila no afecta la complejidad del algoritmo principal, ya que solo se encarga de agregar elementos a una pila, lo cual es una operación de complejidad constante.<br>
+Ya que el algoritmo principal depende en gran medida de la función elementosComunes, la complejidad algoritmica del programa se ve dominada por la complejidad de esta función, que es **O(n^2)**.<br>
+Y la función moverPila itera sobre los elementos de src y los apila en dest. Esto implica un ciclo while que ejecuta p_desapilar y p_apilar una vez por cada elemento en src. Si n es el número total de elementos en src, la complejidad de esta función es **O(n)**.<br>
+
+
