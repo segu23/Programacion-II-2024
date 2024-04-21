@@ -295,18 +295,42 @@ int main(){
             }
             case 'D':
             case 'd':{
-                while (true){
-                    int posicion1;
-                    int posicion2;
-                    printf("[INPUT] Ingrese la Posicion 1: ");
-                    scanf("%i", &posicion1);
+                bool seguirAgregando = true;
+                int posicion1;
 
-                    printf("[INPUT] Ingrese la Posicion 2: ");
-                    scanf("%i", &posicion2);
-            
-                    Pila resultado = p_ej2_intercambiarposiciones(pilaAleatoria,posicion1,posicion2);
-                    p_mostrar(resultado);
+                while(seguirAgregando){
+                    printf("[INPUT] Ingrese la Posicion 1 a intercambiar: ");
+
+                    if(scanf("%d", &posicion1) > 0 && posicion1 > 0){
+                        printf("[INFO] Elemento agregado!\n");
+                        seguirAgregando = false;
+                    }
+                    else{
+                        printf("[ERROR] Debe ingresar un valor valido.\n");
+                        fflush(stdin);
+                    }
                 }
+
+                seguirAgregando = true;
+                int posicion2;
+
+                while(seguirAgregando){
+                    printf("[INPUT] Ingrese la Posicion 2 a intercambiar: ");
+
+                    if(scanf("%d", &posicion2) > 0 && posicion2 > 0){
+                        printf("[INFO] Posicion agregada!\n");
+                        seguirAgregando = false;
+                    }
+                    else{
+                        printf("[ERROR] Debe ingresar un valor valido.\n");
+                        fflush(stdin);
+                    }
+                }
+                
+                printf("\n");
+                printf("Pila intercambiada!\n");
+                Pila resultado = p_ej2_intercambiarposiciones(pilaAleatoria,posicion1,posicion2);
+                p_mostrar(resultado);
                 break;
             }
             case 'E':
