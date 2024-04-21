@@ -3,8 +3,6 @@
 #include <stdio.h>
 #include "pilas.h"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
-#include "pilas_punteros.c"
 
 /**
 8.	Dada una pila con valores repetidos, se desea obtener una nueva pila con todos los valores (sin repetición) y la cantidad de veces que aparecen.
