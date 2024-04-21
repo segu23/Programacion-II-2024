@@ -104,6 +104,89 @@ Pila p_ej2_eliminarclave(Pila p, int clave){
     return p;
 }
 
+// Punto d) 
+Pila p_ej2_intercambiarposiciones(Pila p, int posicion1, int posicion2){
+    if (posicion1 < 1 || posicion2 < 1 || posicion1 == posicion2){
+        printf("Posiciones Invalidas\n");
+        return NULL;
+    }
+
+    Pila pAux = p_crear();
+
+    int contador = 1;
+
+    while (contador < posicion1 && !p_es_vacia(p)) {
+        TipoElemento elemento = p_desapilar(p);
+        p_apilar(pAux, elemento);
+        contador++;
+    }
+
+    if (p_es_vacia(p)) {
+        printf("Posiciones Invalidas\n");
+        while (!p_es_vacia(pAux)) {
+            TipoElemento elemento = p_desapilar(pAux);
+            p_apilar(p, elemento);
+        }
+    }
+
+    contador++;
+    while (contador < posicion2 && !p_es_vacia(p)) {
+        TipoElemento elemento = p_desapilar(p);
+        p_apilar(pAux, elemento);
+        contador++;
+    }
+
+    if (p_es_vacia(p)) {
+        printf("Posiciones Invalidas\n");
+        while (!p_es_vacia(pAux)) {
+            TipoElemento elemento = p_desapilar(pAux);
+            p_apilar(p, elemento);
+        }
+    }
+
+    TipoElemento elemento1 = p_desapilar(p);
+
+    TipoElemento elemento2 = p_desapilar(p);
+
+    while (!p_es_vacia(pAux)) {
+        TipoElemento elemento = p_desapilar(pAux);
+        p_apilar(p, elemento);
+    }
+
+    p_apilar(p, elemento1);
+
+
+    p_apilar(p, elemento2);
+
+    return p;
+}
+
+Pila p_ej2_duplicarcontenido(Pila p) {
+    Pila pila_duplicada = p_crear();
+    Pila pAux = p_crear();
+
+    while (!p_es_vacia(p)) {
+        TipoElemento elemento = p_desapilar(p);
+        p_apilar(pAux, elemento);
+    }
+
+    if (!p_es_vacia(pAux)) {
+        TipoElemento primer_elemento = p_tope(pAux);
+        p_apilar(pila_duplicada, primer_elemento);
+        p_apilar(pila_duplicada, primer_elemento);
+        p_desapilar(pAux);
+    }
+
+    while (!p_es_vacia(pAux)) {
+        TipoElemento elemento = p_desapilar(pAux);
+        p_apilar(pila_duplicada, elemento);
+        p_apilar(pila_duplicada, elemento);
+    }
+
+
+    return pila_duplicada;
+}
+
 // Punto f)
 int p_ej2_cantidadelementos(Pila p){
     if (p_es_vacia(p)){
@@ -155,7 +238,25 @@ int main(){
         
         p_ej2_colocarelemento(pilaAleatoria, posicion);
     }*/
+    // punt d
+    // p_mostrar(pilaAleatoria);
 
+    // int posicion1;
+    // int posicion2;
+    // printf("[INPUT] Ingrese la Posicion1: ");
+    // scanf("%i", &posicion1);
 
-    return 0;
+    // printf("[INPUT] Ingrese la Posicion2: ");
+    // scanf("%i", &posicion2);
+        
+    // Pila resultado =p_ej2_intercambiarposiciones(pilaAleatoria,posicion1,posicion2);
+    // p_mostrar(resultado);
+
+    // return 0;
+
+    //punto e
+    // p_mostrar(pilaAleatoria);
+    // Pila resultado = p_ej2_duplicarcontenido(pilaAleatoria);
+    // p_mostrar(resultado);
+    // return 0;
 }
