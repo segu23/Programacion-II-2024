@@ -16,7 +16,16 @@ La funcion se encarga a traves de diviciones sucesivar entre el decimal y la bas
 Que a posterior serian expresados en sus respectivas bases por otra iteracion segun la base seleccionada.<br>
 La complejidad algoritmica de esta funcion recae en que durante el primer ciclo while se tendra que realizar iteraciones determinadas por al numero de digitos que tendra el numero expresado en la nueva base. Y en el segundo ciclo while se tendra que realizar iterciones para desapilar la pila proporcionales a la cantida de digitos del numero expresado en la nueva base.<br>
 Comprendiendo que nuestra complejidad sera definida segun la cantidad de digitos que tendra el decimal luego de convertirse de base, pudiendo llamar a este como 'n' podemos plantear nuestra complejidad algoritmica con la siguiente formula: **O(log(n))**.<br>
-Por otro lado, si tenemos en cuenta la implementación de pilas utilizada en la ejecución, la complejidad no varía, ya que los métodos utilizados provenientes de este TAD es muy similar en las 2 implementaciones que poseemos, además que la complejidad interna de estas sigue siendo  **O(log(n))**. 
+Por otro lado, si tenemos en cuenta la implementación de pilas utilizada en la ejecución, la complejidad no varía, ya que los métodos utilizados provenientes de este TAD es muy similar en las 2 implementaciones que poseemos, además que la complejidad interna de estas sigue siendo  **O(log(n))**.
+
+## Ejercicio 5
+### Complejidad algoritmica
+En este ejercicio contamos con una funcion con el siguiente encabezado "Pila  p_ej5_invertir(Pila p)".<br>
+La funcion se encarga de desapilar la pila original en 2 pilas auxiliares con el primer while. Luego se desapila una de las pilas auxiliares y se apila su contenido en la pila original, con el segundo while, para no perder la pila original. El contenido de la otra
+pila auxiliar sera el contenido de la pila original pero invertido.<br>
+La complejidad algoritmica en la implementacion esta condicionada por la longitud de la pila, ya que en ambos while la cantidad de iteraciones que realizaran, estara definida por la longitud de la pila original a la que llamaremos 'n'. Se puede plantear la complejidad de esta implementacion es: **O(n)**.<br>
+Por otro lado, si tenemos en cuenta la implementación de pilas utilizada en la ejecución, la complejidad no varía, ya que los métodos utilizados provenientes de este TAD es muy similar en las 2 implementaciones que poseemos, además que la complejidad interna de estas sigue siendo **O(n)**.
+
 
 ## Ejercicio 6
 ### Complejidad algorítmica
