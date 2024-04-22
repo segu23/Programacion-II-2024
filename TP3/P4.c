@@ -6,7 +6,7 @@
 #include "pilas.h"
 #define MAX 100
 
-#include "pilas_arreglos.c"
+
 
 
 /**
