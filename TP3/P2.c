@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include "pilas.h"
 #include "tipo_elemento.h"
+#include "pilas_arreglos.c"
+#include "tipo_elemento.c"
 
 
 void mostrarMenu(){
@@ -83,8 +85,6 @@ Pila p_ej2_colocarelemento(Pila p, int posicionordinal){
             p_apilar(p, p_desapilar(pAux));
         }
         index++;
-        
-        
     }
 
     return p;
@@ -127,29 +127,41 @@ Pila p_ej2_intercambiarposiciones(Pila p, int posicion1, int posicion2){
 
     Pila pAux = p_crear();
 
-    int contador = 1;
+    int index = 0;
+    TipoElemento elem1;
+    TipoElemento elem2;
 
-    while (contador < posicion1 && !p_es_vacia(p)) {
-        TipoElemento elemento = p_desapilar(p);
-        p_apilar(pAux, elemento);
-        contador++;
+    while(!p_es_vacia(p)){
+        p_apilar(pAux, p_desapilar(p));
     }
 
-    if (p_es_vacia(p)) {
-        printf("[ERROR] Posiciones Invalidas\n");
-        while (!p_es_vacia(pAux)) {
-            TipoElemento elemento = p_desapilar(pAux);
-            p_apilar(p, elemento);
+    while(!p_es_vacia(pAux)){
+        TipoElemento elemActual = p_desapilar(pAux);
+        p_apilar(p, elemActual);
+        if(index == posicion1-1) {
+            elem1 = elemActual;
+        }else if(index == posicion2-1){
+            elem2 = elemActual;
         }
+        index++;
     }
 
-    contador++;
-    while (contador < posicion2 && !p_es_vacia(p)) {
-        TipoElemento elemento = p_desapilar(p);
-        p_apilar(pAux, elemento);
-        contador++;
+    while(!p_es_vacia(p)){
+        p_apilar(pAux, p_desapilar(p));
     }
+    index = 0;
 
+    while(!p_es_vacia(pAux)){
+        TipoElemento elemActual = p_desapilar(pAux);
+        if(index == posicion1-1) {
+            p_apilar(p, elem2);
+        }else if(index == posicion2-1){
+            p_apilar(p, elem1);
+        }else{
+            p_apilar(p, elemActual);
+        }
+        index++;
+    }
     if (p_es_vacia(p)) {
         printf("[ERROR] Posiciones Invalidas\n");
         while (!p_es_vacia(pAux)) {
@@ -281,14 +293,23 @@ int main(){
             }
             case 'C':
             case 'c':{
-                while(!p_es_vacia(pilaAleatoria)){
+                bool seguirEliminando = true;
+                char salir;
+                while(!p_es_vacia(pilaAleatoria) && seguirEliminando){
                     int clave;
-                    printf("[INPUT] Ingrese el elemento: ");
-                    if(scanf("%i", &clave)){
+                    printf("[INPUT] Ingrese el elemento o 'n' para dejar de eliminar: ");
+                    if(scanf("%i", &clave)>0){
                         Pila resultado = p_ej2_eliminarclave(pilaAleatoria,clave);
                         p_mostrar(resultado);
                     }
                     else{
+                        if(scanf("%c", &salir) > 0 && salir == 'n'){
+                            seguirEliminando = false;
+                            printf("[INFO] Ingreso de la pila terminado.\n");
+                        }
+                        else{
+                            printf("[ERROR] Debe ingresar un valor valido.\n");
+                        }
                         fflush(stdin);
                     }
                 }
