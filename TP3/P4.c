@@ -94,7 +94,7 @@ int main(){
 
 
     char* resultado = p_ej4_cambiarbase(decimal, base);
-    printf("%s\n", resultado);
+    printf("[OUTPUT] %s\n", resultado);
 
     free(resultado); 
     system("pause");
