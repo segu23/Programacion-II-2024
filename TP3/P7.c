@@ -80,7 +80,6 @@ int main(){
     Pila pila1 = p_crear();
     Pila pila2 = p_crear();
     Pila pilaComun=p_crear();
-    // bool vaciaPilaComun=p_es_vacia(pilaComun);
 
     cargarPila(pila1);
     cargarPila(pila2);
@@ -92,10 +91,13 @@ int main(){
 
     pilaComun = elementosComunes(pila1, pila2);
     
-    // Imprimir los elementos comunes
-    printf("[OUTPUT] Elementos comunes entre las pilas: \n");
-    
-    p_mostrar(pilaComun);
+    if(p_es_vacia(pilaComun)){
+        printf("LAS PILAS NO TIENEN ELEMENTOS COMUNES. ");
+    }
+    else{
+        printf("[OUTPUT] Elementos comunes entre las pilas: \n");
+        p_mostrar(pilaComun);
+    };
     
     printf("\n");
 
