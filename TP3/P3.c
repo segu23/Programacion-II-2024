@@ -8,8 +8,6 @@ Determinar la complejidad algorítmica de la solución.
 #include <stdbool.h>
 #include "pilas.h"
 #include "tipo_elemento.h"
-#include "pilas_arreglos.c"
-#include "tipo_elemento.c"
 
 bool p_ej3_iguales(Pila p1, Pila p2){
     Pila pAux = p_crear();

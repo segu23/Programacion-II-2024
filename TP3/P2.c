@@ -4,8 +4,6 @@
 #include <stdbool.h>
 #include "pilas.h"
 #include "tipo_elemento.h"
-#include "pilas_arreglos.c"
-#include "tipo_elemento.c"
 
 
 void mostrarMenu(){
