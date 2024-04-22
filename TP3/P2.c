@@ -5,7 +5,6 @@
 #include "pilas.h"
 #include "tipo_elemento.h"
 
-
 void mostrarMenu(){
     printf(" > Menu <\n");
     printf("\n");
@@ -78,8 +77,24 @@ Pila p_ej2_colocarelemento(Pila p, int posicionordinal){
 
     while(!p_es_vacia(pAux)){
         if(index == posicionordinal-1) {
-            p_apilar(pAux, te_crear(random_number(0, 100)));
-        }else{
+
+            bool seguirAgregando = true;
+            int IngresoNumero;
+
+            while(seguirAgregando){
+                printf("[INPUT] Ingrese la clave a insertar: ");
+
+                if(scanf("%d", &IngresoNumero) > 0 && IngresoNumero >= 0){
+                    p_apilar(pAux, te_crear(IngresoNumero));
+                    seguirAgregando = false;
+                }
+                else{
+                    printf("[ERROR] Debe ingresar un valor valido.\n");
+                    fflush(stdin);
+                }
+            }
+        }
+        else{
             p_apilar(p, p_desapilar(pAux));
         }
         index++;

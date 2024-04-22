@@ -2,13 +2,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 #include "pilas.h"
 #define MAX 100
 
-
-
-/**
+/*
 4.	Construir un algoritmo que, utilizando el TAD Pila, permita convertir un número decimal pasado como parámetro,
 	a su correspondiente valor expresado en una base de 2 a 16 (hexadecimal).
 	Determinar la complejidad algorítmica de la solución.
@@ -35,6 +32,7 @@ char*  p_ej4_cambiarbase(int decimal, int base){
 
     char* resultado = (char*)malloc(MAX * sizeof(char));
     int i= 0;
+
     while (!p_es_vacia(P1)){
         TipoElemento elemento = p_desapilar(P1);
         int valor =elemento->clave;
@@ -49,8 +47,8 @@ char*  p_ej4_cambiarbase(int decimal, int base){
     }
     resultado[i] = '\0';
     free(P1);
-    return resultado;
 
+    return resultado;
 }
 
 
@@ -58,7 +56,6 @@ int main(){
     int decimal;
     int base;
     bool seguirAgregando = true;
-    
 
     while(seguirAgregando){
         printf("[INPUT] Ingrese el numero decimal: ");
@@ -71,9 +68,9 @@ int main(){
             fflush(stdin);
         }
     }
+
     seguirAgregando = true;
    
-
     while (seguirAgregando) {
         printf("[INPUT] Ingrese la base: ");
 
@@ -83,14 +80,13 @@ int main(){
             if (base >= 2 && base <= 16) {
                 seguirAgregando = false;
             } else {
-                printf("[ERROR] Debe ingresar un valor válido entre 2 y 16.\n");
+                printf("[ERROR] Debe ingresar un valor valido entre 2 y 16.\n");
             }
         } else {
             printf("[ERROR] Debe ingresar un valor valido.\n");
             fflush(stdin);
         }
     }
-
 
     char* resultado = p_ej4_cambiarbase(decimal, base);
     printf("[OUTPUT] %s\n", resultado);

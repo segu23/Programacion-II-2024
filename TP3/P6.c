@@ -3,11 +3,7 @@
 #include <stdbool.h>
 #include <time.h>
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 #include "pilas.h"
-
-
-
 
 /**
 6.	Dada una pila con valores al azar eliminar todas las ocurrencias de un determinado ítem sin perder la pila original.
@@ -131,7 +127,6 @@ int main(){
         printf("[INPUT] Ingrese la clave a eliminar: ");
 
         if(scanf("%d", &IngresoNumero) > 0 && IngresoNumero >= 0 && IngresoNumero < 10){
-            p_apilar(pila1, te_crear(IngresoNumero));
             seguirAgregando = false;
         }
         else{
@@ -141,7 +136,7 @@ int main(){
     }
 
     Pila n = p_ej6_eliminarclave(pila1, IngresoNumero);
-    system("clear");
+    system("cls");
     printf("[INFO] Pila original: \n");
     p_mostrar(pila1);
     
