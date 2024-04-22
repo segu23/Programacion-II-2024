@@ -3,9 +3,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "pilas.h"
-#include "pilas_punteros.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
+
 
 void mostrarMenu(){
     printf(" > Menu <\n");
@@ -71,7 +70,6 @@ bool p_ej2_existeclave(Pila p, int clave){
 // Punto b)
 Pila p_ej2_colocarelemento(Pila p, int posicionordinal){
     Pila pAux = p_crear();
-    bool existe = false;
     int index = 0;
 
     while(!p_es_vacia(p)){
@@ -80,7 +78,6 @@ Pila p_ej2_colocarelemento(Pila p, int posicionordinal){
 
     while(!p_es_vacia(pAux)){
         if(index == posicionordinal-1) {
-            existe = true;
             p_apilar(pAux, te_crear(random_number(0, 100)));
         }else{
             p_apilar(p, p_desapilar(pAux));
@@ -119,7 +116,7 @@ Pila p_ej2_eliminarclave(Pila p, int clave){
 // Punto d) 
 Pila p_ej2_intercambiarposiciones(Pila p, int posicion1, int posicion2){
     if (posicion1 < 1 || posicion2 < 1 || posicion1 == posicion2){
-        printf("Posiciones Invalidas\n");
+        printf("[ERROR] Posiciones Invalidas\n");
         return NULL;
     }
     if (posicion1 > posicion2) {
@@ -139,7 +136,7 @@ Pila p_ej2_intercambiarposiciones(Pila p, int posicion1, int posicion2){
     }
 
     if (p_es_vacia(p)) {
-        printf("Posiciones Invalidas\n");
+        printf("[ERROR] Posiciones Invalidas\n");
         while (!p_es_vacia(pAux)) {
             TipoElemento elemento = p_desapilar(pAux);
             p_apilar(p, elemento);
@@ -154,7 +151,7 @@ Pila p_ej2_intercambiarposiciones(Pila p, int posicion1, int posicion2){
     }
 
     if (p_es_vacia(p)) {
-        printf("Posiciones Invalidas\n");
+        printf("[ERROR] Posiciones Invalidas\n");
         while (!p_es_vacia(pAux)) {
             TipoElemento elemento = p_desapilar(pAux);
             p_apilar(p, elemento);
@@ -228,7 +225,7 @@ int main(){
 
     while(input != 'x'){
         mostrarMenu();
-        printf("Seleccione una opcion: ");
+        printf("[INPUT] Seleccione una opcion: ");
         fflush(stdin);
         while(scanf("%c", &input) == 0){
             printf("[ERROR] Ingrese una opcion valida.\n");
@@ -239,13 +236,18 @@ int main(){
             case 'a':{
                 int target;
                 printf("[INPUT] Ingrese el numero a buscar: ");
-                scanf("%i", &target);
-
-                if(p_ej2_existeclave(pilaAleatoria, target)){
-                    printf("[OUTPUT] La clave existe.\n");
-                }else{
-                    printf("[OUTPUT] La clave no existe.\n");
+                if ((scanf("%i", &target))>0){
+                    if(p_ej2_existeclave(pilaAleatoria, target)){
+                        printf("[OUTPUT] La clave existe.\n");
+                    }
+                    else{
+                        printf("[OUTPUT] La clave no existe.\n");
+                    }
                 }
+                else{
+                    printf("[ERROR] Debe ingresar un valor valido.\n");
+                }
+                
                 break;
             }
             case 'B':
@@ -298,7 +300,7 @@ int main(){
                 int posicion1;
 
                 while(seguirAgregando){
-                    printf("[INPUT] Ingrese la Posicion 1 a intercambiar: ");
+                    printf("[INPUT] Ingrese la posicion 1 a intercambiar: ");
 
                     if(scanf("%d", &posicion1) > 0 && posicion1 > 0){
                         printf("[INFO] Posicion agregada!\n");
@@ -314,7 +316,7 @@ int main(){
                 int posicion2;
 
                 while(seguirAgregando){
-                    printf("[INPUT] Ingrese la Posicion 2 a intercambiar: ");
+                    printf("[INPUT] Ingrese la posicion 2 a intercambiar: ");
 
                     if(scanf("%d", &posicion2) > 0 && posicion2 > 0){
                         printf("[INFO] Posicion agregada!\n");
@@ -327,7 +329,7 @@ int main(){
                 }
                 
                 printf("\n");
-                printf("Pila intercambiada!\n");
+                printf("[OUTPUT] Pila intercambiada!\n");
                 Pila resultado = p_ej2_intercambiarposiciones(pilaAleatoria,posicion1,posicion2);
                 p_mostrar(resultado);
                 break;

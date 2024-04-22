@@ -96,5 +96,6 @@ int main(){
     
     printf(")");
 
+    system("pause");
     return 0;
 }

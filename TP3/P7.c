@@ -19,7 +19,6 @@ void moverPila(Pila dest,Pila src){
     }    
 }
 
-
 Pila elementosComunes(Pila pila1, Pila pila2) {
     Pila pilaComun = p_crear();//crea la pila
     Pila pAux=p_crear();
@@ -99,6 +98,8 @@ int main(){
     p_mostrar(pilaComun);
     
     printf("\n");
+
+    system("pause");
     
     return 0;
 }

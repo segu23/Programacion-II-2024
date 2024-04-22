@@ -8,9 +8,6 @@ Determinar la complejidad algorítmica de la solución.
 #include <stdbool.h>
 #include "pilas.h"
 #include "tipo_elemento.h"
-#include "pilas_arreglos.c"
-#include "tipo_elemento.c"
-
 
 bool p_ej3_iguales(Pila p1, Pila p2){
     Pila pAux = p_crear();
@@ -81,11 +78,13 @@ int main(){
     bool respuesta = p_ej3_iguales(pila1, pila2);
 
     if (respuesta){
-        printf("[OUTPUT] Las pilas son iguales");
+        printf("[OUTPUT] Las pilas son iguales.");
     }
     else{
-        printf("[OUTPUT] Las pilas no son iguales");
+        printf("[OUTPUT] Las pilas no son iguales.");
     }
+
+    system("pause");
 
     return 0;
 }

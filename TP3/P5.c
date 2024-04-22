@@ -1,10 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "pilas_arreglos.c"
 #include "pilas.h"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 
 Pila  p_ej5_invertir(Pila p){
     Pila paux1=p_crear();
@@ -60,15 +58,17 @@ int main(){
     Pila pila1=p_crear();
     cargar_Pila(pila1);
 
-    printf("\nEl contenido de la pila ORIGINAL es\n");
+    printf("[OUTPUT] El contenido de la pila ORIGINAL es\n");
     p_mostrar(pila1);
 
     Pila pilaAux=p_ej5_invertir(pila1);
 
-    printf("\nEl contenido de la NUEVA pila es\n");
+    printf("[OUTPUT] El contenido de la pila invertida es\n");
     p_mostrar(pilaAux);
 
-    printf("\nEl contenido pila ORIGINAL sigue siendo\n");
+    printf("[OUTPUT] El contenido pila ORIGINAL sigue siendo\n");
     p_mostrar(pila1);
+
+    system("pause");
     return 0;
 }
