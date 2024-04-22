@@ -58,11 +58,40 @@ char*  p_ej4_cambiarbase(int decimal, int base){
 int main(){
     int decimal;
     int base;
-    printf("Ingrese un numero decimal:\n");
-    scanf("%d", &decimal);
+    bool seguirAgregando = true;
+    
 
-    printf("Ingrese la base a la que quiere pasar su decimal:\n");
-    scanf("%d", &base);
+    while(seguirAgregando){
+        printf("[INPUT] Ingrese el numero decimal: ");
+
+        if(scanf("%d", &decimal) > 0 ){
+            seguirAgregando = false;
+        }
+        else{
+            printf("[ERROR] Debe ingresar un valor valido.\n");
+            fflush(stdin);
+        }
+    }
+    seguirAgregando = true;
+   
+
+    while (seguirAgregando) {
+        printf("[INPUT] Ingrese la base: ");
+
+        
+        if (scanf("%d", &base) == 1) {
+            
+            if (base >= 2 && base <= 16) {
+                seguirAgregando = false;
+            } else {
+                printf("[ERROR] Debe ingresar un valor válido entre 2 y 16.\n");
+            }
+        } else {
+            printf("[ERROR] Debe ingresar un valor valido.\n");
+            fflush(stdin);
+        }
+    }
+
 
     char* resultado = p_ej4_cambiarbase(decimal, base);
     printf("%s\n", resultado);
