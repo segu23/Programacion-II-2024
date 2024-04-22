@@ -7,7 +7,7 @@
 #include "pilas.h"
 
 
-#include "pilas_arreglos.c"
+
 
 /**
 6.	Dada una pila con valores al azar eliminar todas las ocurrencias de un determinado ítem sin perder la pila original.
