@@ -76,19 +76,16 @@ Pila p_ej2_colocarelemento(Pila p, int posicionordinal){
 
     while(!p_es_vacia(p)){
         p_apilar(pAux, p_desapilar(p));
-
-        index ++;
     }
 
     while(!p_es_vacia(pAux)){
-        p_apilar(p, p_desapilar(pAux));
-        
-        if(index == posicionordinal) {
+        if(index == posicionordinal-1) {
             existe = true;
             p_apilar(pAux, te_crear(random_number(0, 100)));
+        }else{
+            p_apilar(p, p_desapilar(pAux));
         }
-
-        index--;
+        index++;
     }
 
     return p;
@@ -131,50 +128,41 @@ Pila p_ej2_intercambiarposiciones(Pila p, int posicion1, int posicion2){
 
     Pila pAux = p_crear();
 
-    int contador = 1;
+    int index = 0;
+    TipoElemento elem1;
+    TipoElemento elem2;
 
-    while (contador < posicion1 && !p_es_vacia(p)) {
-        TipoElemento elemento = p_desapilar(p);
-        p_apilar(pAux, elemento);
-        contador++;
+    while(!p_es_vacia(p)){
+        p_apilar(pAux, p_desapilar(p));
     }
 
-    if (p_es_vacia(p)) {
-        printf("Posiciones Invalidas\n");
-        while (!p_es_vacia(pAux)) {
-            TipoElemento elemento = p_desapilar(pAux);
-            p_apilar(p, elemento);
+    while(!p_es_vacia(pAux)){
+        TipoElemento elemActual = p_desapilar(pAux);
+        p_apilar(p, elemActual);
+        if(index == posicion1-1) {
+            elem1 = elemActual;
+        }else if(index == posicion2-1){
+            elem2 = elemActual;
         }
+        index++;
     }
 
-    contador++;
-    while (contador < posicion2 && !p_es_vacia(p)) {
-        TipoElemento elemento = p_desapilar(p);
-        p_apilar(pAux, elemento);
-        contador++;
+    while(!p_es_vacia(p)){
+        p_apilar(pAux, p_desapilar(p));
     }
+    index = 0;
 
-    if (p_es_vacia(p)) {
-        printf("Posiciones Invalidas\n");
-        while (!p_es_vacia(pAux)) {
-            TipoElemento elemento = p_desapilar(pAux);
-            p_apilar(p, elemento);
+    while(!p_es_vacia(pAux)){
+        TipoElemento elemActual = p_desapilar(pAux);
+        if(index == posicion1-1) {
+            p_apilar(p, elem2);
+        }else if(index == posicion2-1){
+            p_apilar(p, elem1);
+        }else{
+            p_apilar(p, elemActual);
         }
+        index++;
     }
-
-    TipoElemento elemento1 = p_desapilar(p);
-
-    TipoElemento elemento2 = p_desapilar(p);
-
-    while (!p_es_vacia(pAux)) {
-        TipoElemento elemento = p_desapilar(pAux);
-        p_apilar(p, elemento);
-    }
-
-    p_apilar(p, elemento1);
-
-
-    p_apilar(p, elemento2);
 
     return p;
 }
@@ -191,6 +179,7 @@ Pila p_ej2_duplicarcontenido(Pila p){  // Para pilas mayores de 5 elementos no f
     
     while (!p_es_vacia(pAux)) {
         TipoElemento elemento = p_desapilar(pAux);
+        p_apilar(p, elemento);
         p_apilar(pila_duplicada, elemento);
         p_apilar(pila_duplicada, elemento);
     }
@@ -294,36 +283,59 @@ int main(){
             }
             case 'D':
             case 'd':{
-                while (true){
-                    int posicion1;
-                    int posicion2;
-                    printf("[INPUT] Ingrese la Posicion 1: ");
-                    scanf("%i", &posicion1);
+                bool seguirAgregando = true;
+                int posicion1;
 
-                    printf("[INPUT] Ingrese la Posicion 2: ");
-                    scanf("%i", &posicion2);
-            
-                    Pila resultado =p_ej2_intercambiarposiciones(pilaAleatoria,posicion1,posicion2);
-                    p_mostrar(resultado);
+                while(seguirAgregando){
+                    printf("[INPUT] Ingrese la Posicion 1 a intercambiar: ");
+
+                    if(scanf("%d", &posicion1) > 0 && posicion1 > 0){
+                        printf("[INFO] Posicion agregada!\n");
+                        seguirAgregando = false;
+                    }
+                    else{
+                        printf("[ERROR] Debe ingresar un valor valido.\n");
+                        fflush(stdin);
+                    }
                 }
+
+                seguirAgregando = true;
+                int posicion2;
+
+                while(seguirAgregando){
+                    printf("[INPUT] Ingrese la Posicion 2 a intercambiar: ");
+
+                    if(scanf("%d", &posicion2) > 0 && posicion2 > 0){
+                        printf("[INFO] Posicion agregada!\n");
+                        seguirAgregando = false;
+                    }
+                    else{
+                        printf("[ERROR] Debe ingresar un valor valido.\n");
+                        fflush(stdin);
+                    }
+                }
+                
+                printf("\n");
+                printf("Pila intercambiada!\n");
+                Pila resultado = p_ej2_intercambiarposiciones(pilaAleatoria,posicion1,posicion2);
+                p_mostrar(resultado);
                 break;
             }
+            case 'E':
             case 'e':{
-                while(true){
-                    Pila resultado = p_ej2_duplicarcontenido(pilaAleatoria);
-                    p_mostrar(resultado);
-                }
+                Pila resultado = p_ej2_duplicarcontenido(pilaAleatoria);
+                p_mostrar(resultado);
 
                 break;
             }
+            case 'F':
             case 'f':{
-                while(true){
-                    Pila resultado = p_ej2_cantidadelementos(pilaAleatoria);
-                    p_mostrar(resultado);
-                }
+                int resultado = p_ej2_cantidadelementos(pilaAleatoria);
+                printf("[OUTPUT] La pila tiene %i elementos.\n", resultado);
 
                 break;
             }
+            case 'X':
             case 'x':{
                 printf("[INFO] Saliendo...\n");
                 break;
