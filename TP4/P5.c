@@ -1,4 +1,5 @@
-/*5.Dada una cola de valores enteros no repetidos y mayores o iguales a 2,
+/*
+5.Dada una cola de valores enteros no repetidos y mayores o iguales a 2,
 	obtener todos los valores que son Divisores Totales o parciales.
 	Se dice que un valor es Divisor Total si permite dividir a todos los demás valores de la cola en forma exacta.
 	Se dice que un divisor es parcial si al menos puede dividir en forma exacta al menos al 50% de la cola (es decir a la mitad de los elementos).
@@ -10,29 +11,47 @@
 #include "tipo_elemento.h"
 #include "colas.h"
 
-int c_ej5_divisortotal(Cola c, bool *fuetotal, int tamanio){
+int c_ej5_divisortotal(Cola c, bool *fuetotal){
     int contador = 0;
     int divisor = 0;
     *fuetotal = false;
+    Cola caux = c_crear();
+    int longit = 0;
 
-    for (int i = 0; i < tamanio; i++){                                        
+    while (!c_es_vacia(c)){
+        TipoElemento elemento = c_desencolar(c);
+        c_encolar(caux,elemento);
+        longit++;
+    }
+    
+    while (!c_es_vacia(caux)){
+        TipoElemento elemento  = c_desencolar(caux);
+        c_encolar(c,elemento);
+    }
+    
+
+    for (int i = 0; i < longit; i++){                                        
         TipoElemento aux = c_desencolar(c);
         TipoElemento div = aux;
         c_encolar(c, aux);
 
-        for (int t = 1; t <= tamanio; t++){                                   
+        for (int t = 1; t <= longit; t++){                                   
             aux = c_desencolar(c);
             if (aux->clave % div->clave == 0){
                 contador++;
             } 
             c_encolar(c, aux);
         }
-        if(contador == tamanio){           
+        if(contador == longit){           
             divisor = div->clave;
             *fuetotal = true;
-            break;
         }
-        else if (contador >= (float)(tamanio / 2)){ 
+        else if(longit==3){
+            if ((float)(contador / 2) >= (float)(longit / 2)){
+                divisor = div->clave;
+            }
+        }
+        else if (contador >= (float)(longit / 2)){ 
             divisor = div->clave;
         }
         contador = 0;
@@ -71,7 +90,7 @@ int main(){
             c_encolar(c, elemento);
         }   
         if (!c_es_vacia(c)){
-            int divisor = c_ej5_divisortotal(c, &fuetotal, longitud);
+            int divisor = c_ej5_divisortotal(c, &fuetotal);
             if (divisor != 0){
                 if (fuetotal){
                     printf("Divisor total: %d\n", divisor);
