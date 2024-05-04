@@ -55,10 +55,10 @@ bool c_ej2_existeclave(Cola c, int clave){
 
     if (resultado == true)
     {
-        printf("La clave ingresada, existe en la Cola.\n");
+        printf("[INFO] La clave ingresada, existe en la Cola.\n");
     }
     else{
-        printf("La clave ingresada, no existe en la Cola.\n");
+        printf("[INFO] La clave ingresada, no existe en la Cola.\n");
     }
     free(aux);
     return resultado;
@@ -67,18 +67,20 @@ bool c_ej2_existeclave(Cola c, int clave){
 //punto b 
 Cola resolverPuntoB(Cola C1, int posicion, int stage){
     Cola aux = c_crear();
+    Cola c2 = c_crear();
     mover(aux, C1);
     while (!c_es_vacia(aux)){
         TipoElemento elem1 = c_desencolar(aux);
         TipoElemento elemento2 = te_crear(posicion);
         if (stage == posicion){
-            c_encolar(C1, elemento2); //chequear encolar un entero (ver si tengo que poner un tipo elemento).
+            c_encolar(c2, elemento2); //chequear encolar un entero (ver si tengo que poner un tipo elemento).
         }
+        c_encolar(c2, elem1);
         c_encolar(C1, elem1);
         stage++;
         
     }
-    return C1;
+    return c2;
 }
 
 Cola c_ej2_colarelemento(Cola c, int posicionordinal){
@@ -122,7 +124,7 @@ int c_ej2_contarelementos(Cola c){
         c_encolar(c, elem1);
         contador++;
     }
-    printf("La cantidad de elementos dentro de la Cola es de: %d\n", contador);
+    printf("[INFO] La cantidad de elementos dentro de la Cola es de: %d\n", contador);
     free(aux);
     return contador;
 }
@@ -132,6 +134,10 @@ int c_ej2_contarelementos(Cola c){
 Cola c_ej2_copiar(Cola c){
     Cola aux = c_crear();
     Cola aux2 = c_crear();
+    if (c_es_vacia(c)) {
+        return c; 
+    }
+
     mover(aux, c);
     while (!c_es_vacia(aux)){
         TipoElemento elem1 = c_desencolar(aux);
@@ -139,6 +145,7 @@ Cola c_ej2_copiar(Cola c){
         c_encolar(aux2, elem1);
     }
     free(aux);
+    c_mostrar(aux2);
     return aux2;
 }
 
@@ -155,8 +162,22 @@ void invertirRecursivamente(Cola c) {
 }
 
 Cola c_ej2_invertir(Cola c) {
-    invertirRecursivamente(c); 
-    return c; 
+    Cola aux = c_crear();
+    Cola aux2 = c_crear();
+    if (c_es_vacia(c)){
+        return c;
+    }
+    
+    mover(aux, c);
+    while (!c_es_vacia(aux)){
+        TipoElemento elemnto = c_desencolar(aux);
+        c_encolar(c, elemnto);
+        c_encolar(aux2, elemnto);
+    }
+
+    invertirRecursivamente(aux2); 
+    c_mostrar(aux2);
+    return aux2; 
 }
 
 
@@ -215,7 +236,7 @@ int main(){
             case 'b': {
                 c_mostrar(cola);
                 int posicion;
-                printf("Ingrese la posición en la que desea insertar el nuevo elemento: ");
+                printf("[INPUT] Ingrese la posición en la que desea insertar el nuevo elemento: ");
                 scanf("%d", &posicion);
                 c_ej2_colarelemento(cola, posicion);
                 break;
@@ -223,7 +244,7 @@ int main(){
             case 'c': {
                 c_mostrar(cola);
                 int clave;
-                printf("Ingrese la clave del elemento que desea eliminar: ");
+                printf("[INPUT] Ingrese la clave del elemento que desea eliminar: ");
                 scanf("%d", &clave);
                 c_ej2_sacarelemento(cola, clave);
                 break;
@@ -237,30 +258,29 @@ int main(){
                 c_mostrar(cola);
                 Cola nueva = c_crear();
                 nueva = c_ej2_copiar(cola);
-                printf("Copia de la Cola creada.\n");
+                printf("[INFO] Copia de la Cola creada.\n");
 
                 break;
             }
             case 'f': {
                 c_mostrar(cola);
                 c_ej2_invertir(cola);
-                printf("Contenido de la Cola invertido.\n");
-               
+                printf("[INFO] Contenido de la Cola invertido.\n");
                 break;
             }
             case 'x': {
-                printf("Saliendo del programa...\n");
+                printf("[INFO] Saliendo del programa...\n");
                 break;
             }
             default: {
-                printf("Opción inválida. Por favor, seleccione una opción válida.\n");
+                printf("[ERROR] Opción inválida. Por favor, seleccione una opción válida.\n");
                 break;
             }
         }
         bool sigo= true;
         while (sigo==true)
         {
-            printf("Pulsa para continuar...\n");
+            printf("[INFO] Pulsa para continuar...\n");
             getchar();
             getchar();
             sigo = false;
