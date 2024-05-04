@@ -143,18 +143,22 @@ Cola c_ej2_copiar(Cola c){
 }
 
 //punto f 
-Cola c_ej2_invertir(Cola c){
-    Cola aux = c_crear();
-    Cola aux2 = c_crear();
-    mover(aux, c);
-    while (!c_es_vacia(aux)){
-        TipoElemento elem1 = c_desencolar(aux);
-        c_encolar(c, elem1);
-        c_encolar(aux2, elem1);
+
+void invertirRecursivamente(Cola c) {
+    if (c_es_vacia(c)) {
+        return; 
     }
-    free(aux);
-    return aux2;
+
+    TipoElemento elemento = c_desencolar(c); 
+    invertirRecursivamente(c); 
+    c_encolar(c, elemento); 
 }
+
+Cola c_ej2_invertir(Cola c) {
+    invertirRecursivamente(c); 
+    return c; 
+}
+
 
 int random_number(int min_num, int max_num){
     int result = 0, low_num = 0, hi_num = 0;
