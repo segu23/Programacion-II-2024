@@ -177,7 +177,7 @@ Cola crearListaAleatoria(int longitud){
     
     srand(time(NULL));
     for(int i = 0; i < longitud; i++) {
-        int number = random_number(0, 100);
+        int number = random_number(0, 10);
         TipoElemento tipoElemento = te_crear(number);
         c_encolar(colaAleatoria, tipoElemento);
     }
@@ -201,14 +201,15 @@ int main(){
 
         switch(input){
             case 'a': {
+                c_mostrar(cola);
                 int clave;
                 printf("[INPUT] Ingrese la clave a buscar: ");
                 scanf("%d", &clave);
-                c_mostrar(cola);
                 c_ej2_existeclave(cola, clave);
                 break;
             }
             case 'b': {
+                c_mostrar(cola);
                 int posicion;
                 printf("Ingrese la posición en la que desea insertar el nuevo elemento: ");
                 scanf("%d", &posicion);
@@ -216,6 +217,7 @@ int main(){
                 break;
             }
             case 'c': {
+                c_mostrar(cola);
                 int clave;
                 printf("Ingrese la clave del elemento que desea eliminar: ");
                 scanf("%d", &clave);
@@ -223,10 +225,12 @@ int main(){
                 break;
             }
             case 'd': {
+                c_mostrar(cola);
                 c_ej2_contarelementos(cola);
                 break;
             }
             case 'e': {
+                c_mostrar(cola);
                 Cola nueva = c_crear();
                 nueva = c_ej2_copiar(cola);
                 printf("Copia de la Cola creada.\n");
@@ -234,6 +238,7 @@ int main(){
                 break;
             }
             case 'f': {
+                c_mostrar(cola);
                 c_ej2_invertir(cola);
                 printf("Contenido de la Cola invertido.\n");
                
@@ -248,6 +253,15 @@ int main(){
                 break;
             }
         }
+        bool sigo= true;
+        while (sigo==true)
+        {
+            printf("Pulsa para continuar...\n");
+            getchar();
+            getchar();
+            sigo = false;
+        }
+        
     }
     system("pause");
     return 0;
