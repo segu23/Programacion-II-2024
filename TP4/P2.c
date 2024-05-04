@@ -5,7 +5,7 @@
 #include "colas.h"
 #include "tipo_elemento.h"
 
-#include "colas_arreglos.c"
+#include "colas_arreglos_circular.c"
 #include "tipo_elemento.c"
 /*Resolver los siguientes puntos:
 a. Informar si un elemento dado se encuentra en la cola.
@@ -101,7 +101,7 @@ Cola c_ej2_sacarelemento(Cola c, int clave){
         TipoElemento elem1 = c_desencolar(aux);
         int igual = elem1->clave;
         if(igual == clave){
-            
+            c_encolar(c, elem1);
         }
         else{
             c_encolar(c2, elem1);
