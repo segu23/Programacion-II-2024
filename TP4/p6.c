@@ -116,29 +116,10 @@ void cargarCola(Cola cola,int cantidad){
     }
     c_mostrar(cola);
 }
-void imprimir(Cola cola){
-    Cola colaAux=c_crear();
-    printf("\n");
-
-    while(!c_es_vacia(cola)){
-        TipoElemento elemento=c_desencolar(cola);
-
-        c_encolar(colaAux,elemento);
-        printf("|%d  |",elemento->clave);
-
-    }
-    while (!c_es_vacia(colaAux))
-    {
-        c_encolar(cola,c_desencolar(colaAux));
-    }  
-    printf("\n");
-}
 
 void c_ej6_comunesapilaycola(Pila p, Cola c,Lista listaPila,Lista listaCola,Lista listaComunes){
     Pila pilaAux=p_crear();
     Cola colaTmp=c_crear();
-    
-    //imprimir(c);
 
     int index_pila=1,index_cola=1;
 
@@ -163,7 +144,6 @@ void c_ej6_comunesapilaycola(Pila p, Cola c,Lista listaPila,Lista listaCola,List
         index_pila++;
         index_cola=1;
     }
-    //imprimir(c);
 
     while (!(p_es_vacia(pilaAux))){
         TipoElemento elementoAux1 = p_desapilar(pilaAux);
