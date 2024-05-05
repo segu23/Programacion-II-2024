@@ -3,8 +3,7 @@
 #include <stdbool.h>
 #include "colas.h"
 #include "tipo_elemento.h"
-#include "colas_punteros.c"
-#include "tipo_elemento.c"
+#include "tp_colas.h"
 
 /*
 Un negocio tiene 3 ventanillas para atender a sus clientes. Los clientes forman cola en
@@ -80,8 +79,7 @@ void atenderCola(Cola cola, Cola aux, int Q, int *Q1, int *tiempo, int *cliente,
         }
     }
 }
-
-Cola atender(Cola c1, Cola c2, Cola c3, int Q)
+Cola c_ej7_atenderclientes(Cola c1, Cola c2, Cola c3, int tiempoatencion)
 {
     Cola C1Aux = c_crear();
     Cola C2Aux = c_crear();
@@ -100,9 +98,9 @@ Cola atender(Cola c1, Cola c2, Cola c3, int Q)
 
     while (!(c_es_vacia(c1) && c_es_vacia(c2) && c_es_vacia(c3)))
     {
-        atenderCola(c1, C1Aux, Q, &Q1, &T1, &Cli1, 1, resultado);
-        atenderCola(c2, C2Aux, Q, &Q2, &T2, &Cli2, 2, resultado);
-        atenderCola(c3, C3Aux, Q, &Q3, &T3, &Cli3, 3, resultado);
+        atenderCola(c1, C1Aux, tiempoatencion, &Q1, &T1, &Cli1, 1, resultado);
+        atenderCola(c2, C2Aux, tiempoatencion, &Q2, &T2, &Cli2, 2, resultado);
+        atenderCola(c3, C3Aux, tiempoatencion, &Q3, &T3, &Cli3, 3, resultado);
     }
 
     devolverColas(C1Aux, c1);
@@ -172,7 +170,7 @@ int main()
         }
     }
 
-    Cola resultado = atender(c1, c2, c3, Q);
+    Cola resultado = c_ej7_atenderclientes(c1, c2, c3, Q);
 
     printf("--------------------------------------------\n");
     printf("[INFO] Q = %d\n", Q);
