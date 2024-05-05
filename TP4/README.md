@@ -11,6 +11,6 @@ Por otro lado, si tenemos en cuenta la implementación de colas utilizada en la 
 
 ## Ejercico 6 
 ### Complejidad algoritmica
-En este ejercicio, la función c_ej6_comunesapilaycola se encarga de encontrar elementos comunes entre una pila y una cola, manteniendo un registro de sus posiciones respectivas en cada una de las estructuras.<br>
+En este ejercicio, la función c_ej6_comunesapilaycola(Pila p, Cola c,Lista listaPila,Lista listaCola,Lista listaComunes) se encarga de encontrar elementos comunes entre una pila y una cola, manteniendo un registro de sus posiciones respectivas en cada una de las estructuras.<br>
 El bucle principal contiene un bucle interno. El bucle externo se ejecutará tantas veces como elementos haya en la pila p, mientras que el bucle interno se ejecutará en el peor de los casos tantas veces como elementos haya en la cola c. Por lo tanto, la complejidad de estos bucles anidados es O(n*m), donde 'n' es el tamaño de la pila y 'm' es el tamaño de la cola.<br>
 Luego, tiene un bucle for que recorre todos los elementos de la cola. Dentro de este bucle, hay otro bucle for que también recorre todos los elementos de la cola. Esto da lugar a una complejidad de **O(n^2)** para esta parte del código.
