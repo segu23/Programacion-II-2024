@@ -2,9 +2,9 @@
 #define TP_COLAS_H
 
 #include <stdbool.h>
-#include ".\colas.h"
-#include ".\listas.h"
-#include ".\pilas.h"
+#include "colas.h"
+#include "listas.h"
+#include "pilas.h"
 
 /**
     2.	Resolver los siguientes puntos:
@@ -67,7 +67,7 @@ int  c_ej5_divisortotal(Cola c, bool *fuetotal);
  */
 // retornar una lista con los valores comunes segun las especificaciones del ejercicio.
 // Si no existen valores comunes retornar la lista vacia.
-Lista c_ej6_comunesapilaycola(Pila p, Cola c);
+void c_ej6_comunesapilaycola(Pila p, Cola c);
 
 
 /**

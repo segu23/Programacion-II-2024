@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-static const int TAMANIO_MAXIMO = 10;
+static const int TAMANIO_MAXIMO_COLAS = 100;
 
 struct ColaRep {
     TipoElemento *valores;
@@ -15,7 +15,7 @@ struct ColaRep {
 Cola c_crear() {
     Cola nueva_cola = (Cola) malloc(sizeof(struct ColaRep));
     // TODO hacer flexible y que la lista crezca sola
-    nueva_cola->valores = calloc((TAMANIO_MAXIMO+1), sizeof(TipoElemento));
+    nueva_cola->valores = calloc((TAMANIO_MAXIMO_COLAS+1), sizeof(TipoElemento));
     nueva_cola->frente = 0;
     nueva_cola->final = 0;
     return nueva_cola;
@@ -23,7 +23,7 @@ Cola c_crear() {
 
 
 bool c_es_llena(Cola cola) {
-    return (cola->final == (TAMANIO_MAXIMO));
+    return (cola->final == (TAMANIO_MAXIMO_COLAS));
 }
 
 
