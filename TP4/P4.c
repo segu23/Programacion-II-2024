@@ -5,8 +5,6 @@
 #include "tipo_elemento.h"
 #include "listas.h"
 #include "pilas.h"
-#include "tipo_elemento.c"
-#include "colas_arreglos.c"
 
 Cola  c_ej4_colanorepetidos(Cola c){
     Cola cAux = c_crear();

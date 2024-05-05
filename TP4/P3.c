@@ -1,9 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "colas_arreglos_circular.c"
 #include "colas.h"
-#include "tipo_elemento.c"
 #include "tipo_elemento.h"
 
 bool c_ej3_iguales(Cola c1, Cola c2){

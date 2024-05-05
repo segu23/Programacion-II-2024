@@ -5,8 +5,6 @@
 #include "colas.h"
 #include "tipo_elemento.h"
 
-#include "colas_arreglos_circular.c"
-#include "tipo_elemento.c"
 /*Resolver los siguientes puntos:
 a. Informar si un elemento dado se encuentra en la cola.
 b. Agregar un nuevo elemento en una posición dada (colarse).
