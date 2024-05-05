@@ -25,15 +25,21 @@ Cola  c_ej4_colanorepetidos(Cola c){
     }
 
     while (!c_es_vacia(copiaOriginal)){
+        bool encolar = true;
         TipoElemento elemento = c_desencolar(copiaOriginal);
         while (!c_es_vacia(copiaOriginal)){
             TipoElemento elemento2 = c_desencolar(copiaOriginal);
             if (elemento->clave != elemento2->clave){
                 c_encolar(cAux, elemento2);
             }
-
+            else{
+                encolar=false;
+            }
         }
-        c_encolar(respuesta, elemento);
+        if (encolar){
+            c_encolar(respuesta, elemento);
+        }
+        
         while (!c_es_vacia(cAux)){
             TipoElemento elemento3 = c_desencolar(cAux);
             c_encolar(copiaOriginal, elemento3);
@@ -44,19 +50,36 @@ Cola  c_ej4_colanorepetidos(Cola c){
 }
 
 int main(){
-    Cola cola1 = c_crear();
-    c_encolar(cola1, te_crear(1));
-    c_encolar(cola1, te_crear(2));
-    c_encolar(cola1, te_crear(2));
-    c_encolar(cola1, te_crear(3));
-    c_encolar(cola1, te_crear(2));
+    Cola cola = c_crear();
+
+    bool bandera=true;
+    int terminoElegido;
+    char opcionSeguir;
+
+    while(bandera){
+        printf("[INPUT] Ingrese un elemento para agregar a la cola (ingrese 'n' para terminar el ingreso): ");
+        if (scanf("%d", &terminoElegido)>0){
+            c_encolar(cola, te_crear(terminoElegido));
+            printf("[INFO] Agregado!\n");
+        }
+        else{
+            if (scanf("%c", &opcionSeguir)>0 && opcionSeguir == 'n'){
+                printf("[INFO] Finalizando carga de la cola.\n");
+                bandera=false;
+            }
+            else{
+                printf("[ERROR] Debe ingresar un numero.\n");
+            }
+            fflush(stdin);
+        }
+    }
 
     Cola respuesta = c_crear();
-    respuesta = c_ej4_colanorepetidos(cola1);
+    respuesta = c_ej4_colanorepetidos(cola);
 
-    printf("Cola original: \n");
-    c_mostrar(cola1);
-    printf("Cola sin repetidos: \n");
+    printf("\n[OUTPUT] Cola original: \n");
+    c_mostrar(cola);
+    printf("\n[OUTPUT] Cola sin repetidos: \n");
     c_mostrar(respuesta);
 
     return 0;

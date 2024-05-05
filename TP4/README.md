@@ -1,5 +1,12 @@
 # Trabajo Práctico Nro. 4: Colas
 
+## Ejercicio 4
+### Complejidad algoritmica
+En este ejercicio nos encontramos con una función llamada c_ej4_colanorepetidos(Cola c). Esta función se encarga de quitar los repeditos de una cola.<br>
+La funcion tiene dos bucles while al principio que se encargan de hacer una copia de la cola y dejar la cola original intacta cada uno de estos tiene una complejidad de **O(n)**.
+Luego tiene un bucle while que dentro contiene dos bucles while mas, el primero desencola el primer elemento y el segundo desencola desde el elemento siguiente hasta el final de la cola, esto permite compararlos y seleccionar cuales encolar y cuales no a la cola respuesta. El ultimo while encola los elementos no repetidos para revisar los numeros que quedan y asi poder limpiar los repetidos restantes, al terminar los ciclos nos quedara la cola original intacta y una cola respuesta donde se encuentran los elementos que nunca se repitieron.
+La complejidad algoritmica de este while medida en el peor de los casos es **O(n^2)**. el peor de los casos es aquel en el cual la cola no tiene repetidos.
+
 ## Ejercicio 5
 ### Complejidad algoritmica
 En este ejercicio nos encontramos con una función llamada c_ej5_divisortotal(Cola c, bool *fuetotal). Esta función se encarga de encontrar un divisor total o parcial en una cola de números enteros.<br>
