@@ -1,5 +1,12 @@
 # Trabajo Práctico Nro. 4: Colas
 
+## Ejercicio 3
+### Complejidad algoritmica
+En este ejercicio la funcion llamada c_ej3_iguales(Cola c1, Cola c2) se encarga de comparar las claves de cada
+uno de los elementos de las colas y devuelve verdadero si las claves de los elementos, que se encuentran en la 
+misma posicion de ambas colas, son iguales. Si las colas no son iguales devuelve falso.<br>
+La funcion tiene dos bucles while. El primero desencola los elementos de la cola 1 y los va encolando en la cola auxiliar, luego desencola a los elementos de la cola 2 y los encola en la cola 1, en el transcurso de este proceso se realiza la comparacion. El segundo while se encarga de desencolar a los elementos de la cola 1 y encolarlos en la cola 2, tambien desencola a los elementos de la cola auxiliar y los encola en la cola 1, esto se hace para devolver sus valores originales a las colas 1 y 2, para que no se pierdan. Cada uno de estos bucles tiene una complejidad de **O(n)** siendo n la longitud de las colas, ya que los bucles van a dejar de iterar una vez que las recorran por completo. 
+
 ## Ejercicio 4
 ### Complejidad algoritmica
 En este ejercicio nos encontramos con una función llamada c_ej4_colanorepetidos(Cola c). Esta función se encarga de quitar los repeditos de una cola.<br>
