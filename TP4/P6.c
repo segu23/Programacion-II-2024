@@ -7,15 +7,13 @@
 #include "pilas.h"
 #include "colas.h"
 
-#include "tipo_elemento.c"
-#include "colas_arreglos.c"
-
 const unsigned int max_rand =100;
 
 // Dada una pila y una cola generada con valores al azar retornar en una lista todos los
 // valores comunes a ambas y en qué posición ordinal se encontró cada uno en su
 // estructura. No se deben destruir las estructuras originales. No se deben perderse las
 // estructuras originales. Determinar la complejidad algorítmica de la solución empleada
+
 void l_mostrar_IndicesyLista(Lista indice_pila,Lista indice_cola,Lista lista_comunes) {
     Iterador ite_pila=iterador(indice_pila);
     Iterador ite_cola=iterador(indice_cola);
@@ -119,9 +117,12 @@ void cargarCola(Cola cola,int cantidad){
     c_mostrar(cola);
 }
 
-void c_ej6_comunesapilaycola(Pila p, Cola c,Lista listaPila,Lista listaCola,Lista listaComunes){
+void c_ej6_comunesapilaycola(Pila p, Cola c){
     Pila pilaAux=p_crear();
     Cola colaTmp=c_crear();
+    Lista listaPila=l_crear();
+    Lista listaCola=l_crear();
+    Lista listaComunes=l_crear();
 
     int index_pila=1,index_cola=1;
 
@@ -151,10 +152,10 @@ void c_ej6_comunesapilaycola(Pila p, Cola c,Lista listaPila,Lista listaCola,List
         TipoElemento elementoAux1 = p_desapilar(pilaAux);
         p_apilar(p, elementoAux1);
     }
+    l_mostrar_IndicesyLista(listaPila,listaCola,listaComunes);
 }
 
 int main() {
-    // Inicializar pila y cola
     Pila pila =p_crear();
     Cola cola =c_crear();
     int cantidadPila,cantidadCola;
@@ -183,11 +184,7 @@ int main() {
 
     cargarCola(cola,cantidadCola);
 
-    Lista listaPila=l_crear();
-    Lista listaCola=l_crear();
-    Lista listaComunes=l_crear();
-    c_ej6_comunesapilaycola(pila,cola,listaPila,listaCola,listaComunes);
-    l_mostrar_IndicesyLista(listaPila,listaCola,listaComunes);
+    c_ej6_comunesapilaycola(pila,cola);
     
     return 0;
 }
