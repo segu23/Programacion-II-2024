@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "colas.h"
 #include "tipo_elemento.h"
-
+#include "tp_colas.h"
 /*Resolver los siguientes puntos:
 a. Informar si un elemento dado se encuentra en la cola.
 b. Agregar un nuevo elemento en una posición dada (colarse).

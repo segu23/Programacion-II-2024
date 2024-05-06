@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include "tipo_elemento.h"
 #include "colas.h"
+#include "tp_colas.h"
 
 int c_ej5_divisortotal(Cola c, bool *fuetotal){
     int contador = 0;
