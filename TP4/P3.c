@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include "colas.h"
 #include "tipo_elemento.h"
-
+#include "tp_colas.h"
 bool c_ej3_iguales(Cola c1, Cola c2){
     TipoElemento elementoaux=te_crear(0);
     TipoElemento elementoaux2=te_crear(0);

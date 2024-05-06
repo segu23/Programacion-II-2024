@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-//#include "tp_colas.h"
+#include "tp_colas.h"
 #include "tipo_elemento.h"
 #include "tipo_elemento.c"
 #include "colas_arreglos.c"
