@@ -9,8 +9,6 @@
 
 #include "tipo_elemento.c"
 #include "colas_arreglos.c"
-#
-
 
 const unsigned int max_rand =100;
 
