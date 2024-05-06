@@ -5,6 +5,9 @@
 #include "colas.h"
 #include "tipo_elemento.h"
 #include "tp_colas.h"
+
+#include "colas_arreglos.c"
+#include "tipo_elemento.c"
 /*Resolver los siguientes puntos:
 a. Informar si un elemento dado se encuentra en la cola.
 b. Agregar un nuevo elemento en una posición dada (colarse).
@@ -78,6 +81,7 @@ Cola resolverPuntoB(Cola C1, int posicion, int stage){
         stage++;
         
     }
+    free(aux);
     return c2;
 }
 
@@ -175,6 +179,7 @@ Cola c_ej2_invertir(Cola c) {
 
     invertirRecursivamente(aux2); 
     c_mostrar(aux2);
+    free(aux);
     return aux2; 
 }
 
@@ -214,45 +219,78 @@ int main(){
     
     
     while(input != 'x') {
+        system("clear");
         mostrarMenu();
         printf("[INPUT] Seleccione una opcion: ");
-        fflush(stdin);
         while(scanf("%c", &input) == 0){
             printf("[ERROR] Ingrese una opcion valida.\n");
-            fflush(stdin);
+            while (getchar() != '\n');
         }
 
         switch(input){
             case 'a': {
+                system("clear");
                 c_mostrar(cola);
                 int clave;
                 printf("[INPUT] Ingrese la clave a buscar: ");
-                scanf("%d", &clave);
-                c_ej2_existeclave(cola, clave);
+                if ((scanf("%d", &clave))>0){
+                    c_ej2_existeclave(cola, clave);
+                }
+                else{
+                    printf("[ERROR] Debe ingresar un valor valido.\n");
+                }
                 break;
             }
             case 'b': {
+                system("clear");
                 c_mostrar(cola);
                 int posicion;
                 printf("[INPUT] Ingrese la posición en la que desea insertar el nuevo elemento: ");
-                scanf("%d", &posicion);
-                c_ej2_colarelemento(cola, posicion);
+                if (scanf("%d", &posicion) > 0 && posicion > 0){
+                    c_ej2_colarelemento(cola, posicion);
+
+                }
+                else{
+                    while (posicion < 0 )
+                    {
+                        printf("[ERROR] Debe ingresar un valor valido.\n");
+                        printf("[INPUT] Ingrese la posición en la que desea insertar el nuevo elemento: ");
+                        while (getchar() != '\n');
+                    }
+                    c_ej2_colarelemento(cola, posicion);
+                    
+                }
                 break;
             }
             case 'c': {
+                system("clear");
                 c_mostrar(cola);
                 int clave;
                 printf("[INPUT] Ingrese la clave del elemento que desea eliminar: ");
-                scanf("%d", &clave);
-                c_ej2_sacarelemento(cola, clave);
+                if (scanf("%d", &clave) > 0 && clave > 0){
+                    c_ej2_sacarelemento(cola, clave);
+                }
+                else{
+                    while (clave < 0 )
+                    {
+                        printf("[ERROR] Debe ingresar un valor valido.\n");
+                        printf("[INPUT] Ingrese la posición en la que desea insertar el nuevo elemento: ");
+                        scanf("%d", &clave);
+                        while (getchar() != '\n');
+
+                    }
+                    c_ej2_sacarelemento(cola, clave);
+                }
                 break;
             }
             case 'd': {
+                system("clear");
                 c_mostrar(cola);
                 c_ej2_contarelementos(cola);
                 break;
             }
             case 'e': {
+                system("clear");
                 c_mostrar(cola);
                 Cola nueva = c_crear();
                 nueva = c_ej2_copiar(cola);
@@ -261,6 +299,7 @@ int main(){
                 break;
             }
             case 'f': {
+                system("clear");
                 c_mostrar(cola);
                 c_ej2_invertir(cola);
                 printf("[INFO] Contenido de la Cola invertido.\n");
