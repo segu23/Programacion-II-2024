@@ -3,6 +3,13 @@
 #include <time.h>
 #include "tp_colas.h"
 #include "tipo_elemento.h"
+#include "listas.h"
+#include "pilas.h"
+#include "colas.h"
+
+#include "tipo_elemento.c"
+#include "colas_arreglos.c"
+#
 
 
 const unsigned int max_rand =100;
