@@ -3,10 +3,12 @@
 #include <time.h>
 #include "tp_colas.h"
 #include "tipo_elemento.h"
+#include "listas.h"
+#include "pilas.h"
+#include "colas.h"
+
 #include "tipo_elemento.c"
 #include "colas_arreglos.c"
-#include "listas_arreglos.c"
-#include "pilas_arreglos.c"
 
 const unsigned int max_rand =100;
 
@@ -19,7 +21,7 @@ void l_mostrar_IndicesyLista(Lista indice_pila,Lista indice_cola,Lista lista_com
     Iterador ite_cola=iterador(indice_cola);
     Iterador ite_comunes=iterador(lista_comunes);
     if(l_es_vacia(lista_comunes)){
-        printf("No hay elementos comunes.");
+        printf("[OUTPUT] No hay elementos comunes.");
         return;
     }
     while (hay_siguiente(ite_pila)&&hay_siguiente(ite_cola)&&hay_siguiente(ite_comunes))
@@ -28,7 +30,7 @@ void l_mostrar_IndicesyLista(Lista indice_pila,Lista indice_cola,Lista lista_com
         TipoElemento elemento_cola=siguiente(ite_cola);
         TipoElemento elemento_comunes=siguiente(ite_comunes);
 
-        printf("\n%d:%d:%d", elemento_pila->clave,elemento_cola->clave,elemento_comunes->clave);
+        printf("\n[OUTPUT] %d:%d:%d", elemento_pila->clave,elemento_cola->clave,elemento_comunes->clave);
     }
 }
 
