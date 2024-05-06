@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static const int TAMANIO_MAXIMO = 100;
+static const int TAMANIO_MAXIMO_LISTAS = 100;
 static const int NULO = -1;
 
 struct Nodo {
@@ -35,18 +35,18 @@ Lista l_crear() {
     Lista nueva_lista = (Lista) malloc(sizeof(struct ListaRep));
 
     // TODO hacer flexible y que la lista crezca sola
-    nueva_lista->cursor = calloc(TAMANIO_MAXIMO, sizeof(struct Nodo));
+    nueva_lista->cursor = calloc(TAMANIO_MAXIMO_LISTAS, sizeof(struct Nodo));
     nueva_lista->cantidad = 0;
     nueva_lista->inicio = NULO;
 
     // Encadeno todos los libres
-    for (i=0; i<=(TAMANIO_MAXIMO-2); i++) {
+    for (i=0; i<=(TAMANIO_MAXIMO_LISTAS-2); i++) {
         nueva_lista->cursor[i].siguiente = i+1;
     }
 
     // Instancio inicio, libre y demas
     nueva_lista->libre = 0;
-    nueva_lista->cursor[TAMANIO_MAXIMO-1].siguiente = NULO;
+    nueva_lista->cursor[TAMANIO_MAXIMO_LISTAS-1].siguiente = NULO;
     nueva_lista->inicio = NULO;
 
     // retorno la lista creada
@@ -60,7 +60,7 @@ bool l_es_vacia(Lista lista) {
 
 
 bool l_es_llena(Lista lista) {
-    return (lista->cantidad == TAMANIO_MAXIMO);
+    return (lista->cantidad == TAMANIO_MAXIMO_LISTAS);
 }
 
 

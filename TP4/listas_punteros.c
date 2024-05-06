@@ -3,20 +3,20 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static const int TAMANIO_MAXIMO = 100;
+static const int TAMANIO_MAXIMO_LISTAS = 100;
 
-struct Nodo {
+struct NodoListas {
     TipoElemento datos;
-    struct Nodo *siguiente;
+    struct NodoListas *siguiente;
 };
 
 struct ListaRep {
-    struct Nodo *inicio;
+    struct NodoListas *inicio;
     int cantidad;
 };
 
 struct IteradorRep {
-    struct Nodo *posicionActual;
+    struct NodoListas *posicionActual;
 };
 
 //-----------------------------------------------------------------------------------------------
@@ -39,7 +39,7 @@ bool l_es_vacia(Lista lista) {
 
 
 bool l_es_llena(Lista lista) {
-    return (lista->cantidad == TAMANIO_MAXIMO);
+    return (lista->cantidad == TAMANIO_MAXIMO_LISTAS);
 }
 
 
@@ -53,14 +53,14 @@ bool l_agregar(Lista lista, TipoElemento elemento) {
         return false;
     }
     // Ahora lo agrego
-    struct Nodo *nuevo_nodo = malloc(sizeof(struct Nodo));
+    struct NodoListas *nuevo_nodo = malloc(sizeof(struct NodoListas));
     nuevo_nodo->datos = elemento;
     nuevo_nodo->siguiente = NULL;
     if (lista->inicio == NULL) {
         lista->inicio = nuevo_nodo;
     } else {
         // Debo buscar el puntero del ultimo
-        struct Nodo *temp2 = lista->inicio;
+        struct NodoListas *temp2 = lista->inicio;
         while (temp2->siguiente != NULL) {
             temp2 = temp2->siguiente;
         }
@@ -79,7 +79,7 @@ bool l_borrar(Lista lista, int clave) {
     bool borre = false;
 
     // Ahora comienza a borrar
-    struct Nodo *actual = lista->inicio;
+    struct NodoListas *actual = lista->inicio;
 
     while (actual != NULL && actual->datos->clave == clave) {
         lista->inicio = actual->siguiente;
@@ -91,7 +91,7 @@ bool l_borrar(Lista lista, int clave) {
     // Borra el resto de las claves que no estan al principio
     while (actual != NULL && actual->siguiente != NULL) {
         if (actual->siguiente->datos->clave == clave) {
-            struct Nodo *temp = actual->siguiente;
+            struct NodoListas *temp = actual->siguiente;
             actual->siguiente = temp->siguiente;
             free(temp);
             lista->cantidad--;
@@ -105,7 +105,7 @@ bool l_borrar(Lista lista, int clave) {
 
 
 TipoElemento l_buscar(Lista lista, int clave) {
-    struct Nodo *actual = lista->inicio;
+    struct NodoListas *actual = lista->inicio;
     while (actual != NULL) {
         if (actual->datos->clave == clave) {
             return actual->datos;
@@ -128,7 +128,7 @@ bool l_insertar(Lista lista, TipoElemento elemento, int pos) {
     }
 
     // Ahora si lo voy a insertar
-    struct Nodo *nuevo_nodo = malloc(sizeof(struct Nodo));
+    struct NodoListas *nuevo_nodo = malloc(sizeof(struct NodoListas));
     nuevo_nodo->datos = elemento;
     nuevo_nodo->siguiente = NULL;
 
@@ -136,7 +136,7 @@ bool l_insertar(Lista lista, TipoElemento elemento, int pos) {
         nuevo_nodo->siguiente = lista->inicio;
         lista->inicio = nuevo_nodo;
     } else {
-        struct Nodo *temp2 = lista->inicio;
+        struct NodoListas *temp2 = lista->inicio;
         for (int i = 0; i < pos - 2; i++) {
             temp2 = temp2->siguiente;
         }
@@ -155,7 +155,7 @@ bool l_eliminar(Lista lista, int pos) {
 
     bool borre = false;
 
-    struct Nodo *actual = lista->inicio;
+    struct NodoListas *actual = lista->inicio;
     if (1 <= pos && pos <= l_longitud(lista)) {
         if (pos == 1) {
             lista->inicio = actual->siguiente;
@@ -166,7 +166,7 @@ bool l_eliminar(Lista lista, int pos) {
                 actual = actual->siguiente;
             }
             // actual apunta al nodo en posición (pos - 1)
-            struct Nodo *temp = actual->siguiente; // nodo en pos
+            struct NodoListas *temp = actual->siguiente; // nodo en pos
             actual->siguiente = temp->siguiente; // nodo en pos + 1
             free(temp);
             borre = true;
@@ -182,7 +182,7 @@ TipoElemento l_recuperar(Lista lista, int pos) {
         return NULL;
     }
     // Si existe lo retorno
-    struct Nodo *temp2 = lista->inicio;
+    struct NodoListas *temp2 = lista->inicio;
     for (int i = 0; i < pos - 1; i++) {
         temp2 = temp2->siguiente;
     }
@@ -191,7 +191,7 @@ TipoElemento l_recuperar(Lista lista, int pos) {
 
 
 void l_mostrar(Lista lista) {
-    struct Nodo *temp2 = lista->inicio;
+    struct NodoListas *temp2 = lista->inicio;
     printf("Contenido de la lista: ");
     while (temp2 != NULL) {
         printf("%d ", temp2->datos->clave);

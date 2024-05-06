@@ -3,16 +3,16 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-static const int TAMANIO_MAXIMO = 10;
+static const int TAMANIO_MAXIMO_COLAS = 10;
 
-struct Nodo {
+struct NodoCola {
     TipoElemento datos;
-    struct Nodo *siguiente;
+    struct NodoCola *siguiente;
 };
 
 struct ColaRep {
-    struct Nodo *frente;
-    struct Nodo *final;
+    struct NodoCola *frente;
+    struct NodoCola *final;
 };
 
 
@@ -30,7 +30,7 @@ bool c_encolar(Cola cola, TipoElemento elemento) {
         return false;
     }
 
-    struct Nodo *nuevo_nodo = malloc(sizeof(struct Nodo));
+    struct NodoCola *nuevo_nodo = malloc(sizeof(struct NodoCola));
     nuevo_nodo->datos = elemento;
     nuevo_nodo->siguiente = NULL;
 
@@ -48,7 +48,7 @@ TipoElemento c_desencolar(Cola cola) {
     if (c_es_vacia(cola)) {
         return NULL;
     }
-    struct Nodo *inicio = cola->frente;
+    struct NodoCola *inicio = cola->frente;
     TipoElemento elemento = inicio->datos;
     cola->frente = inicio->siguiente;
     free(inicio);
@@ -65,9 +65,9 @@ bool c_es_vacia(Cola cola) {
 //-----------------------------------------------------------
 // Rutina interna que calcula los elementos de la cola
 //-----------------------------------------------------------
-int longitud(Cola cola) {
+int longitudCola(Cola cola) {
     int i = 0;
-    struct Nodo *N = cola->frente;
+    struct NodoCola *N = cola->frente;
     while (N != NULL) {
         i++;
         N = N->siguiente;
@@ -76,7 +76,7 @@ int longitud(Cola cola) {
 }
 
 bool c_es_llena(Cola cola) {
-    return (longitud(cola) == TAMANIO_MAXIMO);
+    return (longitudCola(cola) == TAMANIO_MAXIMO_COLAS);
 }
 
 

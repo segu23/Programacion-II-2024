@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-static const int TAMANIO_MAXIMO = 11;
+static const int TAMANIO_MAXIMO_COLAS = 11;
 
 struct ColaRep {
     TipoElemento *valores;
@@ -14,17 +14,17 @@ struct ColaRep {
 
 // Funcion interna que hace avanzar el frente y el final hacia adelante
 int paso(int posicion) {
-    return ((posicion % TAMANIO_MAXIMO) + 1);
+    return ((posicion % TAMANIO_MAXIMO_COLAS) + 1);
 }
 
 
 Cola c_crear() {
     Cola nueva_cola = (Cola) malloc(sizeof(struct ColaRep));
     // TODO hacer flexible y que la lista crezca sola
-    nueva_cola->valores = calloc((TAMANIO_MAXIMO + 1), sizeof(TipoElemento));
+    nueva_cola->valores = calloc((TAMANIO_MAXIMO_COLAS + 1), sizeof(TipoElemento));
     //  Esto es fundamental ya que esta vacia si hacemos un paso con el final y nos encontramos con el frente
     nueva_cola->frente = 1;
-    nueva_cola->final = TAMANIO_MAXIMO;
+    nueva_cola->final = TAMANIO_MAXIMO_COLAS;
     return nueva_cola;
 }
 
