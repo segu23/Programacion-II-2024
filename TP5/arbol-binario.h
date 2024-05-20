@@ -2,8 +2,8 @@
 #define ARBOL_BINARIO_H_INCLUDED
 
 #include <stdbool.h>
-#include "..\nodo.h"
-#include "..\tipo_elemento.h"
+#include "nodo.h"
+#include "tipo_elemento.h"
 
 struct ArbolBinarioRep;
 typedef struct ArbolBinarioRep *ArbolBinario;

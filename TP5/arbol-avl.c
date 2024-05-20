@@ -1,4 +1,4 @@
-#include "D:\Mario\Prog_2_2009\2024\TADs\Arboles\nodo.h"
+#include "nodo.h"
 #include "arbol-avl.h"
 
 static const int TAMANIO_MAXIMO = 1000;
