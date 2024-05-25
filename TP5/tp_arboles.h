@@ -31,22 +31,22 @@ Lista a_ej2_buscarclave(ArbolBinario A, int clave);
  */
 
 // a.	Indicar el nombre del nodo padre (clave).
-int a_ej3_clavepadre(ArbolBinario A, int clavehijo);
+int a_ej3_clavepadre(ArbolAVL A, int clavehijo);
 
 // b.	Listar los hijos (solo las clave/s).
-Lista a_ej3_hijos(ArbolBinario A, int clavepadre);
+Lista a_ej3_hijos(ArbolAVL A, int clavepadre);
 
 // c.	Listar el hermano (solo la clave).
-int a_ej3_hermano(ArbolBinario A, int clave);
+int a_ej3_hermano(ArbolAVL A, int clave);
 
 // d.	Calcular el nivel en el que se encuentra.
-int a_ej3_nivel(ArbolBinario A, int clave);
+int a_ej3_nivel(ArbolAVL A, int clave);
 
 // e.	Calcular la altura de su rama (Altura del Subárbol)
-int a_ej3_alturarama(ArbolBinario A, int clave);
+int a_ej3_alturarama(ArbolAVL A, int clave);
 
 // f.	Listar todos los nodos que están en el mismo nivel (solo la clave).
-Lista a_ej3_clavesmismonivel(ArbolBinario A, int nivel);
+Lista a_ej3_clavesmismonivel(ArbolAVL A, int nivel);
 
 
 /**
