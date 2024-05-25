@@ -3,18 +3,6 @@
 #include "tipo_elemento.h"
 #include "listas.h"
 #include "tp_arboles.h"
-#include "arbol-avl.c"
-#include "nodo.c"
-#include "tipo_elemento.c"
-#include "listas_punteros.c"
-
-ArbolAVL cargarArbol(ArbolAVL arbol){
-    
-
-
-
-}
-
 
 void imprimirArbol(NodoArbol raiz, int espacio) {
     // Definir la cantidad de espacio entre los niveles
@@ -45,7 +33,6 @@ void mostrarArbol(ArbolAVL arbol) {
     NodoArbol raiz=arbol->raiz;
     imprimirArbol(raiz, 1);
 }
-
 // f.	Listar todos los nodos que están en el mismo nivel (solo la clave).
 // Función para calcular la altura de un nodo
 void listarNodosEnNivel(ArbolAVL arbol, int nivelActual, int nivelObjetivo, Lista lista) {
@@ -69,7 +56,6 @@ void listarNodosEnNivel(ArbolAVL arbol, int nivelActual, int nivelObjetivo, List
         
     }
 }
-
 // Función principal para listar nodos en un nivel dado
 Lista a_ej3_clavesmismonivel(ArbolAVL A, int nivel) {
     Lista lista=l_crear();

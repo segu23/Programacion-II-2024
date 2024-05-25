@@ -6,7 +6,6 @@
 
 static const int TAMANIO_MAXIMO_ARBOL = 100;
 
-
 struct ArbolBinarioRep {
     NodoArbol raiz;
     int cantidad_elementos;

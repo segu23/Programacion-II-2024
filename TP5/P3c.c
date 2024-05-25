@@ -36,7 +36,6 @@ void mostrarArbol(ArbolAVL arbol) {
     imprimirArbol(raiz, 1);
 }
 
-
 // c.	Listar el hermano (solo la clave).
 int a_ej3_hermano(ArbolAVL A, int clave){
     if (A == NULL || A->raiz->datos->clave == clave) {

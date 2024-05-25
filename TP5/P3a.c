@@ -34,7 +34,6 @@ void mostrarArbol(ArbolAVL arbol) {
     imprimirArbol(raiz, 1);
 }
 
-
 // a.	Indicar el nombre del nodo padre (clave).
 int a_ej3_clavepadre(ArbolAVL A, int clavehijo){
     
@@ -66,6 +65,7 @@ int a_ej3_clavepadre(ArbolAVL A, int clavehijo){
         return -1;
     }
 }
+
 int main(){
     int claveHijo=0,raiz=0,elemento=0,index=1;
     ArbolAVL arbolA = avl_crear();

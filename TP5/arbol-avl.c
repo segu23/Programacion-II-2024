@@ -54,7 +54,6 @@ NodoArbol avl_raiz(ArbolAVL a) {
     return a->raiz;
 }
 
-
 /*
 NodoArbol avl_crear_nodo(TipoElemento te) {
     NodoArbol na = (NodoArbol) malloc(sizeof(struct NodoArbolRep));

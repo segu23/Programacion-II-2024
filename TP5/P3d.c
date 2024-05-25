@@ -36,8 +36,6 @@ void mostrarArbol(ArbolAVL arbol) {
     imprimirArbol(raiz, 1);
 }
 
-
-
 //d.	Calcular el nivel en el que se encuentra.
 int a_ej3_nivel(ArbolAVL A, int clave){
     int nivel = 0;

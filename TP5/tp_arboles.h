@@ -10,7 +10,6 @@
 #include "arbol-avl.h"
 #include "arbol-binario-busqueda.h"
 
-
 /**
 2.	Dado un árbol binario no vacío determinar:  
  */

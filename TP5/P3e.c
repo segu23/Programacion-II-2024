@@ -36,7 +36,6 @@ void mostrarArbol(ArbolAVL arbol) {
     imprimirArbol(raiz, 1);
 }
 
-
 //e.	Calcular la altura de su rama (Altura del Subárbol)
 int calcularAltura(NodoArbol a){
     if(a==NULL){
