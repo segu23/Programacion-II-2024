@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "arbol-binario-busqueda.c"
-#include "arbol-avl.c"
-#include "listas_arreglos.c"
-#include "nodo.c"
-#include "tipo_elemento.c"
+#include "arbol-binario-busqueda.h"
+#include "arbol-avl.h"
+#include "listas.h"
+#include "nodo.h"
+#include "tipo_elemento.h"
 
 /**
 10.	Dada una serie de números generados al azar, cargar la misma serie en un árbol binario de búsqueda y en un árbol binario balanceado “AVL”.  
@@ -105,8 +105,11 @@ int main() {
         int dif_alturas = a_ej10_difalturas(abb, avl);
         printf("Diferencia de alturas entre el Arbol de Busqueda Binaria y Arbol AVL en la repeticion %d: %d\n", i + 1, dif_alturas);
     }
+    if(n>=1){
     printf("En Conclusion el auto balanceo del arbol AVL es mas grande que en el del arbol ABB \nen la mayoria de las ocasiones lo llega a reducir hasta casi la mitad teniendo en cuenta su rama mas larga");
+    }
     return 0;
+
 }
 
 
