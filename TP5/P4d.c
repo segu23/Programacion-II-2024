@@ -65,13 +65,13 @@ int main(){
     NodoArbol j =  a_conectar_hi(arbol, i, te_crear(10));
 
     
-    TipoElemento padre2=te_crear(0);
-    padre2=a_ej4_padre(arbol, 10);
+    TipoElemento padreNodo=te_crear(0);
+    padreNodo=a_ej4_padre(arbol, 10);
     
-    Lista padrazo=l_crear();
-    l_agregar(padrazo,padre2);
+    Lista padre=l_crear();
+    l_agregar(padre,padreNodo);
 
-    l_mostrar(padrazo);
+    l_mostrar(padre);
 
     return 0;
 }
