@@ -8,29 +8,54 @@
 #include "tipo_elemento.c"
 #include "arbol-binario.c"
 #include "nodo.c"
+#include "colas.h"
+#include "colas_arreglos.c"
 
-void recorrerNodo(NodoArbol nodo, Lista resultado, int clave){
-    NodoArbol hijoIzquierdo = n_hijoizquierdo(nodo);
-    NodoArbol hijoDerecho = n_hijoderecho(nodo);
+int auxiliares2(TipoElemento hermano){
+    Cola C;
+    NodoArbol N=hermano->valor;
+    TipoElemento X;
+    C=c_crear();
+    Cola colaAux;
+    colaAux=c_crear();
+    int cantidad=0;
+    X=te_crear_con_valor(0,N);
+    c_encolar(C,X);
+    while(!c_es_vacia(C)){
+        X=c_desencolar(C);
+        N=(NodoArbol)X->valor;
 
-    if(a_es_rama_nula(hijoIzquierdo)){
-        l_agregar(resultado, te_crear(nodo->datos->clave));
+        if(a_es_rama_nula(n_hijoizquierdo(N))){
+            c_encolar(colaAux,n_recuperar(N));
+
+        }
+        
+        if(!a_es_rama_nula(n_hijoizquierdo(N))){
+            X=te_crear_con_valor(0,n_hijoizquierdo(N));
+            c_encolar(C,X);
+        }
+
+        if(!a_es_rama_nula(n_hijoderecho(N))){
+            X=te_crear_con_valor(0,n_hijoderecho(N));
+            c_encolar(C,X);
+        }
+
     }
-    
-    if (!a_es_rama_nula(hijoIzquierdo)){
-        recorrerNodo(hijoIzquierdo,resultado,clave);
+    while(!c_es_vacia(colaAux)){
+        X=c_desencolar(colaAux);
+        cantidad++;
     }
-    if (!a_es_rama_nula(hijoDerecho)){
-        recorrerNodo(hijoDerecho,resultado,clave);
-    }
+    return cantidad;
+      
 }
-
-Lista a_ej2_buscarclave(ArbolBinario A, int clave){
+    
+int a_ej4_q_hojas(ArbolBinario A){
     NodoArbol raiz = a_raiz(A);
-    Lista resultado = l_crear();
-    recorrerNodo(raiz, resultado, clave);
+    int cantidad=0;
+    TipoElemento elementoaux=te_crear_con_valor(0,raiz);
+    cantidad=auxiliares2(elementoaux);
 
-    return resultado;
+    return cantidad;
 }
 
 int main(){
@@ -46,11 +71,8 @@ int main(){
     NodoArbol i =  a_conectar_hd(arbol, h, te_crear_con_valor(9,(void*)'i'));
     NodoArbol j =  a_conectar_hi(arbol, i, te_crear_con_valor(10,(void*)'j'));
 
-    Lista lista = a_ej2_buscarclave(arbol, 2);
-
-    l_mostrar(lista);
-
-
-
+    int resultado=0;
+    resultado = a_ej4_q_hojas(arbol);
+    printf("La cantidad de nodos hojas es: %d ",resultado);
     return 0;
 }
