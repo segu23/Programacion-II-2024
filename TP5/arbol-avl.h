@@ -13,6 +13,16 @@ struct ArbolAVLRep {
 };
 typedef struct ArbolAVLRep *ArbolAVL;
 
+NodoArbol avl_rotar_derecha(NodoArbol nodo);
+
+NodoArbol avl_rotar_izquierda(NodoArbol nodo);
+
+int avl_altura_izq(NodoArbol nodo);
+
+int avl_altura_der(NodoArbol nodo);
+
+int avl_max(int a, int b);
+
 ArbolAVL avl_crear();
 
 bool avl_es_vacio(ArbolAVL a);

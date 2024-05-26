@@ -4,8 +4,7 @@
 #include "colas.h"
 #include "nodo.h"
 
-static const int TAMANIO_MAXIMO = 100;
-
+static const int TAMANIO_MAXIMO_ARBOL = 100;
 
 struct ArbolBinarioRep {
     NodoArbol raiz;
@@ -25,7 +24,7 @@ bool a_es_vacio(ArbolBinario a) {
 }
 
 bool a_es_lleno(ArbolBinario a){
-    return (a->cantidad_elementos == TAMANIO_MAXIMO);
+    return (a->cantidad_elementos == TAMANIO_MAXIMO_ARBOL);
 }
 
 int a_cantidad_elementos(ArbolBinario a) {
@@ -92,5 +91,3 @@ NodoArbol a_conectar_hd(ArbolBinario a, NodoArbol pa, TipoElemento te) {
 
     return na;
 }
-
-
