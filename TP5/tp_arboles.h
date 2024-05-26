@@ -2,13 +2,14 @@
 #define TP_ARBOLES_H
 
 #include <stdbool.h>
-#include "colas.h"
-#include "listas.h"
-#include "pilas.h"
-#include "nodo.h"
-#include "arbol-binario.h"
-#include "arbol-avl.h"
-#include "arbol-binario-busqueda.h"
+#include ".\colas.h"
+#include ".\listas.h"
+#include ".\pilas.h"
+#include ".\nodo.h"
+#include ".\arbol-binario.h"
+#include ".\arbol-avl.h"
+#include ".\arbol-binario-busqueda.h"
+
 
 /**
 2.	Dado un árbol binario no vacío determinar:  
@@ -30,22 +31,22 @@ Lista a_ej2_buscarclave(ArbolBinario A, int clave);
  */
 
 // a.	Indicar el nombre del nodo padre (clave).
-int a_ej3_clavepadre(ArbolAVL A, int clavehijo);
+int a_ej3_clavepadre(ArbolBinario A, int clavehijo);
 
 // b.	Listar los hijos (solo las clave/s).
-Lista a_ej3_hijos(ArbolAVL A, int clavepadre);
+Lista a_ej3_hijos(ArbolBinario A, int clavepadre);
 
 // c.	Listar el hermano (solo la clave).
-int a_ej3_hermano(ArbolAVL A, int clave);
+int a_ej3_hermano(ArbolBinario A, int clave);
 
 // d.	Calcular el nivel en el que se encuentra.
-int a_ej3_nivel(ArbolAVL A, int clave);
+int a_ej3_nivel(ArbolBinario A, int clave);
 
 // e.	Calcular la altura de su rama (Altura del Subárbol)
-int a_ej3_alturarama(ArbolAVL A, int clave);
+int a_ej3_alturarama(ArbolBinario A, int clave);
 
 // f.	Listar todos los nodos que están en el mismo nivel (solo la clave).
-Lista a_ej3_clavesmismonivel(ArbolAVL A, int nivel);
+Lista a_ej3_clavesmismonivel(ArbolBinario A, int nivel);
 
 
 /**
@@ -109,8 +110,8 @@ int a_ej9_diferenciaalturas(ArbolBinario A, ArbolAVL AVL);
 	Repetir el proceso “n” veces. 
 	¿Qué puede concluir al respecto?
  */
-// Generamos una lista con la seria de numeros
-Lista a_ej10_generarlistaclaves(int cantidadclavesagenerar);
+// Generamos una lista con la serie de numeros (unicos no repetidos)
+Lista a_ej10_generarlistaclaves(int cantidadclavesagenerar, int valorminimo, int valormaximo);
 
 // Ahora se la paso a la funcion que crea los 2 arboles
 ArbolBinarioBusqueda a_ej10_crearABB(Lista L);
@@ -122,7 +123,7 @@ int a_ej10_difalturas(ArbolBinarioBusqueda ABB, ArbolAVL AVL);
 // Este proceso se debera repetir N veces  (N se debera poder tomar por teclado).
 
 // LLamada general del proceso.  retorna una lista con todas las diferencias de las comparaciones.
-Lista a_ej10_comparacionarboles(int N_repeticiones);
+Lista a_ej10_comparacionarboles(int N_repeticiones, int valorminimo, int valormaximo, int cantidaclavesagenerar);
 
 
 #endif // TP_ARBOLES_H
