@@ -62,6 +62,7 @@ void auxiliares1(NodoArbol nodo,NodoArbol nodoaux,int clave,Lista lista1){
 }
 
 Lista a_ej4_hermanos(ArbolBinario A, int clave){
+    
     NodoArbol raiz = a_raiz(A);
     Lista lista1=l_crear();
     auxiliares1(raiz, raiz, clave,lista1);
