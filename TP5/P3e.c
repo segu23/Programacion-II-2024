@@ -1,11 +1,7 @@
 #include "arbol-binario.h"
-#include "arbol-binario.c"
 #include "nodo.h"
-#include "nodo.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 #include "listas.h"
-#include "listas_arreglos.c"
 #include "tp_arboles.h"
 
 //e.	Calcular la altura de su rama (Altura del Subárbol)
@@ -123,10 +119,10 @@ int main(){
     int claveRama=a_ej3_alturarama(arbolA,clave);
 
     if(claveRama==-1){
-        printf("La rama es nula.");
+        printf("[OUTPUT] La rama es nula.");
     }
     else
     {
-        printf("La altura de la rama de %d es %d ", clave, claveRama);
+        printf("[OUTPUT] La altura de la rama de %d es %d ", clave, claveRama);
     }
 }
