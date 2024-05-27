@@ -4,10 +4,6 @@
 #include "arbol-binario.h"
 #include "colas.h"
 #include "listas.h"
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
-#include "arbol-binario.c"
-#include "nodo.c"
 
 bool compararNodos(NodoArbol nodo1,NodoArbol nodo2){
     NodoArbol hijoIzquierdoNodo1 = n_hijoizquierdo(nodo1);
@@ -49,30 +45,80 @@ bool a_ej7_equivalente(ArbolBinario A, ArbolBinario B){
     return compararNodos(raizA,raizB);
 }
 
+int ingresoEntero(int* n){
+    char s[10];
+    int resultado =0;
+    *n=0;
+    printf("[INPUT] Ingrese una clave numerica o '.' para nulo: ");
+    scanf("%s", s);
+    if (s[0]=='.'){
+        resultado = 1;
+    }else{
+        for (int i = 0; s[i] != '\0'; i++) {
+            if ((s[i]>='0')&&(s[i]<='9')){
+                *n = *n * 10 + (s[i] - 48);}
+            else{resultado=2;}
+        }
+    }
+    return resultado;
+}
+
+void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    int b;
+    if(!a_es_lleno(A)){
+        if(sa == -1) {
+                printf("[INPUT] Ingrese el hijo izquierdo de %i.\n", N->datos->clave);
+            }
+            else if(sa == 1) {
+                printf("[INPUT] Ingrese el hijo derecho de %i.\n", N->datos->clave);
+            }
+            else {
+                printf("[INPUT] Ingrese la raiz.\n");
+            }
+        b= ingresoEntero(&n);
+        if (b==0){
+            X= te_crear(n);
+
+            if(sa == -1) {
+                N1 = a_conectar_hi(A, N, X);
+            }
+            else if(sa == 1) {
+                N1 = a_conectar_hd(A, N, X);
+            }
+            else {
+                N1 = a_establecer_raiz(A, X);
+            }
+
+            Cargar_SubArbol(A, N1, -1);
+            Cargar_SubArbol(A, N1, 1);
+        }else if(b==2){
+            printf("[ERROR] Entrada invalida (valor fuera de rango).\n");
+            Cargar_SubArbol(A, N,sa);
+        }
+    }
+}
+
+void cargar_arbol_binario(ArbolBinario A){
+    Cargar_SubArbol(A, NULL, 0);
+}
+
 int main(){
     ArbolBinario arbolA = a_crear();
-    NodoArbol raizA = a_establecer_raiz(arbolA, te_crear(4));
-    NodoArbol hijoIzquierdoRaizA =  a_conectar_hi(arbolA, raizA, te_crear(2));
-    NodoArbol hijoDerechoRaizA =  a_conectar_hd(arbolA, raizA, te_crear(8));
-    NodoArbol hijoIzquierdo1A =  a_conectar_hi(arbolA, hijoIzquierdoRaizA, te_crear(7));
-    NodoArbol hijoDerecho1A =  a_conectar_hd(arbolA, hijoIzquierdoRaizA, te_crear(2));
-    NodoArbol hijoIzquierdo2A =  a_conectar_hi(arbolA, hijoDerechoRaizA, te_crear(1));
-    NodoArbol hijoDerecho2A =  a_conectar_hd(arbolA, hijoDerechoRaizA, te_crear(6));
+    printf("[INFO] Cargando primer arbol...\n");
+    cargar_arbol_binario(arbolA);
  
     ArbolBinario arbolB = a_crear();
-    NodoArbol raizB = a_establecer_raiz(arbolB, te_crear(4));
-    NodoArbol hijoIzquierdoRaizB =  a_conectar_hi(arbolB, raizB, te_crear(2));
-    NodoArbol hijoDerechoRaizB =  a_conectar_hd(arbolB, raizB, te_crear(8));
-    NodoArbol hijoIzquierdo1B =  a_conectar_hi(arbolB, hijoIzquierdoRaizB, te_crear(7));
-    NodoArbol hijoDerecho1B =  a_conectar_hd(arbolB, hijoIzquierdoRaizB, te_crear(2));
-    NodoArbol hijoIzquierdo2B =  a_conectar_hi(arbolB, hijoDerechoRaizB, te_crear(1));
-    NodoArbol hijoDerecho2B =  a_conectar_hd(arbolB, hijoDerechoRaizB, te_crear(6));
+    printf("[INFO] Cargando segundo arbol...\n");
+    cargar_arbol_binario(arbolB);
 
     if (a_ej7_equivalente(arbolA,arbolB)){
-        printf("Tus arboles son equivalentes");
+        printf("\n[OUTPUT] Tus arboles son equivalentes.\n");
     }
     else{
-        printf("Tus arboles no son equivalentes");
+        printf("\n[OUTPUT] Tus arboles no son equivalentes.\n");
     }
 
     return 0;

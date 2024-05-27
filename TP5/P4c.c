@@ -4,31 +4,41 @@
 #include "arbol-binario.h"
 #include "colas.h"
 #include "listas.h"
+#include "listas_arreglos.c"
+#include "tipo_elemento.c"
+#include "arbol-binario.c"
+#include "nodo.c"
 
-void recorrerNodo(NodoArbol nodo, Lista resultado){
-    NodoArbol hijoIzquierdo = n_hijoizquierdo(nodo);
-    NodoArbol hijoDerecho = n_hijoderecho(nodo);
+bool compararArboles(NodoArbol nodo1,NodoArbol nodo2){
+    NodoArbol hijoIzquierdoNodo1 = n_hijoizquierdo(nodo1);
+    NodoArbol hijoDerechoNodo1 = n_hijoderecho(nodo1);
 
-    if(!a_es_rama_nula(hijoIzquierdo) && !a_es_rama_nula(hijoDerecho)){
-        l_agregar(resultado, te_crear_con_valor(nodo->datos->clave,(void*)nodo));
-    }
-    
-    if (!a_es_rama_nula(hijoIzquierdo)){
-        recorrerNodo(hijoIzquierdo,resultado);
-    }
-    if (!a_es_rama_nula(hijoDerecho)){
-        recorrerNodo(hijoDerecho,resultado);
+    NodoArbol hijoIzquierdoNodo2 = n_hijoizquierdo(nodo2);
+    NodoArbol hijoDerechoNodo2 = n_hijoderecho(nodo2);
+
+    bool validoIzquierda = false;
+    bool validoDerecha = false;
+
+    if (!a_es_rama_nula(hijoIzquierdoNodo1) && !a_es_rama_nula(hijoIzquierdoNodo2)){
+        validoIzquierda = compararArboles(hijoIzquierdoNodo1, hijoIzquierdoNodo2);
+    }else{
+        validoIzquierda = (a_es_rama_nula(hijoIzquierdoNodo1) && a_es_rama_nula(hijoIzquierdoNodo2));
     }
         
-    
+    if (!a_es_rama_nula(hijoDerechoNodo1) && !a_es_rama_nula(hijoDerechoNodo2)){
+        validoDerecha = compararArboles(hijoDerechoNodo1, hijoDerechoNodo2);
+    }else{
+        validoDerecha = (a_es_rama_nula(hijoDerechoNodo1) && a_es_rama_nula(hijoDerechoNodo2));
+    }
+
+    return validoIzquierda && validoDerecha;
 }
 
-Lista a_ej2_interiores(ArbolBinario A){
-    NodoArbol raiz = a_raiz(A);
-    Lista resultado = l_crear();
-    recorrerNodo(raiz, resultado);
-
-    return resultado;
+bool a_ej4_similares(ArbolBinario A, ArbolBinario B){
+    NodoArbol raizA = a_raiz(A);
+    NodoArbol raizB = a_raiz(B);
+    
+    return compararArboles(raizA,raizB);
 }
 
 int ingresoEntero(int* n){
@@ -92,17 +102,19 @@ void cargar_arbol_binario(ArbolBinario A){
 }
 
 int main(){
-    ArbolBinario arbol = a_crear();
-    printf("[INFO] Cargando arbol...\n");
-    cargar_arbol_binario(arbol);
-    Lista lista = a_ej2_interiores(arbol);
-    
-    if (l_es_vacia(lista)){
-        printf("\n[OUTPUT] No se encontraron nodos interiores.\n");
+    ArbolBinario arbolA = a_crear();
+    printf("[INFO] Cargando primer arbol...\n");
+    cargar_arbol_binario(arbolA);
+
+    ArbolBinario arbolB=a_crear();
+    printf("[INFO] Cargando segundo arbol...\n");
+    cargar_arbol_binario(arbolB);
+
+    if (a_ej4_similares(arbolA,arbolB)){
+        printf("\n[OUTPUT] Los arboles son similares\n");
     }
     else{
-        printf("\n[OUTPUT] Los nodos interiores del arbol son los de la siguiente lista.\n");
-        l_mostrar(lista);
+        printf("\n[OUTPUT] Los arboles NO son similares\n");
     }
 
     return 0;
