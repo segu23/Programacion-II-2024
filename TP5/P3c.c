@@ -1,112 +1,135 @@
-#include "arbol-avl.h"
-#include "arbol-binario-busqueda.h"
 #include "arbol-binario.h"
+#include "arbol-binario.c"
 #include "nodo.h"
+#include "nodo.c"
 #include "tipo_elemento.h"
+#include "tipo_elemento.c"
 #include "listas.h"
+#include "listas_arreglos.c"
 #include "tp_arboles.h"
 
-void imprimirArbol(NodoArbol raiz, int espacio) {
-    // Definir la cantidad de espacio entre los niveles
-    int COUNT = 10;
+int buscarNodoHermano(NodoArbol nodo, int claveHermano){
+    NodoArbol hijoIzquierdoNodo = n_hijoizquierdo(nodo);
+    NodoArbol hijoDerechoNodo = n_hijoderecho(nodo);
 
-    if (raiz == NULL) {
-        return;
+    int izquierda = -1;
+    int derecha = -1;
+
+    if(!a_es_rama_nula(hijoIzquierdoNodo)){
+        if(hijoIzquierdoNodo->datos->clave == claveHermano) {
+            if(!a_es_rama_nula(hijoDerechoNodo)){
+                return hijoDerechoNodo->datos->clave;
+            }
+        }else{
+            izquierda = buscarNodoHermano(hijoIzquierdoNodo, claveHermano);
+        }
     }
 
-    // Aumentar la distancia entre los niveles
-    espacio += COUNT;
-
-    // Procesar primero el subárbol derecho
-    imprimirArbol(raiz->hd, espacio);
-
-    // Imprimir el nodo actual después de los espacios COUNT
-    printf("\n");
-    for (int i = COUNT; i < espacio; i++) {
-        printf(" ");
+    if(!a_es_rama_nula(hijoDerechoNodo)){
+        if(hijoDerechoNodo->datos->clave == claveHermano) {
+            if(!a_es_rama_nula(hijoIzquierdoNodo)){
+                return hijoIzquierdoNodo->datos->clave;
+            }
+        }else{
+            derecha = buscarNodoHermano(hijoDerechoNodo, claveHermano);
+        }
     }
-    printf("%d\n", raiz->datos->clave);
 
-    // Procesar el subárbol izquierdo
-    imprimirArbol(raiz->hi,espacio);
-}
-
-void mostrarArbol(ArbolAVL arbol) {
-    NodoArbol raiz=arbol->raiz;
-    imprimirArbol(raiz, 1);
+    return izquierda == -1 ? derecha : izquierda;
 }
 
 // c.	Listar el hermano (solo la clave).
-int a_ej3_hermano(ArbolAVL A, int clave){
-    if (A == NULL || A->raiz->datos->clave == clave) {
-        // No hay hermano si el árbol es nulo o si la clave es la raíz
-        return -2;
-    }
+int a_ej3_hermano(ArbolBinario A, int clave){
+    NodoArbol raiz = a_raiz(A);
 
-    NodoArbol actual = A->raiz;
-    NodoArbol padre = NULL;
-    bool esIzquierdo=false;
-    // Buscar el nodo con la clave dada y su padre
-    while (actual != NULL && actual->datos->clave != clave) {
-        padre = actual;
-        if (clave < actual->datos->clave) {
-            actual = actual->hi;
-            esIzquierdo=true;
-        } else {
-            actual = actual->hd;
-            esIzquierdo=false;
-        }
-    }
-    if(padre->hd==NULL || padre->hi==NULL){
-        return -1;
-    }
-
-    if(esIzquierdo){
-        return padre->hd->datos->clave;
-    }
-    return padre->hi->datos->clave;
+    return buscarNodoHermano(raiz, clave);
 }
 
+int ingresoEntero(int* n){
+    char s[10];
+    int resultado =0;
+    *n=0;
+    printf("[INPUT] Ingrese una clave numerica o '.' para nulo: ");
+    scanf("%s", s);
+    if (s[0]=='.'){
+        resultado = 1;
+    }else{
+        for (int i = 0; s[i] != '\0'; i++) {
+            if ((s[i]>='0')&&(s[i]<='9')){
+                *n = *n * 10 + (s[i] - 48);}
+            else{resultado=2;}
+        }
+    }
+    return resultado;
+}
+
+void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    int b;
+    if(!a_es_lleno(A)){
+        if(sa == -1) {
+                printf("[INPUT] Ingrese el hijo izquierdo de %i.\n", N->datos->clave);
+            }
+            else if(sa == 1) {
+                printf("[INPUT] Ingrese el hijo derecho de %i.\n", N->datos->clave);
+            }
+            else {
+                printf("[INPUT] Ingrese la raiz.\n");
+            }
+        b= ingresoEntero(&n);
+        if (b==0){
+            X= te_crear(n);
+
+            if(sa == -1) {
+                N1 = a_conectar_hi(A, N, X);
+            }
+            else if(sa == 1) {
+                N1 = a_conectar_hd(A, N, X);
+            }
+            else {
+                N1 = a_establecer_raiz(A, X);
+            }
+
+            Cargar_SubArbol(A, N1, -1);
+            Cargar_SubArbol(A, N1, 1);
+        }else if(b==2){
+            printf("[ERROR] Entrada invalida (valor fuera de rango).\n");
+            Cargar_SubArbol(A, N,sa);
+        }
+    }
+}
+
+void cargar_arbol_binario(ArbolBinario A){
+    Cargar_SubArbol(A, NULL, 0);
+}
 
 int main(){
-    int elemento,index=1,raiz,clave=0;
-    ArbolAVL arbolA = avl_crear();
+    ArbolBinario arbolA = a_crear();
+    cargar_arbol_binario(arbolA);
 
-    printf("Ingrese el nodo raiz: ");
-    scanf("%d",&raiz);
-    avl_insertar(arbolA,te_crear(raiz));
+    bool seguirAgregando = true;
+    int clave;
 
-    printf("Ingrese los elementos: \n");
-    while (true)
-    {
-        printf("Nodo %d (-1 para dejar de ingresar):",index);
-        scanf("%d",&elemento);
+    while(seguirAgregando){
+        printf("[INPUT] Ingrese la clave a buscar: ");
 
-        if (elemento==-1)
-        {
-            break;
+        if(scanf("%d", &clave) > 0 && clave >= 0){
+            seguirAgregando = false;
         }
-        index++;
-        avl_insertar(arbolA,te_crear(elemento));
-
+        else{
+            printf("[ERROR] Debe ingresar un valor valido.\n");
+            fflush(stdin);
+        }
     }
-    mostrarArbol(arbolA);
-
-    printf("Ingrese la clave para buscar el hermano: ");
-    scanf("%d",&clave);
 
     int claveHermano=a_ej3_hermano(arbolA,clave);
 
-    if(claveHermano==-1){
-        printf("NO tiene hermano o la rama es nula.");
+    if(claveHermano == -1){
+        printf("El nodo no tiene hermano o no se encuentra");
     }
-    else if (claveHermano==-2)
-    {
-        printf("La rama es nula.");
-    }
-    
-    else
-    {
-        printf("El hermano de %d es %d ",clave,claveHermano);
+    else{
+        printf("El hermano es: %d", claveHermano);
     }
 }
