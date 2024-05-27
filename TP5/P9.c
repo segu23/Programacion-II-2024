@@ -34,7 +34,7 @@ ArbolAVL a_ej9_construiravl(ArbolBinario A)
     return arbolAVL;
 }
 
-int calcularAlturaArbolBinario(NodoArbol nodo, int profundidad)
+int calcularAlturaArbol(NodoArbol nodo, int profundidad)
 {
     NodoArbol hijoIzquierdoNodo = n_hijoizquierdo(nodo);
     NodoArbol hijoDerechoNodo = n_hijoderecho(nodo);
@@ -44,33 +44,12 @@ int calcularAlturaArbolBinario(NodoArbol nodo, int profundidad)
 
     if (!a_es_rama_nula(hijoIzquierdoNodo))
     {
-        validoIzquierda = calcularAlturaArbolBinario(hijoIzquierdoNodo, profundidad + 1);
+        validoIzquierda = calcularAlturaArbol(hijoIzquierdoNodo, profundidad + 1);
     }
 
     if (!a_es_rama_nula(hijoDerechoNodo))
     {
-        validoDerecha = calcularAlturaArbolBinario(hijoDerechoNodo, profundidad);
-    }
-
-    return (validoIzquierda > validoDerecha ? validoIzquierda : validoDerecha);
-}
-
-int calcularAlturaArbolAVL(NodoArbol nodo, int profundidad)
-{
-    NodoArbol hijoIzquierdoNodo = n_hijoizquierdo(nodo);
-    NodoArbol hijoDerechoNodo = n_hijoderecho(nodo);
-
-    int validoIzquierda = profundidad;
-    int validoDerecha = profundidad;
-
-    if (!a_es_rama_nula(hijoIzquierdoNodo))
-    {
-        validoIzquierda = calcularAlturaArbolAVL(hijoIzquierdoNodo, profundidad + 1);
-    }
-
-    if (!a_es_rama_nula(hijoDerechoNodo))
-    {
-        validoDerecha = calcularAlturaArbolAVL(hijoDerechoNodo, profundidad + 1);
+        validoDerecha = calcularAlturaArbol(hijoDerechoNodo, profundidad + 1);
     }
 
     return (validoIzquierda > validoDerecha ? validoIzquierda : validoDerecha);
@@ -78,8 +57,8 @@ int calcularAlturaArbolAVL(NodoArbol nodo, int profundidad)
 
 int a_ej9_diferenciaalturas(ArbolBinario A, ArbolAVL AVL)
 {
-    int alturaBinario = calcularAlturaArbolBinario(a_raiz(A), 1);
-    int alturaAVL = calcularAlturaArbolAVL(avl_raiz(AVL), 1);
+    int alturaBinario = calcularAlturaArbol(a_raiz(A), 1);
+    int alturaAVL = calcularAlturaArbol(avl_raiz(AVL), 1);
     
     if(alturaBinario > alturaAVL) return alturaBinario - alturaAVL;
 
@@ -153,8 +132,8 @@ int main()
 
     ArbolAVL arbolAVL = a_ej9_construiravl(arbol);
 
-    printf("[OUTPUT] Altura arbol binario: %i\n", calcularAlturaArbolBinario(a_raiz(arbol), 1));
-    printf("[OUTPUT] Altura arbol AVL: %i\n", calcularAlturaArbolAVL(avl_raiz(arbolAVL), 1));
+    printf("[OUTPUT] Altura arbol binario: %i\n", calcularAlturaArbol(a_raiz(arbol), 1));
+    printf("[OUTPUT] Altura arbol AVL: %i\n", calcularAlturaArbol(avl_raiz(arbolAVL), 1));
 
     int diferenciaAlturas = a_ej9_diferenciaalturas(arbol, arbolAVL);
 

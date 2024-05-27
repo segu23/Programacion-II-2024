@@ -14,7 +14,7 @@
 #include "colas.h"
 #include "colas_arreglos.c"
 
-void auxiliares2(TipoElemento hermano,Lista lista2){
+void auxiliares2(TipoElemento hermano,Lista lista2,int clave){
     Cola C;
     NodoArbol N=hermano->valor;
     TipoElemento X;
@@ -25,7 +25,9 @@ void auxiliares2(TipoElemento hermano,Lista lista2){
         X=c_desencolar(C);
         N=(NodoArbol)X->valor;
         
-        l_agregar(lista2,n_recuperar(N));
+        if(n_recuperar(N)->clave!=clave){
+            l_agregar(lista2,n_recuperar(N));
+        }
         if(!a_es_rama_nula(n_hijoderecho(N))){
             X=te_crear_con_valor(0,n_hijoderecho(N));
             c_encolar(C,X);
@@ -69,7 +71,8 @@ Lista a_ej4_hermanos(ArbolBinario A, int clave){
     TipoElemento hermano=te_crear_con_valor(0,NULL);
     hermano=l_recuperar(lista1,1);
     Lista lista2=l_crear();
-    auxiliares2(hermano,lista2);
+    auxiliares2(hermano,lista2,clave);
+    
     
     return lista2;
 }
