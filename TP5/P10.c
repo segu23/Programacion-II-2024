@@ -20,7 +20,7 @@ Lista a_ej10_generarlistaclaves(int cantidadclavesagenerar, int valorminimo, int
     int rango = valormaximo - valorminimo + 1;
 
     if (rango < cantidadclavesagenerar) {
-        printf("No es posible generar %d claves únicas en el rango dado.\n", cantidadclavesagenerar);
+        printf("[ERROR]No es posible generar %d claves únicas en el rango dado.\n", cantidadclavesagenerar);
         return valores;
     }
 
@@ -73,7 +73,7 @@ int calcularAlturaArbol(NodoArbol nodo){
 
 // Ahora llamos a la funcion que compara las alturas.  La comparacion es Altura(ABB) - Altura(AVL).
 int a_ej10_difalturas(ArbolBinarioBusqueda ABB, ArbolAVL AVL) {
-    printf("La altura de ABB es de: %d \nLa altura de AVL es de: %d \n", calcularAlturaArbol(ABB->raiz), calcularAlturaArbol(AVL->raiz));
+    printf("[OUTPUT] La altura de ABB es de: %d \n[OUTPUT] La altura de AVL es de: %d \n", calcularAlturaArbol(ABB->raiz), calcularAlturaArbol(AVL->raiz));
     return calcularAlturaArbol(ABB->raiz) - calcularAlturaArbol(AVL->raiz);
 }
 
@@ -94,7 +94,7 @@ int main() {
     srand(time(NULL));
     int n;
 
-    printf("Ingrese el numero de repeticiones: ");
+    printf("[INPUT] Ingrese el numero de repeticiones: ");
     scanf("%d", &n);
 
     for (int i = 0; i < n; i++) {
@@ -103,13 +103,11 @@ int main() {
         ArbolAVL avl = a_ej10_crearAVL(serie_numeros);
 
         int dif_alturas = a_ej10_difalturas(abb, avl);
-        printf("Diferencia de alturas entre el Arbol de Busqueda Binaria y Arbol AVL en la repeticion %d: %d\n", i + 1, dif_alturas);
+        printf("[OUTPUT] Diferencia de alturas entre el Arbol de Busqueda Binaria y Arbol AVL en la repeticion %d: %d\n", i + 1, dif_alturas);
     }
     if(n>=1){
-    printf("En Conclusion el auto balanceo del arbol AVL es mas grande que en el del arbol ABB \nen la mayoria de las ocasiones lo llega a reducir hasta casi la mitad teniendo en cuenta su rama mas larga");
+        printf("\n[OUTPUT] En Conclusion el auto balanceo del arbol AVL es mas grande que en el del arbol ABB,\nen la mayoria de las ocasiones lo llega a reducir hasta casi la mitad teniendo en cuenta su rama mas larga.");
     }
     return 0;
 
 }
-
-
