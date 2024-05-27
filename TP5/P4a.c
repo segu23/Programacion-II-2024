@@ -16,6 +16,7 @@
 
 Lista a_ej4_anchura(ArbolBinario A){
     NodoArbol raiz = a_raiz(A);
+    NodoArbol raiz1 = a_raiz(A);
     Cola C;
     //NodoArbol N=hermano->valor;
     TipoElemento X;
@@ -27,28 +28,39 @@ Lista a_ej4_anchura(ArbolBinario A){
     c_encolar(C,X);
 
     Lista lista1=l_crear();
-    //l_agregar(lista1,n_recuperar(raiz));
+    l_agregar(lista1,n_recuperar(raiz));
     
     while(!c_es_vacia(C)){
         X=c_desencolar(C);
         raiz=(NodoArbol)X->valor;
+        raiz1=(NodoArbol)X->valor;
         
         
         c_encolar(colaAux,X);
 
-        /*if(a_es_rama_nula(n_hijoizquierdo(N))){
-            c_encolar(colaAux,n_recuperar(N));
-
-        }*/
+        
         if(!a_es_rama_nula(n_hijoderecho(raiz))){
+            while(!a_es_rama_nula(n_hijoderecho(raiz1))){
+                X=te_crear_con_valor(0,n_hijoderecho(raiz1));
+                l_agregar(lista1,n_recuperar(n_hijoderecho(raiz1)));
+                c_encolar(C,X);
+                X=c_desencolar(C);
+                raiz1=(NodoArbol)X->valor;
+
+            }
             while(!a_es_rama_nula(n_hijoderecho(raiz))){
                 X=te_crear_con_valor(0,n_hijoderecho(raiz));
-                //l_agregar(lista1,n_recuperar(n_hijoderecho(raiz)));
+                if(!a_es_rama_nula(n_hijoizquierdo(raiz))){
+                    l_agregar(lista1,n_recuperar(n_hijoizquierdo(raiz)));
+                }
+
                 c_encolar(C,X);
                 X=c_desencolar(C);
                 raiz=(NodoArbol)X->valor;
-
+                
             }
+            
+
             
         }
 
@@ -56,7 +68,7 @@ Lista a_ej4_anchura(ArbolBinario A){
         
         if(!a_es_rama_nula(n_hijoizquierdo(raiz))){
             X=te_crear_con_valor(0,n_hijoizquierdo(raiz));
-            //l_agregar(lista1,n_recuperar(n_hijoizquierdo(raiz)));
+            l_agregar(lista1,n_recuperar(n_hijoizquierdo(raiz)));
             c_encolar(C,X);
         }
         
@@ -64,13 +76,7 @@ Lista a_ej4_anchura(ArbolBinario A){
         
 
     }
-    /*
-    while(!c_es_vacia(colaAux)){
-        X=c_desencolar(colaAux);
-        raiz=(NodoArbol)X->valor;
-        l_agregar(lista1,n_recuperar(raiz));
-
-    }*/
+    
 
     return lista1;
 
