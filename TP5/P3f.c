@@ -1,103 +1,125 @@
-#include "arbol-avl.h"
+#include "arbol-binario.h"
+#include "arbol-binario.c"
 #include "nodo.h"
+#include "nodo.c"
 #include "tipo_elemento.h"
+#include "tipo_elemento.c"
 #include "listas.h"
+#include "listas_arreglos.c"
 #include "tp_arboles.h"
 
-void imprimirArbol(NodoArbol raiz, int espacio) {
-    // Definir la cantidad de espacio entre los niveles
-    int COUNT = 10;
+void buscarNodosNivel(NodoArbol nodo, int profundidad, int nivel, Lista resultado){
+    if(profundidad == nivel) l_agregar(resultado, te_crear(nodo->datos->clave));
 
-    if (raiz == NULL) {
-        return;
+    if(profundidad > nivel) return;
+
+    NodoArbol hijoIzquierdoNodo = n_hijoizquierdo(nodo);
+    NodoArbol hijoDerechoNodo = n_hijoderecho(nodo);
+
+    if (!a_es_rama_nula(hijoIzquierdoNodo))
+    {
+        buscarNodosNivel(hijoIzquierdoNodo, profundidad + 1, nivel, resultado);
     }
 
-    // Aumentar la distancia entre los niveles
-    espacio += COUNT;
-
-    // Procesar primero el subárbol derecho
-    imprimirArbol(raiz->hd, espacio);
-
-    // Imprimir el nodo actual después de los espacios COUNT
-    printf("\n");
-    for (int i = COUNT; i < espacio; i++) {
-        printf(" ");
-    }
-    printf("%d\n", raiz->datos->clave);
-
-    // Procesar el subárbol izquierdo
-    imprimirArbol(raiz->hi,espacio);
-}
-
-void mostrarArbol(ArbolAVL arbol) {
-    NodoArbol raiz=arbol->raiz;
-    imprimirArbol(raiz, 1);
-}
-// f.	Listar todos los nodos que están en el mismo nivel (solo la clave).
-// Función para calcular la altura de un nodo
-void listarNodosEnNivel(ArbolAVL arbol, int nivelActual, int nivelObjetivo, Lista lista) {
-    ArbolAVL arbolIzquierdo=avl_crear();
-    ArbolAVL arbolDerecho=avl_crear();
-    NodoArbol nodo=arbol->raiz;
-
-    arbolIzquierdo->raiz=nodo->hi;
-    arbolDerecho->raiz=nodo->hd;
-   
-    if (nivelActual == nivelObjetivo) {
-        l_agregar(lista, te_crear(nodo->datos->clave));
-        return;
-    } 
-    if (arbolDerecho->raiz==NULL && arbolIzquierdo->raiz==NULL){
-        return;
-    }
-    else {
-        listarNodosEnNivel(arbolDerecho, nivelActual + 1, nivelObjetivo, lista);
-        listarNodosEnNivel(arbolIzquierdo, nivelActual + 1, nivelObjetivo, lista);
-        
+    if (!a_es_rama_nula(hijoDerechoNodo))
+    {
+        buscarNodosNivel(hijoDerechoNodo, profundidad + 1, nivel, resultado);
     }
 }
+
 // Función principal para listar nodos en un nivel dado
-Lista a_ej3_clavesmismonivel(ArbolAVL A, int nivel) {
-    Lista lista=l_crear();
-    if(A!=NULL){
-        listarNodosEnNivel(A, 0, nivel, lista);
+Lista a_ej3_clavesmismonivel(ArbolBinario A, int nivel) {
+    Lista resultado=l_crear();
+    NodoArbol raiz = a_raiz(A);
+
+    buscarNodosNivel(raiz, 1, nivel, resultado);
+
+    return resultado;
+}
+
+int ingresoEntero(int* n){
+    char s[10];
+    int resultado =0;
+    *n=0;
+    printf("[INPUT] Ingrese una clave numerica o '.' para nulo: ");
+    scanf("%s", s);
+    if (s[0]=='.'){
+        resultado = 1;
+    }else{
+        for (int i = 0; s[i] != '\0'; i++) {
+            if ((s[i]>='0')&&(s[i]<='9')){
+                *n = *n * 10 + (s[i] - 48);}
+            else{resultado=2;}
+        }
     }
-    return lista;
+    return resultado;
+}
+
+void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    int b;
+    if(!a_es_lleno(A)){
+        if(sa == -1) {
+                printf("[INPUT] Ingrese el hijo izquierdo de %i.\n", N->datos->clave);
+            }
+            else if(sa == 1) {
+                printf("[INPUT] Ingrese el hijo derecho de %i.\n", N->datos->clave);
+            }
+            else {
+                printf("[INPUT] Ingrese la raiz.\n");
+            }
+        b= ingresoEntero(&n);
+        if (b==0){
+            X= te_crear(n);
+
+            if(sa == -1) {
+                N1 = a_conectar_hi(A, N, X);
+            }
+            else if(sa == 1) {
+                N1 = a_conectar_hd(A, N, X);
+            }
+            else {
+                N1 = a_establecer_raiz(A, X);
+            }
+
+            Cargar_SubArbol(A, N1, -1);
+            Cargar_SubArbol(A, N1, 1);
+        }else if(b==2){
+            printf("[ERROR] Entrada invalida (valor fuera de rango).\n");
+            Cargar_SubArbol(A, N,sa);
+        }
+    }
+}
+
+void cargar_arbol_binario(ArbolBinario A){
+    Cargar_SubArbol(A, NULL, 0);
 }
 
 int main(){
-    int elemento,index=1,raiz,nivel=0;
+    ArbolBinario arbolA = a_crear();
+    cargar_arbol_binario(arbolA);
 
-    ArbolAVL arbolA = avl_crear();
+    bool seguirAgregando = true;
+    int nivel;
 
-    printf("Ingrese el nodo raiz: ");
-    scanf("%d",&raiz);
-    avl_insertar(arbolA,te_crear(raiz));
+    while(seguirAgregando){
+        printf("[INPUT] Ingrese el nivel a buscar: ");
 
-    printf("Ingrese los elementos: \n");
-    while (true)
-    {
-        printf("Nodo %d (-1 para dejar de ingresar):",index);
-        scanf("%d",&elemento);
-
-        if (elemento==-1)
-        {
-            break;
+        if(scanf("%d", &nivel) > 0 && nivel >= 0){
+            seguirAgregando = false;
         }
-        index++;
-        avl_insertar(arbolA,te_crear(elemento));
-
+        else{
+            printf("[ERROR] Debe ingresar un valor valido.\n");
+            fflush(stdin);
+        }
     }
-    mostrarArbol(arbolA);
 
-    printf("Ingrese el nivel para buscar los elementos(la raiz es el nivel 0): ");
-    scanf("%d",&nivel);
-
-    Lista claveNivel=l_crear();
-    claveNivel=a_ej3_clavesmismonivel(arbolA,nivel);
+    Lista claveNivel=a_ej3_clavesmismonivel(arbolA,nivel);
 
     if(l_es_vacia(claveNivel)){
-        printf("No hay elemntos en ese nivel. ");
+        printf("No hay elementos en ese nivel.");
     }
     else{
         l_mostrar(claveNivel);
