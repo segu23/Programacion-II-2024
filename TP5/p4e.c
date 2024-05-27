@@ -4,15 +4,10 @@
 #include "arbol-binario.h"
 #include "colas.h"
 #include "listas.h"
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
-#include "arbol-binario.c"
-#include "nodo.c"
 #include "stdbool.h"
 #include "stdio.h"
 #include "stdlib.h"
 #include "colas.h"
-#include "colas_arreglos.c"
 
 void auxiliares2(TipoElemento hermano,Lista lista2,int clave){
     Cola C;
@@ -150,8 +145,13 @@ int main(){
 
     Lista her=a_ej4_hermanos(arbol,nodo);
 
-    printf("[OUTPUT] Los nodos hermanos del nodo seleccionado estan en la siguiente lista.\n");
-    l_mostrar(her);
+    if (l_es_vacia(her)){
+        printf("\n[ERROR] El nodo seleccionado no tiene hermanos.\n");
+    }
+    else{
+        printf("\n[OUTPUT] Los nodos hermanos del nodo seleccionado estan en la siguiente lista.\n");
+        l_mostrar(her);
+    }
 
     return 0;
 }

@@ -4,10 +4,6 @@
 #include "arbol-binario.h"
 #include "colas.h"
 #include "listas.h"
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
-#include "arbol-binario.c"
-#include "nodo.c"
 
 bool compararArboles(NodoArbol nodo1,NodoArbol nodo2){
     NodoArbol hijoIzquierdoNodo1 = n_hijoizquierdo(nodo1);

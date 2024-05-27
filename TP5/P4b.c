@@ -4,12 +4,7 @@
 #include "arbol-binario.h"
 #include "colas.h"
 #include "listas.h"
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
-#include "arbol-binario.c"
-#include "nodo.c"
 #include "colas.h"
-#include "colas_arreglos.c"
 
 int auxiliares2(TipoElemento hermano){
     Cola C;
