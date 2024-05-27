@@ -58,21 +58,73 @@ int a_ej4_q_hojas(ArbolBinario A){
     return cantidad;
 }
 
+int ingresoEntero(int* n){
+    char s[10];
+    int resultado =0;
+    *n=0;
+    printf("[INPUT] Ingrese una clave numerica o '.' para nulo: ");
+    scanf("%s", s);
+    if (s[0]=='.'){
+        resultado = 1;
+    }else{
+        for (int i = 0; s[i] != '\0'; i++) {
+            if ((s[i]>='0')&&(s[i]<='9')){
+                *n = *n * 10 + (s[i] - 48);}
+            else{resultado=2;}
+        }
+    }
+    return resultado;
+}
+
+void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
+    TipoElemento X;
+    NodoArbol N1;
+    int n;
+    int b;
+    if(!a_es_lleno(A)){
+        if(sa == -1) {
+                printf("[INPUT] Ingrese el hijo izquierdo de %i.\n", N->datos->clave);
+            }
+            else if(sa == 1) {
+                printf("[INPUT] Ingrese el hijo derecho de %i.\n", N->datos->clave);
+            }
+            else {
+                printf("[INPUT] Ingrese la raiz.\n");
+            }
+        b= ingresoEntero(&n);
+        if (b==0){
+            X= te_crear(n);
+
+            if(sa == -1) {
+                N1 = a_conectar_hi(A, N, X);
+            }
+            else if(sa == 1) {
+                N1 = a_conectar_hd(A, N, X);
+            }
+            else {
+                N1 = a_establecer_raiz(A, X);
+            }
+
+            Cargar_SubArbol(A, N1, -1);
+            Cargar_SubArbol(A, N1, 1);
+        }else if(b==2){
+            printf("[ERROR] Entrada invalida (valor fuera de rango).\n");
+            Cargar_SubArbol(A, N,sa);
+        }
+    }
+}
+
+void cargar_arbol_binario(ArbolBinario A){
+    Cargar_SubArbol(A, NULL, 0);
+}
+
 int main(){
     ArbolBinario arbol = a_crear();
-    NodoArbol a = a_establecer_raiz(arbol, te_crear_con_valor(1,(void*)'a'));
-    NodoArbol b =  a_conectar_hi(arbol, a, te_crear_con_valor(2,(void*)'b'));
-    NodoArbol c =  a_conectar_hd(arbol, b, te_crear_con_valor(3,(void*)'c'));
-    NodoArbol d =  a_conectar_hd(arbol, c, te_crear_con_valor(4,(void*)'d'));
-    NodoArbol e =  a_conectar_hi(arbol, b, te_crear_con_valor(5,(void*)'e'));
-    NodoArbol f =  a_conectar_hi(arbol, e, te_crear_con_valor(6,(void*)'f'));
-    NodoArbol g =  a_conectar_hi(arbol, d, te_crear_con_valor(7,(void*)'g'));
-    NodoArbol h =  a_conectar_hd(arbol, g, te_crear_con_valor(8,(void*)'h'));
-    NodoArbol i =  a_conectar_hd(arbol, h, te_crear_con_valor(9,(void*)'i'));
-    NodoArbol j =  a_conectar_hi(arbol, i, te_crear_con_valor(10,(void*)'j'));
+    printf("[INFO] Cargando arbol...\n");
+    cargar_arbol_binario(arbol);
 
     int resultado=0;
     resultado = a_ej4_q_hojas(arbol);
-    printf("La cantidad de nodos hojas es: %d ",resultado);
+    printf("[OUTPUT] La cantidad de nodos hojas es: %d ",resultado);
     return 0;
 }
