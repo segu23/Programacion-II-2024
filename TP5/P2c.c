@@ -94,10 +94,22 @@ int main(){
     printf("[INFO] Cargando arbol...\n");
     cargar_arbol_binario(arbol);
 
-    int claveBuscada;
-    printf("[INPUT] Ingrese la clave a buscar: ");
-    scanf("%i", &claveBuscada);
-    Lista lista = a_ej2_buscarclave(arbol, claveBuscada);
+    bool seguirAgregando = true;
+    int clave;
+
+    while(seguirAgregando){
+        printf("[INPUT] Ingrese la clave a buscar: ");
+
+        if(scanf("%d", &clave) > 0 && clave >= 0){
+            seguirAgregando = false;
+        }
+        else{
+            printf("[ERROR] Debe ingresar un valor valido.\n");
+            fflush(stdin);
+        }
+    }
+
+    Lista lista = a_ej2_buscarclave(arbol, clave);
 
     if (l_es_vacia(lista)){
         printf("\n[OUTPUT] No hay ocurrencias con esa clave en el arbol.\n");
