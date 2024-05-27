@@ -1,11 +1,7 @@
 #include "arbol-binario.h"
-#include "arbol-binario.c"
 #include "nodo.h"
-#include "nodo.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 #include "listas.h"
-#include "listas_arreglos.c"
 #include "tp_arboles.h"
 
 void buscarNodosNivel(NodoArbol nodo, int profundidad, int nivel, Lista resultado){
@@ -119,7 +115,7 @@ int main(){
     Lista claveNivel=a_ej3_clavesmismonivel(arbolA,nivel);
 
     if(l_es_vacia(claveNivel)){
-        printf("No hay elementos en ese nivel.");
+        printf("[OUTPUT] No hay elementos en ese nivel.");
     }
     else{
         l_mostrar(claveNivel);

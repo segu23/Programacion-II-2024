@@ -138,10 +138,21 @@ int main(){
 
     printf("[INFO] Cargando arbol...\n");
     cargar_arbol_binario(arbol);
-   
-    int nodo; 
-    printf("\n[INPUT] Selecciona un nodo para buscar a sus nodos hermanos: ");
-    scanf("%i", &nodo);
+
+    bool seguirAgregando = true;
+    int nodo;
+
+    while(seguirAgregando){
+        printf("\n[INPUT] Selecciona un nodo para buscar a sus nodos hermanos: ");
+
+        if(scanf("%i", &nodo) > 0 && nodo >= 0){
+            seguirAgregando = false;
+        }
+        else{
+            printf("[ERROR] Debe ingresar un valor valido.\n");
+            fflush(stdin);
+        }
+    }
 
     Lista her=a_ej4_hermanos(arbol,nodo);
 

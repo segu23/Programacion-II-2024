@@ -1,11 +1,7 @@
 #include "arbol-binario.h"
-#include "arbol-binario.c"
 #include "nodo.h"
-#include "nodo.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 #include "listas.h"
-#include "listas_arreglos.c"
 #include "tp_arboles.h"
 
 int buscarNodoHermano(NodoArbol nodo, int claveHermano){
@@ -127,9 +123,9 @@ int main(){
     int claveHermano=a_ej3_hermano(arbolA,clave);
 
     if(claveHermano == -1){
-        printf("El nodo no tiene hermano o no se encuentra");
+        printf("[OUTPUT] El nodo no tiene hermano o no se encuentra");
     }
     else{
-        printf("El hermano es: %d", claveHermano);
+        printf("[OUTPUT] El hermano es: %d", claveHermano);
     }
 }

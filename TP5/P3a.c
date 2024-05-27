@@ -1,9 +1,6 @@
 #include "arbol-binario.h"
-#include "arbol-binario.c"
 #include "nodo.h"
-#include "nodo.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 #include "tp_arboles.h"
 #include <stdio.h>
 
@@ -122,9 +119,9 @@ int main(){
     int padre = a_ej3_clavepadre(arbolA, clave);
 
     if(padre == -1){
-        printf("La raiz no tiene padre o el nodo no se encuentra");
+        printf("[OUTPUT] La raiz no tiene padre o el nodo no se encuentra");
     }
     else{
-        printf("El padre es: %d",padre);
+        printf("[OUTPUT] El padre es: %d",padre);
     }
 }

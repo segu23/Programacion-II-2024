@@ -1,11 +1,7 @@
 #include "arbol-binario.h"
-#include "arbol-binario.c"
 #include "listas.h"
-#include "listas_arreglos.c"
 #include "nodo.h"
-#include "nodo.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 #include "tp_arboles.h"
 #include <stdbool.h>
 
@@ -123,9 +119,11 @@ int main(){
     Lista hijos = a_ej3_hijos(arbolA, clave);
 
     if (!l_es_vacia(hijos)){
+        printf("[OUTPUT] Los hijos de la clave buscada estan en la siguiente lista.\n");
         l_mostrar(hijos);
-    }else{
-        printf("[OUTPUT] La clave no se encontró o no tiene hijos.");
+    }
+    else{
+        printf("[OUTPUT] La clave no se encontro o no tiene hijos.");
     }
 
     return 0;

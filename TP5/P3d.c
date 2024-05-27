@@ -1,11 +1,7 @@
 #include "arbol-binario.h"
-#include "arbol-binario.c"
 #include "nodo.h"
-#include "nodo.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 #include "listas.h"
-#include "listas_arreglos.c"
 #include "tp_arboles.h"
 
 void calcularNivelNodo(NodoArbol nodo, int profundidad, int clave, int *nivel)
@@ -119,9 +115,9 @@ int main(){
     int nivelNodo=a_ej3_nivel(arbolA,clave);
 
     if(nivelNodo == -1){
-        printf("El nodo no se encuentra");
+        printf("[OUTPUT] El nodo no se encuentra");
     }
     else{
-        printf("El nivel del nodo es: %d", nivelNodo);
+        printf("[OUTPUT] El nivel del nodo es: %d", nivelNodo);
     }
 }

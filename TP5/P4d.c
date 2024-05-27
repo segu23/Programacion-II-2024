@@ -111,20 +111,29 @@ int main(){
     cargar_arbol_binario(arbol);
 
     TipoElemento padreNodo=te_crear(0);
-    int nodoHijo; 
-    printf("\n[INPUT] Selecciona un nodo para buscar a su nodo padre: ");
-    scanf("%i", &nodoHijo);
+
+    bool seguirAgregando = true;
+    int nodoHijo;
+
+    while(seguirAgregando){
+        printf("\n[INPUT] Selecciona un nodo para buscar a sus nodos hermanos: ");
+
+        if(scanf("%i", &nodoHijo) > 0 && nodoHijo >= 0){
+            seguirAgregando = false;
+        }
+        else{
+            printf("[ERROR] Debe ingresar un valor valido.\n");
+            fflush(stdin);
+        }
+    }
+
     padreNodo=a_ej4_padre(arbol, nodoHijo);
     
-    Lista padre=l_crear();
-    l_agregar(padre,padreNodo);
-
-    if (l_es_vacia(padre)){
-        printf("[ERROR] No se pudo encontrar el padre del nodo que seleccionaste.\n");
+    if (padreNodo != NULL){
+        printf("[OUTPUT] El padre del nodo seleccionado es: %i\n", padreNodo->clave);
     }
     else{
-        printf("[OUTPUT] El padre del nodo seleccionado esta en la siguiente lista.\n");
-        l_mostrar(padre);
+        printf("[ERROR] No se pudo encontrar el padre del nodo que seleccionaste.\n");
     }
     
     return 0;
