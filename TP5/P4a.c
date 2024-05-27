@@ -18,69 +18,39 @@ Lista a_ej4_anchura(ArbolBinario A){
     NodoArbol raiz = a_raiz(A);
     NodoArbol raiz1 = a_raiz(A);
     Cola C;
-    //NodoArbol N=hermano->valor;
-    TipoElemento X;
+    TipoElemento Xd;
+    TipoElemento Xi;
     C=c_crear();
-    Cola colaAux;
-    colaAux=c_crear();
-    int cantidad=0;
-    X=te_crear_con_valor(0,raiz);
-    c_encolar(C,X);
+    Cola colaDe;
+    colaDe=c_crear();
+    Cola colaIz;
+    colaIz=c_crear();
+    Xd=te_crear_con_valor(0,n_hijoizquierdo(raiz));
+    c_encolar(colaIz,Xd);
 
     Lista lista1=l_crear();
     l_agregar(lista1,n_recuperar(raiz));
-    
-    while(!c_es_vacia(C)){
-        X=c_desencolar(C);
-        raiz=(NodoArbol)X->valor;
-        raiz1=(NodoArbol)X->valor;
-        
-        
-        c_encolar(colaAux,X);
 
-        
-        if(!a_es_rama_nula(n_hijoderecho(raiz))){
-            while(!a_es_rama_nula(n_hijoderecho(raiz1))){
-                X=te_crear_con_valor(0,n_hijoderecho(raiz1));
-                l_agregar(lista1,n_recuperar(n_hijoderecho(raiz1)));
-                c_encolar(C,X);
-                X=c_desencolar(C);
-                raiz1=(NodoArbol)X->valor;
-
+    while(!c_es_vacia(colaDe)||!c_es_vacia(colaIz)){
+        Xd=c_desencolar(colaIz);
+        raiz=(NodoArbol)Xd->valor;
+        l_agregar(lista1,n_recuperar(raiz));
+        while(!a_es_rama_nula(n_hijoderecho(raiz))){
+            l_agregar(lista1,n_recuperar(n_hijoderecho(raiz)));
+            if(!a_es_rama_nula(n_hijoizquierdo(raiz))){
+                Xi=te_crear_con_valor(0,n_hijoizquierdo(raiz));
+                c_encolar(colaIz,Xi);
             }
-            while(!a_es_rama_nula(n_hijoderecho(raiz))){
-                X=te_crear_con_valor(0,n_hijoderecho(raiz));
-                if(!a_es_rama_nula(n_hijoizquierdo(raiz))){
-                    l_agregar(lista1,n_recuperar(n_hijoizquierdo(raiz)));
-                }
-
-                c_encolar(C,X);
-                X=c_desencolar(C);
-                raiz=(NodoArbol)X->valor;
-                
-            }
-            
-
-            
+            Xd=te_crear_con_valor(0,n_hijoderecho(raiz));
+            raiz=(NodoArbol)Xd->valor;
         }
-
-        
-        
         if(!a_es_rama_nula(n_hijoizquierdo(raiz))){
-            X=te_crear_con_valor(0,n_hijoizquierdo(raiz));
-            l_agregar(lista1,n_recuperar(n_hijoizquierdo(raiz)));
-            c_encolar(C,X);
+            Xi=te_crear_con_valor(0,n_hijoizquierdo(raiz));
+            c_encolar(colaIz,Xi);
         }
-        
-
-        
-
     }
     
-
     return lista1;
-
-
 
 }
 
@@ -96,8 +66,10 @@ int main(){
     NodoArbol h =  a_conectar_hd(arbol, g, te_crear(8));
     NodoArbol i =  a_conectar_hd(arbol, h, te_crear(9));
     NodoArbol j =  a_conectar_hi(arbol, i, te_crear(10));
+    
 
     Lista lista=a_ej4_anchura(arbol);
+    printf("El recorrido en anchura del arbol es:\n");
     l_mostrar(lista);
 
     return 0;
