@@ -5,6 +5,8 @@
 #include "tipo_elemento.h"
 #include "tipo_elemento.c"
 #include <stdio.h>
+#include <math.h>
+#include <stdbool.h>
 
 #define MAX 100
 static int cantidad;
@@ -154,14 +156,6 @@ struct Alumno inputAlumno(){
 
 static int cantidadAlumnosArchivo = 0;
 
-void altaAlumno(struct Alumno alumno, FILE * archivo, int posicionFisicaArchivo, TablaHash tabla){
-    fseek(archivo, sizeof(struct Alumno) * posicionFisicaArchivo, SEEK_SET);
-    fwrite(&alumno, sizeof(struct Alumno), 1, archivo);
-    th_insertar(tabla, te_crear_con_valor(alumno.legajo, posicionFisicaArchivo));
-    cantidadAlumnosArchivo++;
-    printf("\033[0;32m[INFO] El alumno ha sido guardado en el archivo!\033[0;37m\n");
-}
-
 struct Alumno consultaAlumnoArchivo(FILE * archivo, int posicionFisicaArchivo){
     fseek(archivo, sizeof(struct Alumno) * posicionFisicaArchivo, SEEK_SET);
     
@@ -169,6 +163,136 @@ struct Alumno consultaAlumnoArchivo(FILE * archivo, int posicionFisicaArchivo){
     fread(&alumno, sizeof(struct Alumno), 1, archivo);
 
     return alumno;
+}
+
+void altaAlumno(struct Alumno alumno, FILE * archivo, int posicionFisicaArchivo, TablaHash tabla){
+    fseek(archivo, sizeof(struct Alumno) * posicionFisicaArchivo, SEEK_SET);
+    fwrite(&alumno, sizeof(struct Alumno), 1, archivo);
+    th_insertar(tabla, te_crear_con_valor(alumno.legajo, (void*) posicionFisicaArchivo));
+    cantidadAlumnosArchivo++;
+    printf("\033[0;32m[INFO] El alumno ha sido guardado en el archivo!\033[0;37m\n");
+}
+
+void editAlumno(FILE * archivo, TablaHash tabla){
+    int legajo;
+    bool seguirAgregando = true;
+
+    while (seguirAgregando)
+    {
+        printf("[INPUT] Ingrese el legajo del alumno a editar: ");
+
+        if (scanf("%i", &legajo) > 0)
+        {
+            seguirAgregando = false;
+        }
+        else
+        {
+            printf("\033[0;31m[ERROR] Debe ingresar un valor valido.\033[0;37m\n");
+            fflush(stdin);
+        }
+    }
+    
+    seguirAgregando = true;
+
+    TipoElemento elementoAlumno = th_recuperar(tabla, legajo);
+    struct Alumno alumno = consultaAlumnoArchivo(archivo, (int) elementoAlumno->valor);
+
+    while (seguirAgregando)
+    {
+        printf("[INPUT] Ingrese el apellido del alumno (%s): ", alumno.apellido);
+
+        if (scanf("%s", alumno.apellido) > 0)
+        {
+            seguirAgregando = false;
+        }
+        else
+        {
+            printf("\033[0;31m[ERROR] Debe ingresar un valor valido.\033[0;37m\n");
+            fflush(stdin);
+        }
+    }
+
+    printf("%s\n", alumno.apellido);
+    
+    seguirAgregando = true;
+
+    while (seguirAgregando)
+    {
+        printf("[INPUT] Ingrese el nombre del alumno (%s): ", alumno.nombres);
+
+        if (scanf("%s", alumno.nombres) > 0)
+        {
+            seguirAgregando = false;
+        }
+        else
+        {
+            printf("\033[0;31m[ERROR] Debe ingresar un valor valido.\033[0;37m\n");
+            fflush(stdin);
+        }
+    }
+    
+    printf("%s\n", alumno.nombres);
+    
+    seguirAgregando = true;
+
+    while (seguirAgregando)
+    {
+        printf("[INPUT] Ingrese el domicilio del alumno (%s): ", alumno.domicilio);
+
+        if (scanf("%s", alumno.domicilio) > 0)
+        {
+            seguirAgregando = false;
+        }
+        else
+        {
+            printf("\033[0;31m[ERROR] Debe ingresar un valor valido.\033[0;37m\n");
+            fflush(stdin);
+        }
+    }
+    
+    printf("%s\n", alumno.domicilio);
+    
+    seguirAgregando = true;
+
+    while (seguirAgregando)
+    {
+        printf("[INPUT] Ingrese el telefono del alumno (%s): ", alumno.telefono);
+
+        if (scanf("%s", alumno.telefono) > 0)
+        {
+            seguirAgregando = false;
+        }
+        else
+        {
+            printf("\033[0;31m[ERROR] Debe ingresar un valor valido.\033[0;37m\n");
+            fflush(stdin);
+        }
+    }
+    
+    printf("%s\n", alumno.telefono);
+    
+    seguirAgregando = true;
+
+    while (seguirAgregando)
+    {
+        printf("[INPUT] Ingrese el legajo del alumno (%i): ", alumno.legajo);
+
+        if (scanf("%i", &alumno.legajo) > 0)
+        {
+            seguirAgregando = false;
+        }
+        else
+        {
+            printf("\033[0;31m[ERROR] Debe ingresar un valor valido.\033[0;37m\n");
+            fflush(stdin);
+        }
+    }
+
+    th_eliminar(tabla, legajo);
+    
+    printf("%i\n", alumno.legajo);
+
+    altaAlumno(alumno, archivo, (int) elementoAlumno->valor, tabla);
 }
 
 void mostrarAlumno(struct Alumno alumno){
@@ -183,19 +307,79 @@ void mostrarAlumno(struct Alumno alumno){
 void cargarTablaDesdeArchivo(FILE * archivo, TablaHash tabla){
     rewind(archivo);
     int indiceAlumnoActual = 0;
-    while(!feof(archivo)){
-        struct Alumno alumno = consultaAlumnoArchivo(archivo, indiceAlumnoActual);
+    struct Alumno alumno;
+    while(fread(&alumno, sizeof(struct Alumno), 1, archivo)){
+        //struct Alumno alumno = consultaAlumnoArchivo(archivo, indiceAlumnoActual);
         th_insertar(tabla, te_crear_con_valor(alumno.legajo, (void*) indiceAlumnoActual));
         mostrarAlumno(alumno);
         indiceAlumnoActual++;
     }
+
+    if(indiceAlumnoActual == 0){
+        printf("\033[0;31m[INFO] No hay ningun alumno cargado!\033[0;37m\n");
+    }
 }
+
+void eliminarAlumno(FILE * archivo, TablaHash tabla){
+    int legajo;
+    bool seguirAgregando = true;
+
+    while (seguirAgregando)
+    {
+        printf("[INPUT] Ingrese el legajo del alumno a eliminar: ");
+
+        if (scanf("%i", &legajo) > 0)
+        {
+            seguirAgregando = false;
+        }
+        else
+        {
+            printf("\033[0;31m[ERROR] Debe ingresar un valor valido.\033[0;37m\n");
+            fflush(stdin);
+        }
+    }
+
+    TipoElemento elementoAlumno = th_recuperar(tabla, legajo);
+
+    if (elementoAlumno == NULL) {
+        printf("\033[0;31m[ERROR] Alumno no encontrado.\033[0;37m\n");
+        return;
+    }
+
+    int posicion = (int) elementoAlumno->valor;
+    struct Alumno alumno;
+
+    // Mover todos los registros siguientes una posición hacia atrás
+    fseek(archivo, sizeof(struct Alumno) * (posicion + 1), SEEK_SET);
+    while (fread(&alumno, sizeof(struct Alumno), 1, archivo)) {
+        fseek(archivo, sizeof(struct Alumno) * (posicion), SEEK_SET);
+        fwrite(&alumno, sizeof(struct Alumno), 1, archivo);
+        posicion = th_recuperar(tabla, alumno.legajo)->valor;
+        fseek(archivo, sizeof(struct Alumno) * (posicion + 1), SEEK_SET);
+    }
+
+    // Truncar el archivo para eliminar el último registro duplicado
+    fseek(archivo, sizeof(struct Alumno) * (posicion), SEEK_SET);
+    fflush(archivo);
+    int resultado = ftruncate(fileno(archivo), sizeof(struct Alumno) * (cantidadAlumnosArchivo-1));
+    if (resultado == 0) {
+        printf("[INFO] Alumno eliminado!\n");
+    } else {
+        printf("\033[0;31m[ERROR] Error al truncar el archivo.\033[0;37m\n");
+    }
+
+    th_eliminar(tabla, legajo);
+    cantidadAlumnosArchivo--;
+}
+
 
 void mostrarMenu(){
     printf(" [MENU]\n\n");
     printf(" 1 - Mostrar todos los alumnos.\n");
     printf(" 2 - Cargar nuevo alumno.\n");
-    printf(" 3 - Ver alumno por legajo.\n\n");
+    printf(" 3 - Ver alumno por legajo.\n");
+    printf(" 4 - Editar alumno por legajo.\n");
+    printf(" 5 - Eliminar alumno por legajo.\n\n");
 }
 
 void consultarAlumno(FILE * archivo, TablaHash tabla){
@@ -221,14 +405,14 @@ void consultarAlumno(FILE * archivo, TablaHash tabla){
     mostrarAlumno(alumno);
 }
 
-void cargarAlumnos(FILE * archivo, TablaHash tabla){
+void procesarMenu(FILE * archivo, TablaHash tabla){
     bool seguirAgregando = true;
     int clave;
 
     while(seguirAgregando){
         mostrarMenu();
 
-        if(scanf("%d", &clave) > 0 && clave >= 1 && clave <= 3){
+        if(scanf("%d", &clave) > 0 && clave >= 1 && clave <= 5){
             switch(clave){
                 case 1: {
                     cargarTablaDesdeArchivo(archivo, tabla);
@@ -243,6 +427,18 @@ void cargarAlumnos(FILE * archivo, TablaHash tabla){
                     consultarAlumno(archivo, tabla);
                     break;
                 }
+                case 4: {
+                    editAlumno(archivo, tabla);
+                    break;
+                }
+                case 5: {
+                    eliminarAlumno(archivo, tabla);
+                    break;
+                }
+                default: {
+                    printf("\033[0;31m[ERROR] Debe ingresar un valor valido.\033[0;37m\n");
+                    break;
+                }
             }
         }
         else{
@@ -253,13 +449,13 @@ void cargarAlumnos(FILE * archivo, TablaHash tabla){
 }
 
 int main(){
-    cantidad = 100;
+    cantidad = 2000;
     valorModulo = encontrarPrimoMasCercano(cantidad);
 
     TablaHash tabla = th_crear(cantidad, &funcionHash);
     FILE * archivo = fopen("archivo.bin", "wb+");
     
-    cargarAlumnos(archivo, tabla);
+    procesarMenu(archivo, tabla);
 
     fclose(archivo);
     
