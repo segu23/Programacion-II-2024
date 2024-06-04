@@ -2,6 +2,7 @@
 #define TABLA_HASH_H
 
 #include "tipo_elemento.h"
+#include <stdbool.h>
 
 struct TablaHashRep;
 typedef struct TablaHashRep *TablaHash;
