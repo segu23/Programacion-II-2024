@@ -354,6 +354,7 @@ void eliminarAlumno(FILE * archivo, TablaHash tabla){
     while (fread(&alumno, sizeof(struct Alumno), 1, archivo)) {
         fseek(archivo, sizeof(struct Alumno) * (posicion), SEEK_SET);
         fwrite(&alumno, sizeof(struct Alumno), 1, archivo);
+        th_insertar(tabla, te_crear_con_valor(alumno.legajo, (void*) posicion));
         posicion = th_recuperar(tabla, alumno.legajo)->valor;
         fseek(archivo, sizeof(struct Alumno) * (posicion + 1), SEEK_SET);
     }
@@ -362,6 +363,7 @@ void eliminarAlumno(FILE * archivo, TablaHash tabla){
     fseek(archivo, sizeof(struct Alumno) * (posicion), SEEK_SET);
     fflush(archivo);
     int resultado = ftruncate(fileno(archivo), sizeof(struct Alumno) * (cantidadAlumnosArchivo-1));
+    fflush(archivo);
     if (resultado == 0) {
         printf("[INFO] Alumno eliminado!\n");
     } else {
@@ -399,6 +401,11 @@ void consultarAlumno(FILE * archivo, TablaHash tabla){
     }
 
     TipoElemento elementoAlumno = th_recuperar(tabla, legajo);
+
+    if(elementoAlumno == NULL){
+        printf("\033[0;31m[ERROR] El alumno ingresado no existe.\033[0;37m\n");
+        return;
+    }
 
     struct Alumno alumno = consultaAlumnoArchivo(archivo, (int) elementoAlumno->valor);
 
