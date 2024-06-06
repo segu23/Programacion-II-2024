@@ -69,8 +69,6 @@ struct Alumno inputAlumno(){
         }
     }
 
-    printf("%s\n", alumno.apellido);
-    
     seguirAgregando = true;
 
     while (seguirAgregando)
@@ -87,8 +85,6 @@ struct Alumno inputAlumno(){
             fflush(stdin);
         }
     }
-    
-    printf("%s\n", alumno.nombres);
     
     seguirAgregando = true;
 
@@ -107,8 +103,6 @@ struct Alumno inputAlumno(){
         }
     }
     
-    printf("%s\n", alumno.domicilio);
-    
     seguirAgregando = true;
 
     while (seguirAgregando)
@@ -125,8 +119,6 @@ struct Alumno inputAlumno(){
             fflush(stdin);
         }
     }
-    
-    printf("%s\n", alumno.telefono);
     
     seguirAgregando = true;
 
@@ -145,8 +137,6 @@ struct Alumno inputAlumno(){
         }
     }
     
-    printf("%i\n", alumno.legajo);
-    
     seguirAgregando = true;
 
     return alumno;
@@ -164,6 +154,10 @@ struct Alumno consultaAlumnoArchivo(FILE * archivo, int posicionFisicaArchivo){
 }
 
 void altaAlumno(struct Alumno alumno, FILE * archivo, int posicionFisicaArchivo, TablaHash tabla){
+    if(th_recuperar(tabla, alumno.legajo) != NULL){
+        printf("\033[0;31m[ERROR] El legajo ingresado ya pertenece a un alumno.\033[0;37m\n");
+        return;
+    }
     fseek(archivo, sizeof(struct Alumno) * posicionFisicaArchivo, SEEK_SET);
     fwrite(&alumno, sizeof(struct Alumno), 1, archivo);
     th_insertar(tabla, te_crear_con_valor(alumno.legajo, (void*) posicionFisicaArchivo));
