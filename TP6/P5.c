@@ -1,16 +1,11 @@
 #include "listas.h"
-#include "listas_arreglos.c"
-#include "nodo.c"
 #include "nodo.h"
-#include "arbol-avl.c"
 #include "arbol-avl.h"
 #include "tabla_hash.h"
 #include "tipo_elemento.h"
 #include <time.h>
 #include <math.h>
 #include <stdio.h>
-#include "tipo_elemento.c"
-#include "tabla_hash_lista_colisiones.c"
 
 #if defined(_WIN32) || defined(_WIN64)
 #include <windows.h>

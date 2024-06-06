@@ -1,9 +1,6 @@
 #include "tabla_hash.h"
-#include "tabla_hash_zona_overflow.c"
 #include "listas.h"
-#include "listas_arreglos.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
