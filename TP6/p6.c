@@ -34,8 +34,59 @@ typedef struct Persona{
     int clave;
 } Persona;
 
+struct Date {
+    int day;
+    int month;
+    int year;
+};
+
+// Función para verificar si un año es bisiesto
+int is_leap_year(int year) {
+    if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
+        return 1;
+    }
+    return 0;
+}
+
+// Función para calcular el número de días en un mes dado un año
+int days_in_month(int month, int year) {
+    int days_per_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (month == 2 && is_leap_year(year)) {
+        return 29;
+    }
+    return days_per_month[month - 1];
+}
+
+// Función para calcular los días desde el 1 de abril de 2020
+int days_since_start(struct Date date) {
+    struct Date start_date = {1, 4, 2020};
+    int days = 0;
+
+    // Añadir días completos de los años intermedios
+    for (int year = start_date.year; year < date.year; year++) {
+        days += is_leap_year(year) ? 366 : 365;
+    }
+
+    // Añadir días del año actual
+    for (int month = 1; month < date.month; month++) {
+        days += days_in_month(month, date.year);
+    }
+    days += date.day - 1;
+
+    // Restar días de los meses y días del año de inicio
+    for (int month = 1; month < start_date.month; month++) {
+        days -= days_in_month(month, start_date.year);
+    }
+    days -= (start_date.day - 1);
+
+    return days;
+}
+
 int calcular_clave(int dia, int mes, int anio) {
-    return dia + mes + anio;
+    struct Date date = {dia, mes, anio};
+    int dias_transcurridos = days_since_start(date);
+    int posicion_hash = dias_transcurridos % MAX;
+    return posicion_hash;
 }
 
 void cargar_paciente_tabla(TablaHash tabla, struct Persona persona){
@@ -185,9 +236,6 @@ void recuperar_paciente(TablaHash tabla){
 }
 
 
-
-
-
 int funcionHash(int clave){
     return clave % MAX-1;
 }
@@ -208,24 +256,24 @@ int main(){
     while (agregar){
 
         mostrarMenu();
-        if(scanf("%d", &clave) > 0 && clave >= 1 && clave <= 2){
+        if(scanf("%d", &clave) > 0 && clave >= 1 && clave <= 3){
             switch (clave){
 
-            case 1:{
-                cargar_paciente(tablita);
-                break;
-            }
-            case 2:{
-                recuperar_paciente(tablita);
-                break;
-            }
-            case 3:{
-                agregar = false;
-                break;
-            }
-            default:{
-                printf("[ERROR] Debe ingresar una opcion valida.\n");
-            }
+                case 1:{
+                    cargar_paciente(tablita);
+                    break;
+                }
+                case 2:{
+                    recuperar_paciente(tablita);
+                    break;
+                }
+                case 3:{
+                    agregar = false;
+                    break;
+                }
+                default:{
+                    printf("[ERROR] Debe ingresar una opcion valida.\n");
+                }
                 
             }
         }
