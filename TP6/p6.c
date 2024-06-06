@@ -1,16 +1,12 @@
 #include "tabla_hash.h"
 #include "listas.h"
 #include "tipo_elemento.h"
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
-
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
 
-#include "tabla_hash_lista_colisiones.c"
 
 /*
 Se desea poder implementar una solución para encontrar de forma rápida los datos de
@@ -32,7 +28,6 @@ typedef struct Persona{
     int dia;
     int mes;
     int anio;
-    //int clave;
 }Persona;
 
 struct Date {
@@ -41,7 +36,6 @@ struct Date {
     int year;
 };
 
-// Función para verificar si un año es bisiesto
 int is_leap_year(int year) {
     if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
         return 1;
@@ -49,7 +43,7 @@ int is_leap_year(int year) {
     return 0;
 }
 
-// Función para calcular el número de días en un mes dado un año
+
 int days_in_month(int month, int year) {
     int days_per_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     if (month == 2 && is_leap_year(year)) {
@@ -58,23 +52,19 @@ int days_in_month(int month, int year) {
     return days_per_month[month - 1];
 }
 
-// Función para calcular los días desde el 1 de abril de 2020
 int days_since_start(struct Date date) {
     struct Date start_date = {1, 4, 2020};
     int days = 0;
 
-    // Añadir días completos de los años intermedios
     for (int year = start_date.year; year < date.year; year++) {
         days += is_leap_year(year) ? 366 : 365;
     }
 
-    // Añadir días del año actual
     for (int month = 1; month < date.month; month++) {
         days += days_in_month(month, date.year);
     }
     days += date.day - 1;
 
-    // Restar días de los meses y días del año de inicio
     for (int month = 1; month < start_date.month; month++) {
         days -= days_in_month(month, start_date.year);
     }
@@ -110,7 +100,6 @@ int calcular_clave(int dia, int mes, int anio) {
 void cargar_paciente_tabla(TablaHash tabla, struct Persona persona) {
     int clave = calcular_clave(persona.dia, persona.mes, persona.anio);
 
-    // Crear una nueva copia de persona
     struct Persona* nueva_persona = (struct Persona*)malloc(sizeof(struct Persona));
     if (nueva_persona == NULL) {
         printf("[ERROR] No se pudo asignar memoria para la nueva persona.\n");
