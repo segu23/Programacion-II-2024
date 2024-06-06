@@ -1,17 +1,15 @@
 #include "tabla_hash.h"
-#include "tabla_hash_zona_overflow.c"
 #include "listas.h"
-#include "listas_arreglos.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
+#include <unistd.h>
 
 #define MAX 100
 static int cantidad;
 
-typedef struct Alumno {
+struct Alumno {
     int legajo;
     char apellido[20];
     char nombres[20];
@@ -71,8 +69,6 @@ struct Alumno inputAlumno(){
         }
     }
 
-    printf("%s\n", alumno.apellido);
-    
     seguirAgregando = true;
 
     while (seguirAgregando)
@@ -89,8 +85,6 @@ struct Alumno inputAlumno(){
             fflush(stdin);
         }
     }
-    
-    printf("%s\n", alumno.nombres);
     
     seguirAgregando = true;
 
@@ -109,8 +103,6 @@ struct Alumno inputAlumno(){
         }
     }
     
-    printf("%s\n", alumno.domicilio);
-    
     seguirAgregando = true;
 
     while (seguirAgregando)
@@ -127,8 +119,6 @@ struct Alumno inputAlumno(){
             fflush(stdin);
         }
     }
-    
-    printf("%s\n", alumno.telefono);
     
     seguirAgregando = true;
 
@@ -147,8 +137,6 @@ struct Alumno inputAlumno(){
         }
     }
     
-    printf("%i\n", alumno.legajo);
-    
     seguirAgregando = true;
 
     return alumno;
@@ -166,6 +154,10 @@ struct Alumno consultaAlumnoArchivo(FILE * archivo, int posicionFisicaArchivo){
 }
 
 void altaAlumno(struct Alumno alumno, FILE * archivo, int posicionFisicaArchivo, TablaHash tabla){
+    if(th_recuperar(tabla, alumno.legajo) != NULL){
+        printf("\033[0;31m[ERROR] El legajo ingresado ya pertenece a un alumno.\033[0;37m\n");
+        return;
+    }
     fseek(archivo, sizeof(struct Alumno) * posicionFisicaArchivo, SEEK_SET);
     fwrite(&alumno, sizeof(struct Alumno), 1, archivo);
     th_insertar(tabla, te_crear_con_valor(alumno.legajo, (void*) posicionFisicaArchivo));
@@ -304,13 +296,13 @@ void mostrarAlumno(struct Alumno alumno){
     printf(" > \033[1;36mTelefono\033[0;36m: %s \033[0;37m\n\n", alumno.telefono);
 }
 
-void cargarTablaDesdeArchivo(FILE * archivo, TablaHash tabla){
+void mostrarAlumnosDesdeArchivo(FILE * archivo){
     rewind(archivo);
     int indiceAlumnoActual = 0;
     struct Alumno alumno;
     while(fread(&alumno, sizeof(struct Alumno), 1, archivo)){
         //struct Alumno alumno = consultaAlumnoArchivo(archivo, indiceAlumnoActual);
-        th_insertar(tabla, te_crear_con_valor(alumno.legajo, (void*) indiceAlumnoActual));
+        //th_insertar(tabla, te_crear_con_valor(alumno.legajo, (void*) indiceAlumnoActual));
         mostrarAlumno(alumno);
         indiceAlumnoActual++;
     }
@@ -355,7 +347,7 @@ void eliminarAlumno(FILE * archivo, TablaHash tabla){
         fseek(archivo, sizeof(struct Alumno) * (posicion), SEEK_SET);
         fwrite(&alumno, sizeof(struct Alumno), 1, archivo);
         th_insertar(tabla, te_crear_con_valor(alumno.legajo, (void*) posicion));
-        posicion = th_recuperar(tabla, alumno.legajo)->valor;
+        posicion = (int) th_recuperar(tabla, alumno.legajo)->valor;
         fseek(archivo, sizeof(struct Alumno) * (posicion + 1), SEEK_SET);
     }
 
@@ -422,7 +414,7 @@ void procesarMenu(FILE * archivo, TablaHash tabla){
         if(scanf("%d", &clave) > 0 && clave >= 1 && clave <= 5){
             switch(clave){
                 case 1: {
-                    cargarTablaDesdeArchivo(archivo, tabla);
+                    mostrarAlumnosDesdeArchivo(archivo);
                     break;
                 }
                 case 2: {

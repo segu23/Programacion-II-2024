@@ -1,16 +1,12 @@
 #include "tabla_hash.h"
 #include "listas.h"
 #include "tipo_elemento.h"
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
-
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
 
-#include "tabla_hash_lista_colisiones.c"
 
 /*
 Se desea poder implementar una solución para encontrar de forma rápida los datos de
@@ -22,17 +18,17 @@ se vacunaron en esa fecha.
 */
 
 
-const int MAX = 100;
+static const int MAX = 100;
+static const int NRO_PRIMO = 107;
 
 typedef struct Persona{
     char nombre[20];
     char apellido[20];
-    char DNI[8];
+    char DNI[9];
     int dia;
     int mes;
     int anio;
-    //int clave;
-};
+}Persona;
 
 struct Date {
     int day;
@@ -40,7 +36,6 @@ struct Date {
     int year;
 };
 
-// Función para verificar si un año es bisiesto
 int is_leap_year(int year) {
     if (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)) {
         return 1;
@@ -48,7 +43,7 @@ int is_leap_year(int year) {
     return 0;
 }
 
-// Función para calcular el número de días en un mes dado un año
+
 int days_in_month(int month, int year) {
     int days_per_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     if (month == 2 && is_leap_year(year)) {
@@ -57,29 +52,42 @@ int days_in_month(int month, int year) {
     return days_per_month[month - 1];
 }
 
-// Función para calcular los días desde el 1 de abril de 2020
 int days_since_start(struct Date date) {
     struct Date start_date = {1, 4, 2020};
     int days = 0;
 
-    // Añadir días completos de los años intermedios
     for (int year = start_date.year; year < date.year; year++) {
         days += is_leap_year(year) ? 366 : 365;
     }
 
-    // Añadir días del año actual
     for (int month = 1; month < date.month; month++) {
         days += days_in_month(month, date.year);
     }
     days += date.day - 1;
 
-    // Restar días de los meses y días del año de inicio
     for (int month = 1; month < start_date.month; month++) {
         days -= days_in_month(month, start_date.year);
     }
     days -= (start_date.day - 1);
 
     return days;
+}
+void pausar(){
+    printf("Presione Enter para continuar...\n");
+    getchar();
+    getchar();
+}
+void limpiar_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+void limpiar_consola() {
+    #ifdef _WIN32
+        system("cls");
+    #else
+        system("clear");
+    #endif
 }
 
 int calcular_clave(int dia, int mes, int anio) {
@@ -92,7 +100,6 @@ int calcular_clave(int dia, int mes, int anio) {
 void cargar_paciente_tabla(TablaHash tabla, struct Persona persona) {
     int clave = calcular_clave(persona.dia, persona.mes, persona.anio);
 
-    // Crear una nueva copia de persona
     struct Persona* nueva_persona = (struct Persona*)malloc(sizeof(struct Persona));
     if (nueva_persona == NULL) {
         printf("[ERROR] No se pudo asignar memoria para la nueva persona.\n");
@@ -129,7 +136,7 @@ void cargar_paciente(TablaHash tabla){
         } 
         else{
             printf("[ERROR] Debe ingresar un valor valido mayor al 01/04/2020. \n");
-            fflush(stdin);
+            limpiar_buffer(); 
         }
 
     }
@@ -141,7 +148,7 @@ void cargar_paciente(TablaHash tabla){
         } 
         else{
             printf("[ERROR] Debe ingresar un valor valido mayor al 01/04/2020. \n");
-            fflush(stdin);
+            limpiar_buffer(); 
         }
 
     }
@@ -150,54 +157,74 @@ void cargar_paciente(TablaHash tabla){
         printf("[INFO] Ingrese el dia de vacunacion: \n");
         if (scanf("%d", &persona.dia) == 1 && persona.dia > 0 && persona.dia <= 31){
             continuar = false;
+
         } 
         else{
             printf("[ERROR] Debe ingresar un valor valido mayor al 01/04/2020. \n");
-            fflush(stdin);
+            limpiar_buffer(); 
         }
 
     }
 
+    limpiar_buffer(); 
 
     continuar = true;
     while (continuar){
         printf("[INFO] Ingrese el nombre del paciente: \n");
-        if(scanf("%s", persona.nombre) > 0 ){
-            continuar = false;
-        } 
+        if(fgets(persona.nombre, sizeof(persona.nombre), stdin) != NULL){
+            persona.nombre[strcspn(persona.nombre, "\n")] = '\0';
+            if(strlen(persona.nombre) > 0) {
+                continuar = false;
+            }
+            else {
+                printf("[ERROR] Debe ingresar un valor válido. \n");
+            }
+        }  
         else{
-            printf("[ERROR] Debe ingresae un valor valido. \n");
-            fflush(stdin);
+            printf("[ERROR] Debe ingresar un valor válido. \n");
+            limpiar_buffer(); 
         }
-
     }
+
     continuar = true;
     while (continuar){
         printf("[INFO] Ingrese el apellido del paciente: \n");
-        if(scanf("%s", persona.apellido) > 0 ){
-            continuar = false;
-        } 
+        if(fgets(persona.apellido, sizeof(persona.apellido), stdin) != NULL){
+            persona.apellido[strcspn(persona.apellido, "\n")] = '\0';
+            if(strlen(persona.apellido) > 0) {
+                continuar = false;
+            }
+            else{
+                printf("[ERROR] Debe ingresar un valor válido. \n");
+            }
+        }
         else{
-            printf("[ERROR] Debe ingresae un valor valido. \n");
-            fflush(stdin);
+            printf("[ERROR] Debe ingresar un valor válido. \n");
+            limpiar_buffer(); 
         }
 
     }
     continuar = true;
     while (continuar){
-        printf("[INFO] Ingrese el DNI del paciente: \n");
-        if(scanf("%s", persona.DNI) > 0 ){
-            continuar = false;
+        printf("[INFO] Ingrese el DNI del paciente (Sin puntos): \n");
+        if(fgets(persona.DNI, sizeof(persona.DNI), stdin) != NULL){
+            persona.DNI[strcspn(persona.DNI, "\n")] = '\0';
+            if(strlen(persona.DNI) > 0) {
+                continuar = false;
+            }
+            else{
+                printf("[ERROR] Debe ingresar un valor válido. \n");
+            }
         } 
         else{
-            printf("[ERROR] Debe ingresae un valor valido. \n");
-            fflush(stdin);
+            printf("[ERROR] Debe ingresar un valor valido. \n");
+            limpiar_buffer(); 
         }
 
     }
-    
     //persona.clave = calcular_clave(persona.dia,persona.mes, persona.anio);
     cargar_paciente_tabla(tabla, persona);
+
 }
 
 void recuperar_paciente(TablaHash tabla){
@@ -239,7 +266,7 @@ void recuperar_paciente(TablaHash tabla){
 
     clave = calcular_clave(dia, mes, anio);
     TipoElemento elemento = th_recuperar(tabla, clave);
-    
+    limpiar_consola();
     if (elemento != NULL) {
         Lista lista = (Lista) elemento->valor;
         Iterador iter = iterador(lista);
@@ -250,6 +277,7 @@ void recuperar_paciente(TablaHash tabla){
             printf("Nombre: %s\n", persona->nombre);
             printf("Apellido: %s\n", persona->apellido);
             printf("DNI: %s\n", persona->DNI);
+            printf("\n");
         }
     } else {
         printf("[ERROR] No se encontró ninguna persona vacunada en esa fecha.\n");
@@ -260,8 +288,9 @@ void recuperar_paciente(TablaHash tabla){
 }
 
 
+
 int funcionHash(int clave){
-    return clave % MAX;
+    return (clave % NRO_PRIMO);
 }
 
 void mostrarMenu() {
@@ -278,17 +307,18 @@ int main(){
     bool agregar = true;
     int clave;
     while (agregar){
-
         mostrarMenu();
         if(scanf("%d", &clave) > 0 && clave >= 1 && clave <= 3){
             switch (clave){
 
                 case 1:{
                     cargar_paciente(tablita);
+                    pausar();
                     break;
                 }
                 case 2:{
                     recuperar_paciente(tablita);
+                    pausar();
                     break;
                 }
                 case 3:{
