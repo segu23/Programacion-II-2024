@@ -86,7 +86,7 @@ int days_since_start(struct Date date) {
 int calcular_clave(int dia, int mes, int anio) {
     struct Date date = {dia, mes, anio};
     int dias_transcurridos = days_since_start(date);
-    int posicion_hash = dias_transcurridos % MAX;
+    int posicion_hash = dias_transcurridos; // % MAX?
     return posicion_hash;
 }
 
