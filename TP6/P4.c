@@ -1,6 +1,9 @@
 #include "tabla_hash.h"
+#include "tabla_hash_zona_overflow.c"
 #include "listas.h"
+#include "listas_arreglos.c"
 #include "tipo_elemento.h"
+#include "tipo_elemento.c"
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
@@ -153,16 +156,18 @@ struct Alumno consultaAlumnoArchivo(FILE * archivo, int posicionFisicaArchivo){
     return alumno;
 }
 
-void altaAlumno(struct Alumno alumno, FILE * archivo, int posicionFisicaArchivo, TablaHash tabla){
+bool altaAlumno(struct Alumno alumno, FILE * archivo, int posicionFisicaArchivo, TablaHash tabla){
+    fflush(archivo);
     if(th_recuperar(tabla, alumno.legajo) != NULL){
         printf("\033[0;31m[ERROR] El legajo ingresado ya pertenece a un alumno.\033[0;37m\n");
-        return;
+        return false;
     }
     fseek(archivo, sizeof(struct Alumno) * posicionFisicaArchivo, SEEK_SET);
     fwrite(&alumno, sizeof(struct Alumno), 1, archivo);
     th_insertar(tabla, te_crear_con_valor(alumno.legajo, (void*) posicionFisicaArchivo));
-    cantidadAlumnosArchivo++;
     printf("\033[0;32m[INFO] El alumno ha sido guardado en el archivo!\033[0;37m\n");
+    fflush(archivo);
+    return true;
 }
 
 void editAlumno(FILE * archivo, TablaHash tabla){
@@ -204,8 +209,6 @@ void editAlumno(FILE * archivo, TablaHash tabla){
         }
     }
 
-    printf("%s\n", alumno.apellido);
-    
     seguirAgregando = true;
 
     while (seguirAgregando)
@@ -222,8 +225,6 @@ void editAlumno(FILE * archivo, TablaHash tabla){
             fflush(stdin);
         }
     }
-    
-    printf("%s\n", alumno.nombres);
     
     seguirAgregando = true;
 
@@ -242,8 +243,6 @@ void editAlumno(FILE * archivo, TablaHash tabla){
         }
     }
     
-    printf("%s\n", alumno.domicilio);
-    
     seguirAgregando = true;
 
     while (seguirAgregando)
@@ -260,8 +259,6 @@ void editAlumno(FILE * archivo, TablaHash tabla){
             fflush(stdin);
         }
     }
-    
-    printf("%s\n", alumno.telefono);
     
     seguirAgregando = true;
 
@@ -281,8 +278,6 @@ void editAlumno(FILE * archivo, TablaHash tabla){
     }
 
     th_eliminar(tabla, legajo);
-    
-    printf("%i\n", alumno.legajo);
 
     altaAlumno(alumno, archivo, (int) elementoAlumno->valor, tabla);
 }
@@ -419,7 +414,7 @@ void procesarMenu(FILE * archivo, TablaHash tabla){
                 }
                 case 2: {
                     struct Alumno alumno = inputAlumno();
-                    altaAlumno(alumno, archivo, cantidadAlumnosArchivo, tabla);
+                    if(altaAlumno(alumno, archivo, cantidadAlumnosArchivo, tabla)) cantidadAlumnosArchivo++;;
                     break;
                 }
                 case 3: {
