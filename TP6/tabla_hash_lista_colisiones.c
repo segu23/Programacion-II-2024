@@ -61,11 +61,13 @@ bool th_eliminar(TablaHash th, int clave) {
             } else {
                 registroTabla->ocupado = false;
                 registroTabla->tipo_elemento = NULL;
-		return true;
+		        return true;
             }
         } else {
             return l_borrar(registroTabla->lista_colisiones, clave);
         }
+    }else{
+        return true;
     }
 }
 
