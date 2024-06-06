@@ -5,6 +5,7 @@
 #include "tipo_elemento.c"
 
 #include <stdio.h>
+#include <time.h>
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
