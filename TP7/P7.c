@@ -2,16 +2,11 @@
 #include "stdio.h"
 #include "listas.h"
 #include "conjuntos.h"
-#include "conjuntos_listas.c"
-#include "listas_arreglos.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
-//#include "conjuntos_avl.c"
-#include "nodo.c"
 #include "nodo.h"
-#include "arbol-avl.c"
 #include "arbol-avl.h"
 #include "stdbool.h"
+
 bool es_subconjunto_total(Conjunto X, Conjunto Y) {
     Conjunto resultado = cto_diferencia(X, Y);
     return cto_es_vacio(resultado);
